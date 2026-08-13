@@ -372,6 +372,7 @@ p { color: var(--color-muted); }
   font-size: 0.8rem;
 }
 
+
 @media (max-width: 760px) {
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .header-actions .btn-small { display: none; }
