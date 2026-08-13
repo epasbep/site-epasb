@@ -1,0 +1,400 @@
+/* ==================================
+   ORGANIGRAMA EPASB
+================================== */
+
+.page-header{
+    margin-top:80px;
+    padding:100px 0;
+    background:linear-gradient(135deg,#003B5C,#00B4D8);
+    color:#fff;
+    text-align:center;
+}
+
+.eyebrow{
+    font-size:.9rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:15px;
+    opacity:.9;
+}
+
+.page-header h1{
+    font-size:3.2rem;
+    margin-bottom:20px;
+}
+
+.page-header p{
+    max-width:850px;
+    margin:auto;
+    line-height:1.8;
+    font-size:1.1rem;
+}
+
+/* ==================================
+   BOTÃO DOWNLOAD
+================================== */
+
+.dl-row{
+    text-align:center;
+    margin:50px 0;
+}
+
+.btn-primary{
+    background:#0077B6;
+    color:#fff;
+    padding:15px 28px;
+    border-radius:40px;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-weight:600;
+}
+
+.btn-primary:hover{
+    background:#005f91;
+}
+
+.btn-primary svg{
+    width:18px;
+    height:18px;
+}
+
+/* ==================================
+   ORGANIGRAMA
+================================== */
+
+.org-section{
+    padding:40px 5% 80px;
+}
+
+.org-top{
+    max-width:1300px;
+    margin:auto;
+}
+
+.org-line{
+    width:4px;
+    height:70px;
+    background:#00B4D8;
+    margin:25px auto;
+}
+
+.org-pca{
+    display:flex;
+    justify-content:center;
+    margin-bottom:30px;
+}
+
+/* ==================================
+   MEMBROS
+================================== */
+
+.admins-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+    margin-bottom:60px;
+}
+
+.member-card{
+    border:none;
+    cursor:pointer;
+    background:#fff;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.member-card:hover{
+    transform:translateY(-8px);
+}
+
+.member-card.featured{
+    width:320px;
+    max-width:100%;
+    border-top:6px solid #00B4D8;
+}
+
+.avatar{
+    display:flex;
+    justify-content:center;
+}
+
+.avatar img{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #EAF8FD;
+}
+
+.role-label{
+    margin-top:15px;
+    color:#00B4D8;
+    font-size:.8rem;
+    text-transform:uppercase;
+    font-weight:700;
+}
+
+.member-name{
+    margin-top:10px;
+    font-size:1.15rem;
+    color:#003B5C;
+    font-weight:700;
+}
+
+.member-cargo{
+    margin-top:8px;
+    color:#64748B;
+    line-height:1.5;
+}
+
+/* ==================================
+   DEPARTAMENTOS
+================================== */
+
+.depts-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.depts-row > div{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.dept-btn{
+    width:100%;
+    border:none;
+    padding:16px;
+    border-radius:12px;
+    cursor:pointer;
+    background:#fff;
+    color:#003B5C;
+    font-weight:600;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.dept-btn:hover{
+    background:#0077B6;
+    color:#fff;
+}
+
+/* ==================================
+   MODAIS
+================================== */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    z-index:9999;
+}
+
+.modal.active{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.modal-content{
+    position:relative;
+    background:#fff;
+    width:90%;
+    max-width:700px;
+    max-height:85vh;
+    overflow:auto;
+    padding:35px;
+    border-radius:20px;
+}
+
+.modal-close{
+    position:absolute;
+    top:15px;
+    right:20px;
+    background:none;
+    border:none;
+    font-size:32px;
+    cursor:pointer;
+}
+
+.modal-avatar{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.modal-avatar img{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.modal-cargo{
+    text-align:center;
+    color:#64748B;
+    margin-bottom:25px;
+}
+
+.modal-section-label{
+    color:#0077B6;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.modal-body{
+    line-height:1.8;
+    color:#475569;
+}
+
+/* ==================================
+   RODAPÉ
+================================== */
+
+.footer-inner{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.contact-li{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:15px;
+}
+
+.contact-li svg{
+    width:20px;
+    height:20px;
+    min-width:20px;
+    color:#48CAE4;
+}
+
+.social-row{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+}
+
+.social-row a{
+    color:#48CAE4;
+}
+
+.social-row svg{
+    width:22px;
+    height:22px;
+}
+
+.footer-about{
+    color:#CBD5E1;
+    line-height:1.7;
+}
+
+/* ==================================
+   RESPONSIVO
+================================== */
+
+@media(max-width:1100px){
+
+    .admins-row{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .depts-row{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:768px){
+
+    .page-header{
+        padding:70px 0;
+    }
+
+    .page-header h1{
+        font-size:2.2rem;
+    }
+
+    .admins-row{
+        grid-template-columns:1fr;
+    }
+
+    .depts-row{
+        grid-template-columns:1fr;
+    }
+
+    .member-card.featured{
+        width:100%;
+    }
+}
+/* =========================
+   HEADER ORGANIGRAMA
+========================= */
+
+.site-header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:#fff;
+    z-index:999;
+    box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+
+.header-inner{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 0;
+}
+
+.brand img{
+    width:55px;
+    height:55px;
+    object-fit:cover;
+}
+
+.nav-main{
+    display:flex;
+    gap:25px;
+}
+
+.nav-main a{
+    text-decoration:none;
+    color:#334155;
+    font-weight:600;
+    transition:.3s;
+}
+
+.nav-main a:hover,
+.nav-main a.active{
+    color:#0077B6;
+}
+
+.btn-atendimento{
+    background:#0077B6;
+    color:#fff;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:30px;
+    font-weight:600;
+}
+
+.menu-toggle{
+    display:none;
+}
+
+.nav-mobile{
+    display:none;
+}
