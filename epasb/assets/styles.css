@@ -369,6 +369,7 @@ p { color: var(--color-muted); }
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.5rem;
+  
   font-size: 0.8rem;
 }
 

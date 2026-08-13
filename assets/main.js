@@ -12,7 +12,6 @@ window.addEventListener("scroll", () => {
   }
 });
 
-
 // animação leve no hero (entrada suave)
 window.addEventListener("load", () => {
   const heroText = document.querySelector(".hero-content");
