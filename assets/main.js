@@ -17,7 +17,6 @@ window.addEventListener("load", () => {
   const heroText = document.querySelector(".hero-content");
   heroText.style.opacity = "0";
   heroText.style.transform = "translateY(20px)";
-
   setTimeout(() => {
     heroText.style.transition = "1s ease";
     heroText.style.opacity = "1";

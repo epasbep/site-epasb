@@ -72,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (closeBtn) closeBtn.addEventListener('click', () => closeModal(modal));
     });
 
-    
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal.open').forEach(closeModal);
