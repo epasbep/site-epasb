@@ -1,176 +1,820 @@
 <!doctype html>
 <html lang="pt">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Notícias | EPASB-EP</title>
-<meta name="description" content="Notícias, comunicados e atualizações da Empresa Provincial de Água e Saneamento de Benguela.">
-<meta property="og:title" content="Notícias | EPASB-EP">
-<meta property="og:description" content="Notícias, comunicados e atualizações da EPASB-EP.">
-<meta property="og:url" content="/noticias">
-<link rel="canonical" href="/noticias">
-<link rel="icon" href="images/logo-epasb.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
+<title>
+  Notícias | EPASB-EP
+</title>
+
+<meta
+  name="description"
+  content="Notícias, comunicados e atualizações da Empresa Provincial de Água e Saneamento de Benguela."
+>
+
+<meta
+  property="og:title"
+  content="Notícias | EPASB-EP"
+>
+
+<meta
+  property="og:description"
+  content="Notícias, comunicados e atualizações da EPASB-EP."
+>
+
+<meta
+  property="og:url"
+  content="/noticias"
+>
+
+<link
+  rel="canonical"
+  href="/noticias"
+>
+
+<link
+  rel="icon"
+  href="epasb/images/logo-epasb.jpg"
+>
+
+
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+  rel="stylesheet"
+>
+
+
+<link
+  rel="stylesheet"
+  href="epasb/assets/styles.css"
+>
+
 </head>
+
+
 <body>
 
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <header class="site-header">
+
   <div class="header-inner">
-    <a href="index.html" class="brand" aria-label="EPASB-EP">
-      <img src="images/logo-epasb.jpg" alt="EPASB-EP">
+
+
+    <a
+      href="index.html"
+      class="brand"
+      aria-label="EPASB-EP - Início"
+    >
+
+      <img
+        src="epasb/images/logo-epasb.jpg"
+        alt="EPASB-EP"
+      >
+
     </a>
+
+
     <div class="header-actions">
-      <nav class="nav-main" aria-label="Navegação principal">
-        <a href="index.html">Início</a>
-        <a href="sobre.html">Sobre</a>
-        <a href="organigrama.html">Organigrama</a>
-        <a href="estatutos.html">Estatutos</a>
-        <a href="noticias.html" class="active">Notícias</a>
+
+
+      <nav
+        class="nav-main"
+        aria-label="Navegação principal"
+      >
+
+        <a href="index.html">
+          Início
+        </a>
+
+
+        <a href="sobre.html">
+          Sobre
+        </a>
+
+
+        <a href="organigrama.html">
+          Organigrama
+        </a>
+
+
+        <a href="estatutos.html">
+          Estatutos
+        </a>
+
+
+        <a
+          href="noticias.html"
+          class="active"
+          aria-current="page"
+        >
+          Notícias
+        </a>
+
+
+        <a href="atendimento.html">
+          Atendimento
+        </a>
+
       </nav>
-      <a href="atendimento.html" class="btn-small">Atendimento</a>
-      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" type="button">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+
+
+      <button
+        class="menu-toggle"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        type="button"
+      >
+
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+
+          <line
+            x1="4"
+            x2="20"
+            y1="6"
+            y2="6"
+          ></line>
+
+          <line
+            x1="4"
+            x2="20"
+            y1="12"
+            y2="12"
+          ></line>
+
+          <line
+            x1="4"
+            x2="20"
+            y1="18"
+            y2="18"
+          ></line>
+
+        </svg>
+
       </button>
+
     </div>
+
   </div>
+
+
   <div class="nav-mobile">
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="sobre.html">Sobre</a>
-      <a href="organigrama.html">Organigrama</a>
-      <a href="estatutos.html">Estatutos</a>
-      <a href="noticias.html" class="active">Notícias</a>
-      <a href="atendimento.html">Atendimento</a>
+
+    <nav
+      aria-label="Navegação principal (mobile)"
+    >
+
+      <a href="index.html">
+        Início
+      </a>
+
+
+      <a href="sobre.html">
+        Sobre
+      </a>
+
+
+      <a href="organigrama.html">
+        Organigrama
+      </a>
+
+
+      <a href="estatutos.html">
+        Estatutos
+      </a>
+
+
+      <a
+        href="noticias.html"
+        class="active"
+        aria-current="page"
+      >
+        Notícias
+      </a>
+
+
+      <a href="atendimento.html">
+        Atendimento
+      </a>
+
     </nav>
+
   </div>
+
 </header>
 
+
+
+<main>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
 <section class="hero">
+
+
+  <img
+    class="hero-bg"
+    src="epasb/images/hero-water.jpg"
+    alt=""
+    aria-hidden="true"
+  >
+
+
   <div class="overlay"></div>
+
+
   <div class="container hero-content">
-    <span class="hero-badge">📰 Comunicação</span>
-    <h1>Notícias</h1>
-    <p>Acompanhe as principais novidades, projetos e comunicados da EPASB-EP.</p>
+
+
+    <span class="hero-badge">
+      📰 Comunicação · EPASB-EP
+    </span>
+
+
+    <h1>
+      Notícias
+    </h1>
+
+
+    <p>
+      Acompanhe as principais novidades, projetos,
+      comunicados e iniciativas da EPASB-EP.
+    </p>
+
+
+    <div class="hero-buttons">
+
+
+      <a
+        href="#ultimas-noticias"
+        class="btn primary"
+      >
+        Ver notícias
+      </a>
+
+
+      <a
+        href="atendimento.html"
+        class="btn outline"
+      >
+        Falar connosco
+      </a>
+
+    </div>
+
   </div>
-  <div class="wave-divider on-dark">
-    <svg viewBox="0 0 1200 32" preserveAspectRatio="none"><path d="M0,16 C150,32 350,0 600,16 C850,32 1050,0 1200,16 L1200,32 L0,32 Z"/></svg>
+
+
+  <div
+    class="wave-divider on-dark"
+    aria-hidden="true"
+  >
+
+    <svg
+      viewBox="0 0 1200 32"
+      preserveAspectRatio="none"
+    >
+
+      <path
+        d="M0,16 C150,32 350,0 600,16 C850,32 1050,0 1200,16 L1200,32 L0,32 Z"
+      ></path>
+
+    </svg>
+
   </div>
+
 </section>
 
-<section class="section">
+
+
+<!-- =========================================================
+     NOTÍCIAS
+========================================================= -->
+
+<section
+  class="section"
+  id="ultimas-noticias"
+>
+
   <div class="container">
-    <span class="eyebrow">— Comunicação</span>
-    <h2 class="section-title">Últimas Notícias</h2>
+
+
+    <span class="eyebrow">
+      Comunicação
+    </span>
+
+
+    <h2 class="section-title">
+      Últimas Notícias
+    </h2>
+
+
     <div class="grid">
 
-      <a href="noticia.html?id=expansao-rede" class="card news-card">
+
+      <!-- NOTÍCIA 1 -->
+
+      <a
+        href="noticia.html?id=expansao-rede"
+        class="card news-card"
+      >
+
         <div class="news-thumb">
-          <img src="images/noticia-rede.jpg" alt="Expansão da rede de água">
-          <span class="news-category">Projetos</span>
+
+          <img
+            src="epasb/images/noticia-rede.jpg"
+            alt="Expansão da rede de água"
+          >
+
+
+          <span class="news-category">
+            Projetos
+          </span>
+
         </div>
+
+
         <div class="news-body">
-          <h3>Expansão da Rede de Abastecimento de Água</h3>
-          <p>EPASB-EP desenvolve novos projetos para ampliar o acesso à água potável nas comunidades da província de Benguela.</p>
-          <span class="news-readmore">Ler mais →</span>
+
+          <h3>
+            Expansão da Rede de Abastecimento de Água
+          </h3>
+
+
+          <p>
+            EPASB-EP desenvolve novos projetos para ampliar
+            o acesso à água potável nas comunidades da
+            província de Benguela.
+          </p>
+
+
+          <span class="news-readmore">
+            Ler mais →
+          </span>
+
         </div>
+
       </a>
 
-      <a href="noticia.html?id=obras-municipios" class="card news-card">
+
+
+      <!-- NOTÍCIA 2 -->
+
+      <a
+        href="noticia.html?id=obras-municipios"
+        class="card news-card"
+      >
+
         <div class="news-thumb">
-          <img src="images/noticia-obras.jpg" alt="Obras EPASB">
-          <span class="news-category">Infraestrutura</span>
+
+          <img
+            src="epasb/images/noticia-obras.jpg"
+            alt="Obras EPASB"
+          >
+
+
+          <span class="news-category">
+            Infraestrutura
+          </span>
+
         </div>
+
+
         <div class="news-body">
-          <h3>Obras em Novos Municípios</h3>
-          <p>Novas intervenções técnicas estão em andamento para melhorar a distribuição de água e fortalecer os serviços públicos.</p>
-          <span class="news-readmore">Ler mais →</span>
+
+          <h3>
+            Obras em Novos Municípios
+          </h3>
+
+
+          <p>
+            Novas intervenções técnicas estão em andamento
+            para melhorar a distribuição de água e fortalecer
+            os serviços públicos.
+          </p>
+
+
+          <span class="news-readmore">
+            Ler mais →
+          </span>
+
         </div>
+
       </a>
 
-      <a href="noticia.html?id=comunicado-oficial" class="card news-card">
+
+
+      <!-- NOTÍCIA 3 -->
+
+      <a
+        href="noticia.html?id=comunicado-oficial"
+        class="card news-card"
+      >
+
         <div class="news-thumb">
-          <img src="images/noticia-comunicado.jpg" alt="Comunicados oficiais">
-          <span class="news-category">Comunicado Oficial</span>
+
+          <img
+            src="epasb/images/noticia-comunicado.jpg"
+            alt="Comunicados oficiais"
+          >
+
+
+          <span class="news-category">
+            Comunicado Oficial
+          </span>
+
         </div>
+
+
         <div class="news-body">
-          <h3>Informações Oficiais da EPASB-EP</h3>
-          <p>Consulte avisos, comunicados e informações importantes para os cidadãos.</p>
-          <span class="news-readmore">Ler mais →</span>
+
+          <h3>
+            Informações Oficiais da EPASB-EP
+          </h3>
+
+
+          <p>
+            Consulte avisos, comunicados e informações
+            importantes para os cidadãos.
+          </p>
+
+
+          <span class="news-readmore">
+            Ler mais →
+          </span>
+
         </div>
+
       </a>
 
-      <a href="noticia.html?id=campanha-sensibilizacao" class="card news-card">
+
+
+      <!-- NOTÍCIA 4 -->
+
+      <a
+        href="noticia.html?id=campanha-sensibilizacao"
+        class="card news-card"
+      >
+
         <div class="news-thumb">
-          <img src="images/noticia-campanha.jpg" alt="Campanhas de sensibilização">
-          <span class="news-category">Educação Ambiental</span>
+
+          <img
+            src="epasb/images/noticia-campanha.jpg"
+            alt="Campanhas de sensibilização"
+          >
+
+
+          <span class="news-category">
+            Educação Ambiental
+          </span>
+
         </div>
+
+
         <div class="news-body">
-          <h3>Campanhas de Sensibilização</h3>
-          <p>A EPASB promove ações de sensibilização sobre o uso responsável da água e proteção ambiental.</p>
-          <span class="news-readmore">Ler mais →</span>
+
+          <h3>
+            Campanhas de Sensibilização
+          </h3>
+
+
+          <p>
+            A EPASB promove ações de sensibilização sobre
+            o uso responsável da água e proteção ambiental.
+          </p>
+
+
+          <span class="news-readmore">
+            Ler mais →
+          </span>
+
         </div>
+
       </a>
+
 
     </div>
+
   </div>
+
 </section>
 
-<section class="cta">
+
+
+<!-- =========================================================
+     DISQUE DENÚNCIA
+========================================================= -->
+
+<section
+  class="cta"
+  id="atendimento"
+>
+
   <div class="container">
-    <span class="eyebrow" style="color:var(--color-accent-soft);">— Fica a par</span>
-    <h2>Atualizações EPASB-EP</h2>
-    <p>Continue a acompanhar todas as iniciativas da Empresa Provincial de Água e Saneamento de Benguela.</p>
+
+
+    <span
+      class="eyebrow"
+      style="color:var(--color-accent-soft);"
+    >
+      Atendimento ao cidadão
+    </span>
+
+
+    <h2>
+      Disque Denúncia!
+    </h2>
+
+
+    <p>
+      Fale connosco por telefone, WhatsApp ou através
+      do formulário de atendimento.
+    </p>
+
+
     <div class="cta-buttons">
-      <a href="atendimento.html" class="btn primary">Contactar EPASB</a>
+
+
+      <a
+        href="tel:+244923000000"
+        class="btn primary"
+      >
+        📞 Ligar agora
+      </a>
+
+
+      <a
+        href="https://wa.me/244923000000"
+        class="btn outline"
+      >
+        💬 WhatsApp
+      </a>
+
     </div>
+
   </div>
+
 </section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
 <footer class="site-footer">
+
   <div class="container">
+
+
     <div class="footer-grid">
+
+
+      <!-- EPASB -->
+
       <div>
+
         <div class="footer-brand">
-          <img src="images/logo-epasb.jpg" alt="EPASB-EP">
-          <strong style="color:#fff;">EPASB-EP</strong>
+
+          <img
+            src="epasb/images/logo-epasb.jpg"
+            alt="EPASB-EP"
+          >
+
         </div>
-        <p class="footer-about">Empresa pública responsável pelo abastecimento de água potável e saneamento básico na província de Benguela, Angola.</p>
+
+
+        <p class="footer-about">
+          Empresa Provincial responsável pelo abastecimento
+          de água potável e saneamento básico na província
+          de Benguela, Angola.
+        </p>
+
       </div>
+
+
+
+      <!-- INSTITUCIONAL -->
+
       <div>
-        <h3>Institucional</h3>
+
+        <h3>
+          Institucional
+        </h3>
+
+
         <ul>
-          <li><a href="sobre.html">Sobre a EPASB</a></li>
-          <li><a href="organigrama.html">Organigrama</a></li>
-          <li><a href="estatutos.html">Estatutos</a></li>
+
+
+          <li>
+            <a href="sobre.html">
+              Sobre a EPASB
+            </a>
+          </li>
+
+
+          <li>
+            <a href="organigrama.html">
+              Organigrama
+            </a>
+          </li>
+
+
+          <li>
+            <a href="estatutos.html">
+              Estatutos
+            </a>
+          </li>
+
+
+          <li>
+            <a href="noticias.html">
+              Notícias
+            </a>
+          </li>
+
+
+          <li>
+            <a href="atendimento.html">
+              Atendimento
+            </a>
+          </li>
+
+
         </ul>
+
       </div>
+
+
+
+      <!-- LINKS INSTITUCIONAIS -->
+
       <div>
-        <h3>Atendimento</h3>
+
+        <h3>
+          Links institucionais
+        </h3>
+
+
         <ul>
-          <li><a href="tarifario.html">Tarifário</a></li>
-          <li><a href="avaria.html">Reportar avaria</a></li>
-          <li><a href="faq.html">Perguntas frequentes</a></li>
+
+
+          <li>
+
+            <a
+              href="https://minea.gov.ao/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ministério da Energia e Águas
+            </a>
+
+          </li>
+
+
+          <li>
+
+            <a
+              href="https://governo.gov.ao/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Governo de Angola
+            </a>
+
+          </li>
+
+
+          <li>
+
+            <a
+              href="https://benguela.gov.ao/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Governo Provincial de Benguela
+            </a>
+
+          </li>
+
+
         </ul>
+
       </div>
+
+
+
+      <!-- CONTACTO -->
+
       <div>
-        <h3>Contacto</h3>
+
+        <h3>
+          Contacto
+        </h3>
+
+
         <ul>
-          <li>Rua da Independência, Benguela</li>
-          <li><a href="tel:+244923000000">+244 923 000 000</a></li>
-          <li><a href="mailto:geral@epasb.ao">geral@epasb.ao</a></li>
+
+
+          <li>
+            Rua da Independência, Benguela
+          </li>
+
+
+          <li>
+
+            <a href="tel:+244923000000">
+              +244 923 000 000
+            </a>
+
+          </li>
+
+
+          <li>
+
+            <a href="mailto:geral@epasb.ao">
+              geral@epasb.ao
+            </a>
+
+          </li>
+
+
         </ul>
+
       </div>
+
+
     </div>
+
+
+
+    <!-- FOOTER BOTTOM -->
+
     <div class="footer-bottom">
-      <p>© <span id="year"></span> EPASB-EP — Todos os direitos reservados</p>
-      <p>Benguela · Angola</p>
+
+
+      <p>
+        © <span id="year"></span>
+        Empresa Provincial de Águas e Saneamento de Benguela
+      </p>
+
+
+      <p>
+        Benguela · Angola
+      </p>
+
+
     </div>
+
   </div>
+
 </footer>
 
-<script src="assets/main.js"></script>
+
+
+<script
+  src="epasb/assets/main.js"
+  defer
+></script>
+
+
 </body>
+
 </html>

@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal(modal);
       });
-      
       const closeBtn = modal.querySelector('.modal-close');
       if (closeBtn) closeBtn.addEventListener('click', () => closeModal(modal));
     });
