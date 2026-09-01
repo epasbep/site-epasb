@@ -1,0 +1,37 @@
+# =====================================================
+# CABEÇALHOS DE SEGURANÇA — EPASB-EP
+# (válido para hospedagem Apache; se o servidor for
+# Nginx ou outro, estes cabeçalhos têm de ser configurados
+# no painel de hospedagem ou na configuração do servidor)
+# =====================================================
+
+<IfModule mod_headers.c>
+
+  # Impede que o site seja carregado dentro de <iframe> de outros domínios
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Impede que o browser tente "adivinhar" o tipo de ficheiro
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Ativa a proteção XSS de browsers mais antigos
+  Header always set X-XSS-Protection "1; mode=block"
+
+  # Controla que informação é enviada no cabeçalho Referer
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Força HTTPS (ativar apenas depois de confirmar que o site
+  # já tem certificado SSL instalado)
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+</IfModule>
+
+# =====================================================
+# BLOQUEAR ACESSO A FICHEIROS SENSÍVEIS
+# =====================================================
+
+<FilesMatch "\.(env|log|ini|bak|sql|config)$">
+  Require all denied
+</FilesMatch>
+
+# Impede listagem de diretórios
+Options -Indexes

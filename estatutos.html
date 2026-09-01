@@ -3,71 +3,296 @@
 
 <head>
 
-<meta charset="utf-8">
+  <meta charset="utf-8">
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
 
-<title>
-  Estatutos | EPASB-EP
-</title>
+  <title>
+    Estatutos | EPASB-EP
+  </title>
 
-<meta
-  name="description"
-  content="Estatutos da Empresa Provincial de Água e Saneamento de Benguela: natureza jurídica, objectivos, competências, órgãos sociais e regime financeiro."
->
+  <meta
+    name="description"
+    content="Estatuto Orgânico da Empresa Provincial de Água e Saneamento de Benguela, aprovado pelo Decreto Executivo Conjunto n.º 171/22."
+  >
 
-<meta
-  property="og:title"
-  content="Estatutos | EPASB-EP"
->
+  <meta
+    property="og:title"
+    content="Estatutos | EPASB-EP"
+  >
 
-<meta
-  property="og:description"
-  content="Estatutos da Empresa Provincial de Água e Saneamento de Benguela."
->
+  <meta
+    property="og:description"
+    content="Estatuto Orgânico da Empresa Provincial de Água e Saneamento de Benguela."
+  >
 
-<meta
-  property="og:url"
-  content="/estatutos"
->
+  <meta
+    property="og:type"
+    content="website"
+  >
 
-<link
-  rel="canonical"
-  href="/estatutos"
->
+  <link
+    rel="icon"
+    type="image/x-icon"
+    href="epasb/images/favicon/favicon.ico"
+  >
 
-<link
-  rel="icon"
-  href="epasb/images/logo-epasb.jpg"
->
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="epasb/images/favicon/favicon-16x16.png"
+  >
+
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="epasb/images/favicon/favicon-32x32.png"
+  >
+
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="48x48"
+    href="epasb/images/favicon/favicon-48x48.png"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="epasb/images/favicon/apple-touch-icon.png"
+  >
+
+  <link
+    rel="manifest"
+    href="epasb/images/favicon/site.webmanifest"
+  >
 
 
-<link
-  rel="preconnect"
-  href="https://fonts.googleapis.com"
->
+  <!-- =====================================================
+       FONTE
+  ====================================================== -->
 
-<link
-  rel="preconnect"
-  href="https://fonts.gstatic.com"
-  crossorigin
->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
 
-<link
-  href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
-  rel="stylesheet"
->
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
 
-<link
-  rel="stylesheet"
-  href="epasb/assets/styles.css"
->
+  <!-- =====================================================
+       CSS PRINCIPAL
+  ====================================================== -->
+
+  <link
+    rel="stylesheet"
+    href="epasb/assets/styles.css"
+  >
+
+
+  <!-- =====================================================
+       ESTILOS ESPECÍFICOS DA PÁGINA
+  ====================================================== -->
+
+  <style>
+
+    /* -----------------------------------------------------
+       BOTÃO DO PDF
+    ----------------------------------------------------- */
+
+    .download-pdf {
+
+      animation: pdfPulse 2s ease-in-out infinite;
+
+      box-shadow:
+        0 0 0 rgba(255,255,255,0);
+
+    }
+
+
+    @keyframes pdfPulse {
+
+      0% {
+
+        transform: scale(1);
+
+        box-shadow:
+          0 0 0 rgba(255,255,255,0);
+
+      }
+
+      50% {
+
+        transform: scale(1.04);
+
+        box-shadow:
+          0 0 18px rgba(255,255,255,0.35);
+
+      }
+
+      100% {
+
+        transform: scale(1);
+
+        box-shadow:
+          0 0 0 rgba(255,255,255,0);
+
+      }
+
+    }
+
+
+    /* -----------------------------------------------------
+       ÍCONES SOCIAIS DO RODAPÉ
+    ----------------------------------------------------- */
+
+    .footer-social-link {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+    }
+
+
+    .footer-social-link svg {
+
+      flex: 0 0 auto;
+
+    }
+
+
+    /* -----------------------------------------------------
+       WHATSAPP DO RODAPÉ
+    ----------------------------------------------------- */
+
+    .footer-whatsapp {
+
+      font-weight: 600;
+
+    }
+
+
+    /* -----------------------------------------------------
+       PEQUENA ANIMAÇÃO DO WHATSAPP
+    ----------------------------------------------------- */
+
+    .footer-whatsapp svg {
+
+      animation:
+        whatsappPulse 2.5s ease-in-out infinite;
+
+    }
+
+
+    @keyframes whatsappPulse {
+
+      0% {
+
+        transform: scale(1);
+
+      }
+
+      50% {
+
+        transform: scale(1.12);
+
+      }
+
+      100% {
+
+        transform: scale(1);
+
+      }
+
+    }
+
+
+    /* -----------------------------------------------------
+       ACESSIBILIDADE
+    ----------------------------------------------------- */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .download-pdf,
+      .footer-whatsapp svg {
+
+        animation: none;
+
+      }
+
+    }
+
+  </style>
+
+
+  <!-- =====================================================
+       SEGURANÇA
+  ====================================================== -->
+
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
+  >
+
+  <meta
+    name="referrer"
+    content="strict-origin-when-cross-origin"
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <meta
+    http-equiv="X-Content-Type-Options"
+    content="nosniff"
+  >
+
+  <!-- =====================================================
+       GOOGLE ANALYTICS — contagem de visitantes
+       ID de Medição da propriedade "Site EPASB"
+       (obtido em analytics.google.com)
+  ====================================================== -->
+
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-K7QJSD77SM"
+  ></script>
+
+  <script>
+
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+
+    gtag("config", "G-K7QJSD77SM");
+
+  </script>
 
 </head>
+
 
 
 <body>
@@ -81,6 +306,8 @@
 
   <div class="header-inner">
 
+
+    <!-- LOGO -->
 
     <a
       href="index.html"
@@ -96,8 +323,9 @@
     </a>
 
 
-    <div class="header-actions">
+    <!-- NAVEGAÇÃO -->
 
+    <div class="header-actions">
 
       <nav
         class="nav-main"
@@ -133,12 +361,14 @@
         </a>
 
 
-        <a href="atendimento.html">
-          Atendimento
+        <a href="contacto.html">
+          Contacto
         </a>
 
       </nav>
 
+
+      <!-- MENU MOBILE -->
 
       <button
         class="menu-toggle"
@@ -189,10 +419,14 @@
   </div>
 
 
+  <!-- =====================================================
+       MENU MOBILE
+  ====================================================== -->
+
   <div class="nav-mobile">
 
     <nav
-      aria-label="Navegação principal (mobile)"
+      aria-label="Navegação principal no telemóvel"
     >
 
       <a href="index.html">
@@ -224,8 +458,8 @@
       </a>
 
 
-      <a href="atendimento.html">
-        Atendimento
+      <a href="contacto.html">
+        Contacto
       </a>
 
     </nav>
@@ -261,45 +495,67 @@
 
 
     <span class="hero-badge">
-      📄 Documento Oficial · EPASB-EP
+
+      📄 Documento Oficial · Decreto Executivo Conjunto n.º 171/22
+
     </span>
 
 
     <h1>
-      Estatutos da EPASB
+      Estatuto Orgânico da EPASB
     </h1>
 
 
     <p>
-      Conheça a natureza jurídica, objectivos, competências,
-      órgãos sociais e o regime financeiro da Empresa
-      Provincial de Água e Saneamento de Benguela.
+
+      Conheça a natureza jurídica, objecto social, órgãos sociais,
+      regime patrimonial e financeiro, regime do pessoal e demais
+      disposições do Estatuto Orgânico da Empresa Provincial de
+      Água e Saneamento de Benguela, publicado no Diário da
+      República, I Série, n.º 53, de 25 de Março de 2022.
+
     </p>
 
+
+    <!-- =====================================================
+         BOTÕES DO HERO
+    ====================================================== -->
 
     <div class="hero-buttons">
 
 
+      <!-- DOWNLOAD PDF -->
+
       <a
-        href="documentos/estatutos-epasb.pdf"
-        class="btn primary"
+        href="epasb/documentos/estatutos-epasb.pdf"
+        class="btn primary download-pdf"
         download
+        aria-label="Descarregar o Estatuto Orgânico da EPASB em PDF"
       >
-        Descarregar PDF
+
+        📄 Descarregar PDF
+
       </a>
 
+
+      <!-- EXPLORAR -->
 
       <a
         href="#capitulos"
         class="btn outline"
       >
+
         Explorar Estatutos
+
       </a>
+
 
     </div>
 
   </div>
 
+
+  <!-- ONDA -->
 
   <div
     class="wave-divider on-dark"
@@ -324,7 +580,7 @@
 
 
 <!-- =========================================================
-     ESTATUTOS — ESTATÍSTICAS
+     ESTATÍSTICAS
 ========================================================= -->
 
 <section class="estatutos-stats">
@@ -337,7 +593,7 @@
       <div class="stat-card">
 
         <h3>
-          6
+          8
         </h3>
 
         <p>
@@ -350,7 +606,7 @@
       <div class="stat-card">
 
         <h3>
-          17
+          57
         </h3>
 
         <p>
@@ -363,11 +619,11 @@
       <div class="stat-card">
 
         <h3>
-          1
+          171/22
         </h3>
 
         <p>
-          Documento Oficial
+          Decreto Executivo Conjunto
         </p>
 
       </div>
@@ -376,7 +632,7 @@
       <div class="stat-card stat-card-compact">
 
         <h3>
-          EPASB
+          EPASB-EP
         </h3>
 
         <p>
@@ -412,7 +668,7 @@
 
 
     <h2 class="section-title">
-      Capítulos dos Estatutos
+      Capítulos do Estatuto Orgânico
     </h2>
 
 
@@ -427,7 +683,7 @@
       >
 
         <span class="chapter-number">
-          Capítulo I
+          Capítulo I · Art. 1.º a 5.º
         </span>
 
 
@@ -437,7 +693,11 @@
 
 
         <p>
-          Natureza, sede e objecto da empresa.
+
+          Denominação e natureza, regime jurídico, âmbito, sede
+          e representações, objecto estatutário e capital
+          estatutário da empresa.
+
         </p>
 
       </div>
@@ -452,17 +712,21 @@
       >
 
         <span class="chapter-number">
-          Capítulo II
+          Capítulo II · Art. 6.º a 25.º
         </span>
 
 
         <h3>
-          Objecto Social
+          Organização e Funcionamento
         </h3>
 
 
         <p>
-          Objecto social e competências.
+
+          Órgãos da empresa — Conselho de Administração, Conselho
+          Fiscal e Conselho Técnico Operacional — respectivas
+          competências, composição, mandatos e funcionamento.
+
         </p>
 
       </div>
@@ -477,17 +741,21 @@
       >
 
         <span class="chapter-number">
-          Capítulo III
+          Capítulo III · Art. 26.º a 28.º
         </span>
 
 
         <h3>
-          Governança
+          Intervenção do Poder Executivo
         </h3>
 
 
         <p>
-          Órgãos sociais e funcionamento.
+
+          Superintendência e tutela exercidas pelo Titular do
+          Poder Executivo e pelos Ministérios responsáveis, e
+          intervenção dos órgãos da Administração Local do Estado.
+
         </p>
 
       </div>
@@ -502,17 +770,21 @@
       >
 
         <span class="chapter-number">
-          Capítulo IV
+          Capítulo IV · Art. 29.º a 39.º
         </span>
 
 
         <h3>
-          Regime Financeiro
+          Gestão Patrimonial e Financeira
         </h3>
 
 
         <p>
-          Regime patrimonial e financeiro.
+
+          Património e seguros da empresa, princípios e
+          condições de gestão financeira, instrumentos de gestão,
+          relatórios de contas, receitas e afectação de lucros.
+
         </p>
 
       </div>
@@ -527,17 +799,21 @@
       >
 
         <span class="chapter-number">
-          Capítulo V
+          Capítulo V · Art. 40.º a 43.º
         </span>
 
 
         <h3>
-          Regime do Pessoal
+          Pessoal
         </h3>
 
 
         <p>
-          Regime do pessoal e trabalhadores.
+
+          Regime jurídico e política salarial dos trabalhadores,
+          formação profissional e participação dos trabalhadores
+          na gestão da empresa.
+
         </p>
 
       </div>
@@ -552,7 +828,64 @@
       >
 
         <span class="chapter-number">
-          Capítulo VI
+          Capítulo VI · Art. 44.º a 47.º
+        </span>
+
+
+        <h3>
+          Protecção do Ambiente, Saúde Pública e Responsabilidade Social
+        </h3>
+
+
+        <p>
+
+          Plano de gestão de resíduos, vigilância sanitária,
+          educação ambiental e sanitária e responsabilidade
+          social empresarial.
+
+        </p>
+
+      </div>
+
+
+
+      <!-- CAPÍTULO VII -->
+
+      <div
+        class="chapter-card"
+        data-num="VII"
+      >
+
+        <span class="chapter-number">
+          Capítulo VII · Art. 48.º e 49.º
+        </span>
+
+
+        <h3>
+          Planos Operacionais e de Controlo da Qualidade da Água
+        </h3>
+
+
+        <p>
+
+          Planos operacionais e planos de controlo e monitorização
+          da qualidade da água fornecida à população.
+
+        </p>
+
+      </div>
+
+
+
+      <!-- CAPÍTULO VIII -->
+
+      <div
+        class="chapter-card"
+        data-num="VIII"
+      >
+
+        <span class="chapter-number">
+          Capítulo VIII · Art. 50.º a 57.º
         </span>
 
 
@@ -562,7 +895,12 @@
 
 
         <p>
-          Disposições finais e complementares.
+
+          Convocatórias, responsabilidade perante terceiros,
+          conservação de arquivos, auditoria interna, contratação
+          de especialistas, direito de participação e serviços
+          mínimos em caso de greve.
+
         </p>
 
       </div>
@@ -577,12 +915,12 @@
 
 
 <!-- =========================================================
-     DISQUE DENÚNCIA
+     DISQUE E DENÚNCIA
 ========================================================= -->
 
 <section
   class="cta"
-  id="atendimento"
+  id="contacto"
 >
 
   <div class="container">
@@ -592,37 +930,96 @@
       class="eyebrow"
       style="color:var(--color-accent-soft);"
     >
+
       Atendimento ao cidadão
+
     </span>
 
 
     <h2>
-      Disque Denúncia!
+      Disque e Denúncia!
     </h2>
 
 
     <p>
+
       Fale connosco por telefone, WhatsApp ou através
-      do formulário de atendimento.
+      do formulário de contacto.
+
     </p>
 
 
     <div class="cta-buttons">
 
 
+      <!-- =================================================
+           TELEFONE
+      ================================================== -->
+
       <a
-        href="tel:+244923000000"
-        class="btn primary"
+        href="tel:+24493536674"
+        class="btn primary btn-icon"
+        aria-label="Ligar agora para a EPASB"
       >
-        📞 Ligar agora
+
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+
+          <path
+            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+          ></path>
+
+        </svg>
+
+
+        <span>
+          Ligar agora
+        </span>
+
       </a>
 
 
+
+      <!-- =================================================
+           WHATSAPP
+      ================================================== -->
+
       <a
-        href="https://wa.me/244923000000"
-        class="btn outline"
+        href="https://wa.me/24493536674"
+        class="btn outline btn-icon"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contactar a EPASB pelo WhatsApp"
       >
-        💬 WhatsApp
+
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+
+          <path
+            d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.33 4.97L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.42 5.83c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.99-1.22-.73-.66-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.36-.77-1.86-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.89 2.42 1.02 2.59.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.17-.48-.29z"
+          ></path>
+
+        </svg>
+
+
+        <span>
+          WhatsApp
+        </span>
+
       </a>
 
 
@@ -649,9 +1046,12 @@
     <div class="footer-grid">
 
 
-      <!-- EPASB -->
+      <!-- =================================================
+           EPASB
+      ================================================== -->
 
-      <div>
+      <div class="footer-column">
+
 
         <div class="footer-brand">
 
@@ -664,18 +1064,22 @@
 
 
         <p class="footer-about">
+
           Empresa Provincial responsável pelo abastecimento
           de água potável e saneamento básico na província
           de Benguela, Angola.
+
         </p>
 
       </div>
 
 
 
-      <!-- INSTITUCIONAL -->
+      <!-- =================================================
+           INSTITUCIONAL
+      ================================================== -->
 
-      <div>
+      <div class="footer-column">
 
         <h3>
           Institucional
@@ -686,37 +1090,50 @@
 
 
           <li>
+
             <a href="sobre.html">
               Sobre a EPASB
             </a>
+
           </li>
 
 
           <li>
+
             <a href="organigrama.html">
               Organigrama
             </a>
+
           </li>
 
 
           <li>
-            <a href="estatutos.html">
+
+            <a
+              href="estatutos.html"
+              aria-current="page"
+            >
               Estatutos
             </a>
+
           </li>
 
 
           <li>
+
             <a href="noticias.html">
               Notícias
             </a>
+
           </li>
 
 
           <li>
-            <a href="atendimento.html">
-              Atendimento
+
+            <a href="contacto.html">
+              Contacto
             </a>
+
           </li>
 
 
@@ -726,9 +1143,11 @@
 
 
 
-      <!-- LINKS INSTITUCIONAIS -->
+      <!-- =================================================
+           LINKS INSTITUCIONAIS
+      ================================================== -->
 
-      <div>
+      <div class="footer-column">
 
         <h3>
           Links institucionais
@@ -745,7 +1164,9 @@
               target="_blank"
               rel="noopener noreferrer"
             >
+
               Ministério da Energia e Águas
+
             </a>
 
           </li>
@@ -758,7 +1179,9 @@
               target="_blank"
               rel="noopener noreferrer"
             >
+
               Governo de Angola
+
             </a>
 
           </li>
@@ -771,7 +1194,24 @@
               target="_blank"
               rel="noopener noreferrer"
             >
+
               Governo Provincial de Benguela
+
+            </a>
+
+          </li>
+
+
+          <li>
+
+            <a
+              href="https://epal.co.ao/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+
+              EPAL
+
             </a>
 
           </li>
@@ -783,9 +1223,12 @@
 
 
 
-      <!-- CONTACTO -->
+      <!-- =================================================
+           CONTACTO
+      ================================================== -->
 
-      <div>
+      <div class="footer-column">
+
 
         <h3>
           Contacto
@@ -795,24 +1238,187 @@
         <ul>
 
 
+          <!-- MORADA -->
+
           <li>
-            Rua da Independência, Benguela
+            Rua Sacadura Cabral, nº 122
           </li>
 
 
+          <!-- TELEFONE -->
+
           <li>
 
-            <a href="tel:+244923000000">
-              +244 923 000 000
+            <a href="tel:+24493536674">
+
+              +244 935 366 74
+
             </a>
 
           </li>
 
 
+          <!-- EMAIL -->
+
           <li>
 
             <a href="mailto:geral@epasb.ao">
+
               geral@epasb.ao
+
+            </a>
+
+          </li>
+
+
+          <!-- SECRETARIA -->
+
+          <li>
+
+            <a href="mailto:secretariageral@epasb.ao">
+
+              secretariageral@epasb.ao
+
+            </a>
+
+          </li>
+
+
+
+          <!-- =================================================
+               FACEBOOK
+          ================================================== -->
+
+          <li>
+
+            <a
+              href="https://www.facebook.com/share/1Zt2aXdFm7/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-social-link"
+              aria-label="Facebook da EPASB"
+            >
+
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+
+                <path
+                  d="M22 12.06C22 6.505 17.523 2 12 2S2 6.505 2 12.06c0 5.02 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.91h-2.33V22c4.78-.756 8.437-4.92 8.437-9.94Z"
+                />
+
+              </svg>
+
+
+              <span>
+                Facebook
+              </span>
+
+
+            </a>
+
+          </li>
+
+
+
+          <!-- =================================================
+               INSTAGRAM
+          ================================================== -->
+
+          <li>
+
+            <a
+              href="https://www.instagram.com/epasb_ep?igsh=MWk0dXdua2UwbmViNA=="
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-social-link"
+              aria-label="Instagram da EPASB"
+            >
+
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true"
+              >
+
+                <rect
+                  x="3"
+                  y="3"
+                  width="18"
+                  height="18"
+                  rx="5"
+                  ry="5"
+                ></rect>
+
+
+                <path
+                  d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                ></path>
+
+
+                <line
+                  x1="17.5"
+                  y1="6.5"
+                  x2="17.51"
+                  y2="6.5"
+                ></line>
+
+              </svg>
+
+
+              <span>
+                Instagram
+              </span>
+
+
+            </a>
+
+          </li>
+
+
+
+          <!-- =================================================
+               WHATSAPP
+          ================================================== -->
+
+          <li>
+
+            <a
+              href="https://wa.me/24493536674"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-social-link footer-whatsapp"
+              aria-label="Contactar a EPASB pelo WhatsApp"
+            >
+
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+
+                <path
+                  d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.33 4.97L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.42 5.83c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.99-1.22-.73-.66-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.36-.77-1.86-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.89 2.42 1.02 2.59.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.17-.48-.29z"
+                />
+
+              </svg>
+
+
+              <span>
+                WhatsApp
+              </span>
+
+
             </a>
 
           </li>
@@ -827,19 +1433,18 @@
 
 
 
-    <!-- FOOTER BOTTOM -->
+    <!-- =====================================================
+         FOOTER BOTTOM
+    ====================================================== -->
 
     <div class="footer-bottom">
 
 
       <p>
+
         © <span id="year"></span>
         Empresa Provincial de Águas e Saneamento de Benguela
-      </p>
 
-
-      <p>
-        Benguela · Angola
       </p>
 
 
@@ -850,6 +1455,10 @@
 </footer>
 
 
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
 <script
   src="epasb/assets/main.js"

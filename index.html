@@ -1,209 +1,1661 @@
 <!doctype html>
 <html lang="pt">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EPASB-EP | Água e Saneamento de Benguela</title>
-<meta name="description" content="Empresa Provincial de Água e Saneamento de Benguela - abastecimento de água potável e saneamento básico.">
-<meta property="og:title" content="EPASB-EP | Água e Saneamento de Benguela">
-<meta property="og:description" content="Empresa Provincial de Água e Saneamento de Benguela - abastecimento de água potável e saneamento básico.">
-<meta property="og:url" content="/">
-<link rel="canonical" href="/">
-<link rel="icon" href="epasb/images/logo-epasb.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="epasb/assets/styles.css">
+
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>EPASB-EP | Água e Saneamento de Benguela</title>
+
+  <meta
+    name="description"
+    content="Empresa Provincial de Água e Saneamento de Benguela - abastecimento de água potável e saneamento básico."
+  >
+
+  <meta
+    property="og:title"
+    content="EPASB-EP | Água e Saneamento de Benguela"
+  >
+
+  <meta
+    property="og:description"
+    content="Empresa Provincial de Água e Saneamento de Benguela - abastecimento de água potável e saneamento básico."
+  >
+
+  <meta property="og:url" content="/">
+
+  <link rel="canonical" href="/">
+
+  <!-- FAVICON -->
+  <link
+    rel="icon"
+    type="image/x-icon"
+    href="epasb/images/favicon/favicon.ico"
+  >
+
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="epasb/images/favicon/favicon-16x16.png"
+  >
+
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="epasb/images/favicon/favicon-32x32.png"
+  >
+
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="48x48"
+    href="epasb/images/favicon/favicon-48x48.png"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="epasb/images/favicon/apple-touch-icon.png"
+  >
+
+  <link
+    rel="manifest"
+    href="epasb/images/favicon/site.webmanifest"
+  >
+
+  <!-- FONTE ÚNICA DO SITE: INTER -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS -->
+  <link
+    rel="stylesheet"
+    href="epasb/assets/styles.css"
+  >
+
+  <!-- LEAFLET -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+  >
+
+  <style>
+
+    .footer-social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-social-link svg {
+      flex: 0 0 auto;
+    }
+
+    .btn-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-icon svg {
+      flex: 0 0 auto;
+    }
+
+    .service-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(0, 119, 182, 0.1);
+      color: #0077B6;
+      margin-bottom: 12px;
+    }
+
+    .service-icon svg {
+      flex: 0 0 auto;
+    }
+
+    /* ================================
+       MAPA
+       ================================ */
+
+    .epasb-map-wrap {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 0;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    @media (max-width: 860px) {
+
+      .epasb-map-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .epasb-map-canvas {
+        height: 380px;
+      }
+
+      .epasb-map-sidebar {
+        max-height: 260px;
+      }
+
+    }
+
+    .epasb-map-sidebar {
+      background: #fff;
+      padding: 14px;
+      overflow-y: auto;
+      max-height: 480px;
+    }
+
+    .epasb-zone-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      text-align: left;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: .88rem;
+      color: inherit;
+      transition:
+        background .15s,
+        border-color .15s,
+        color .15s;
+    }
+
+    .epasb-zone-btn:hover {
+      border-color: #40ADC8;
+    }
+
+    .epasb-zone-btn.active {
+      background: #0077B6;
+      border-color: #0077B6;
+      color: #fff;
+    }
+
+    .epasb-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+    }
+
+    .epasb-zone-count {
+      margin-left: auto;
+      font-size: .72rem;
+      background: rgba(0, 0, 0, .06);
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .epasb-zone-btn.active .epasb-zone-count {
+      background: rgba(255, 255, 255, .25);
+    }
+
+    .epasb-map-canvas {
+      width: 100%;
+      height: 480px;
+    }
+
+    .epasb-popup-title {
+      font-weight: 700;
+      color: #001F33;
+      margin: 0 0 4px;
+      font-size: .95rem;
+    }
+
+    .epasb-popup-list {
+      margin: 6px 0 0;
+      padding-left: 18px;
+      font-size: .85rem;
+      line-height: 1.5;
+    }
+
+  </style>
+
+
+  <!-- =====================================================
+       SEGURANÇA
+  ====================================================== -->
+
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
+  >
+
+  <meta
+    name="referrer"
+    content="strict-origin-when-cross-origin"
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <meta
+    http-equiv="X-Content-Type-Options"
+    content="nosniff"
+  >
+
+  <!-- =====================================================
+       GOOGLE ANALYTICS — contagem de visitantes
+       ID de Medição da propriedade "Site EPASB"
+       (obtido em analytics.google.com)
+  ====================================================== -->
+
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-K7QJSD77SM"
+  ></script>
+
+  <script>
+
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+
+    gtag("config", "G-K7QJSD77SM");
+
+  </script>
+
 </head>
+
+
+
 <body>
 
-<header class="site-header">
-  <div class="header-inner">
-    <a href="index.html" class="brand" aria-label="EPASB-EP">
-      <img src="epasb/images/logo-epasb.jpg" alt="EPASB-EP">
-    </a>
-    <div class="header-actions">
-      <nav class="nav-main" aria-label="Navegação principal">
-        <a href="index.html" class="active">Início</a>
-        <a href="sobre.html">Sobre</a>
-        <a href="organigrama.html">Organigrama</a>
-        <a href="estatutos.html">Estatutos</a>
-        <a href="noticias.html">Notícias</a>
-        <a href="atendimento.html">Atendimento</a>
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <header class="site-header">
+
+    <div class="header-inner">
+
+      <a
+        href="index.html"
+        class="brand"
+        aria-label="EPASB-EP"
+      >
+
+        <img
+          src="epasb/images/logo-epasb.jpg"
+          alt="EPASB-EP"
+        >
+
+      </a>
+
+
+      <div class="header-actions">
+
+        <nav
+          class="nav-main"
+          aria-label="Navegação principal"
+        >
+
+          <a
+            href="index.html"
+            class="active"
+          >
+            Início
+          </a>
+
+          <a href="sobre.html">
+            Sobre
+          </a>
+
+          <a href="organigrama.html">
+            Organigrama
+          </a>
+
+          <a href="estatutos.html">
+            Estatutos
+          </a>
+
+          <a href="noticias.html">
+            Notícias
+          </a>
+
+          <a href="contacto.html">
+            Contacto
+          </a>
+
+        </nav>
+
+
+        <button
+          class="menu-toggle"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+          type="button"
+        >
+
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+
+            <line
+              x1="4"
+              x2="20"
+              y1="6"
+              y2="6"
+            ></line>
+
+            <line
+              x1="4"
+              x2="20"
+              y1="12"
+              y2="12"
+            ></line>
+
+            <line
+              x1="4"
+              x2="20"
+              y1="18"
+              y2="18"
+            ></line>
+
+          </svg>
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- MENU MOBILE -->
+
+    <div class="nav-mobile">
+
+      <nav
+        aria-label="Navegação principal (mobile)"
+      >
+
+        <a
+          href="index.html"
+          class="active"
+        >
+          Início
+        </a>
+
+        <a href="sobre.html">
+          Sobre
+        </a>
+
+        <a href="organigrama.html">
+          Organigrama
+        </a>
+
+        <a href="estatutos.html">
+          Estatutos
+        </a>
+
+        <a href="noticias.html">
+          Notícias
+        </a>
+
+        <a href="contacto.html">
+          Contacto
+        </a>
+
       </nav>
-      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false" type="button">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-      </button>
-    </div>
-  </div>
-  <div class="nav-mobile">
-    <nav aria-label="Navegação principal (mobile)">
-      <a href="index.html" class="active">Início</a>
-      <a href="sobre.html">Sobre</a>
-      <a href="organigrama.html">Organigrama</a>
-      <a href="estatutos.html">Estatutos</a>
-      <a href="noticias.html">Notícias</a>
-      <a href="atendimento.html">Atendimento</a>
-    </nav>
-  </div>
-</header>
 
-<section class="hero">
-  <img class="hero-bg" src="epasb/images/hero-water.jpg" alt="">
-  <div class="overlay"></div>
-  <div class="container hero-content">
-    <span class="hero-badge">💧 Província de Benguela · Angola</span>
-    <h1>Água potável para todos.<br>Saneamento para o futuro.</h1>
-    <p>Garantimos abastecimento de água de qualidade, sustentabilidade e proximidade com os cidadãos de toda a província de Benguela.</p>
-    <div class="hero-buttons">
-      <a href="sobre.html" class="btn primary">Conhecer a EPASB</a>
-      <a href="atendimento.html" class="btn outline">Atendimento ao cidadão</a>
     </div>
-  </div>
-  <div class="wave-divider on-dark">
-    <svg viewBox="0 0 1200 32" preserveAspectRatio="none"><path d="M0,16 C150,32 350,0 600,16 C850,32 1050,0 1200,16 L1200,32 L0,32 Z"/></svg>
-  </div>
-</section>
 
-<section class="section">
-  <div class="container">
-    <span class="eyebrow"> O que fazemos</span>
-    <h2 class="section-title">Três frentes de serviço público</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>💧 Abastecimento de Água</h3>
-        <p>Distribuição segura e contínua de água potável para as comunidades da província.</p>
+  </header>
+
+
+
+  <!-- =====================================================
+       HERO
+       ===================================================== -->
+
+  <section class="hero">
+
+    <img
+      class="hero-bg"
+      src="epasb/images/hero-water.jpg"
+      alt=""
+    >
+
+    <div class="overlay"></div>
+
+
+    <div class="container hero-content">
+
+      <span class="hero-badge">
+        💧 Província de Benguela · Angola
+      </span>
+
+
+      <h1>
+
+        Unidos Pela Água.<br>
+
+        Comprometidos com o futuro.
+
+      </h1>
+
+
+      <p>
+
+        Garantimos abastecimento de água de qualidade,
+
+        sustentabilidade e proximidade com os cidadãos
+
+        de toda a província de Benguela.
+
+      </p>
+
+
+      <div class="hero-buttons">
+
+        <a
+          href="sobre.html"
+          class="btn primary"
+        >
+          Conhecer a EPASB
+        </a>
+
+
+        <a
+          href="contacto.html"
+          class="btn outline"
+        >
+          Atendimento ao cidadão
+        </a>
+
       </div>
-      <div class="card">
-        <h3>♻️ Saneamento</h3>
-        <p>Gestão responsável de águas residuais e proteção ambiental dos recursos hídricos.</p>
-      </div>
-      <div class="card">
-        <h3>🔬 Qualidade da Água</h3>
-        <p>Controlo laboratorial contínuo da qualidade da água captada e distribuída.</p>
-      </div>
+
     </div>
-  </div>
-</section>
 
-<div class="wave-divider on-surface" style="background:var(--color-bg);">
-  <svg viewBox="0 0 1200 32" preserveAspectRatio="none"><path d="M0,16 C150,0 350,32 600,16 C850,0 1050,32 1200,16 L1200,32 L0,32 Z"/></svg>
-</div>
 
-<section class="section light">
-  <div class="container">
-    <span class="eyebrow"> EPASB em números</span>
-    <h2 class="section-title">Cobertura e desempenho</h2>
-    <div class="grid">
-      <div class="card number-card"><h3 class="counter" data-target="11">0</h3><p>Municípios atendidos</p></div>
-      <div class="card number-card"><h3 class="counter" data-target="24">0</h3><p>Horas de serviço</p></div>
-      <div class="card number-card"><h3 class="counter" data-target="100">0</h3><p>Qualidade garantida (%)</p></div>
+    <div class="wave-divider on-dark">
+
+      <svg
+        viewBox="0 0 1200 32"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+
+        <path
+          d="M0,16 C150,32 350,0 600,16 C850,32 1050,0 1200,16 L1200,32 L0,32 Z"
+        ></path>
+
+      </svg>
+
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="container">
-    <span class="eyebrow"> Onde atuamos</span>
-    <h2 class="section-title">Cobertura em Benguela</h2>
-    <iframe class="map" style="width:100%;height:400px;border:1px solid var(--color-border);border-radius:var(--radius);" src="https://www.google.com/maps?q=Benguela,Angola&output=embed"></iframe>
-  </div>
-</section>
+  </section>
 
-<section class="cta" id="atendimento">
-  <div class="container">
-    <span class="eyebrow" style="color:var(--color-accent-soft);"> Atendimento ao cidadão</span>
-    <h2>Disque Denúncia!</h2>
-    <p>Fale connosco por telefone, WhatsApp ou através do formulário de atendimento.</p>
-    <div class="cta-buttons">
-      <a href="tel:+244923000000" class="btn primary">📞 Ligar agora</a>
-      <a href="https://wa.me/244923000000" class="btn outline">💬 WhatsApp</a>
-    </div>
-  </div>
-</section>
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">
-          <img src="epasb/images/logo-epasb.jpg" alt="EPASB-EP">
-        
+
+  <!-- =====================================================
+       SERVIÇOS
+       ===================================================== -->
+
+  <section class="section">
+
+    <div class="container">
+
+      <span class="eyebrow">
+        O que fazemos?
+      </span>
+
+
+      <h2 class="section-title">
+        Três frentes de serviço público
+      </h2>
+
+
+      <div class="grid">
+
+
+        <!-- ÁGUA -->
+
+        <div class="card">
+
+          <span class="service-icon">
+
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+
+              <path
+                d="M12 2.69s6 7.03 6 11.15a6 6 0 0 1-12 0c0-4.12 6-11.15 6-11.15z"
+              ></path>
+
+            </svg>
+
+          </span>
+
+
+          <h3>
+            Abastecimento de Água
+          </h3>
+
+
+          <p>
+
+            Distribuição segura e contínua de água potável
+
+            para as comunidades da província.
+
+          </p>
+
         </div>
-        <p class="footer-about">Empresa Provincial responsável pelo abastecimento de água potável e saneamento básico na província de Benguela, Angola.</p>
+
+
+
+        <!-- SANEAMENTO -->
+
+        <div class="card">
+
+          <span class="service-icon">
+
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+
+              <path
+                d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"
+              ></path>
+
+              <path
+                d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"
+              ></path>
+
+              <path d="m14 16-3 3 3 3"></path>
+
+              <path
+                d="M8.293 13.596 7.196 9.5 3.1 10.598"
+              ></path>
+
+              <path
+                d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"
+              ></path>
+
+              <path
+                d="m13.378 9.633 4.096 1.098 1.097-4.096"
+              ></path>
+
+            </svg>
+
+          </span>
+
+
+          <h3>
+            Saneamento
+          </h3>
+
+
+          <p>
+
+            Gestão responsável de águas residuais e
+
+            proteção ambiental dos recursos hídricos.
+
+          </p>
+
+        </div>
+
+
+
+        <!-- QUALIDADE -->
+
+        <div class="card">
+
+          <span class="service-icon">
+
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+
+              <path d="M6 18h8"></path>
+
+              <path d="M3 22h18"></path>
+
+              <path
+                d="M14 22a7 7 0 1 0 0-14h-1"
+              ></path>
+
+              <path d="M9 14h2"></path>
+
+              <path
+                d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"
+              ></path>
+
+              <path
+                d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"
+              ></path>
+
+            </svg>
+
+          </span>
+
+
+          <h3>
+            Qualidade da Água
+          </h3>
+
+
+          <p>
+
+            Controlo laboratorial contínuo da qualidade
+
+            da água captada e distribuída.
+
+          </p>
+
+        </div>
+
       </div>
-      <div>
-        <h3>Institucional</h3>
-        <ul>
-          <li><a href="sobre.html">Sobre a EPASB</a></li>
-          <li><a href="organigrama.html">Organigrama</a></li>
-          <li><a href="estatutos.html">Estatutos</a></li>
-          <li><a href="noticias.html">Notícias</a></li>
-          <li><a href="atendimento.html">Atendimento</a></li>
-        </ul>
-      </div>
-      <div>
-<!-- Links institucionais -->
 
-<div>
-
-  <h3>
-    Links institucionais
-  </h3>
-
-  <ul>
-
-    <li>
-      <a
-        href="https://minea.gov.ao/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Ministério da Energia e Águas
-      </a>
-    </li>
-
-    <li>
-      <a
-        href="https://governo.gov.ao/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Governo de Angola
-      </a>
-    </li>
-
-    <li>
-      <a
-        href="https://benguela.gov.ao/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Governo Provincial de Benguela
-      </a>
-    </li>
-
-  </ul>
-
-</div>
-        </ul>
-      </div>
-      <div>
-        <h3>Contacto</h3>
-        <ul>
-          <li>Rua da Independência, Benguela</li>
-          <li><a href="tel:+244923000000">+244 923 000 000</a></li>
-          <li><a href="mailto:geral@epasb.ao">geral@epasb.ao</a></li>
-        </ul>
-      </div>
     </div>
-    <div class="footer-bottom">
-      <p>© <span id="year"></span> Empresa Provincial de Águas e Saneamento de Benguela</p>
-      <p>Benguela · Angola</p>
-    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       DIVISOR
+       ===================================================== -->
+
+  <div
+    class="wave-divider on-surface"
+    style="background:var(--color-bg);"
+  >
+
+    <svg
+      viewBox="0 0 1200 32"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+
+      <path
+        d="M0,16 C150,0 350,32 600,16 C850,0 1050,32 1200,16 L1200,32 L0,32 Z"
+      ></path>
+
+    </svg>
+
   </div>
-</footer>
 
-<script src="epasb/assets/main.js" defer></script>
+
+
+  <!-- =====================================================
+       NÚMEROS
+       ===================================================== -->
+
+  <section class="section light">
+
+    <div class="container">
+
+      <span class="eyebrow">
+        EPASB em números
+      </span>
+
+
+      <h2 class="section-title">
+        Cobertura e impacto
+      </h2>
+
+
+      <div
+        class="grid"
+        style="grid-template-columns: repeat(2, minmax(0, 1fr));"
+      >
+
+
+        <!-- MUNICÍPIOS ATENDIDOS -->
+
+        <div class="card number-card">
+
+          <h3
+            class="counter"
+            data-target="11"
+          >
+            0
+          </h3>
+
+
+          <p>
+            Municípios atendidos
+          </p>
+
+        </div>
+
+
+
+        <!-- CIDADÃOS BENEFICIADOS -->
+
+        <div class="card number-card">
+
+          <h3
+            class="counter"
+            data-target="238400"
+          >
+            0
+          </h3>
+
+
+          <p>
+            Cidadãos beneficiados
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       MAPA — Rede de agências e pontos de atendimento
+       ===================================================== -->
+
+  <section class="section">
+
+    <div class="container">
+
+      <h2 class="section-title">
+        Agências e pontos de atendimento da EPASB
+      </h2>
+
+
+      <div class="epasb-map-wrap">
+
+        <div
+          class="epasb-map-sidebar"
+          id="epasbZoneList"
+          aria-label="Lista de zonas e agrupamentos"
+        ></div>
+
+
+        <div
+          id="epasbMap"
+          class="epasb-map-canvas"
+          role="application"
+          aria-label="Mapa da rede de agências EPASB"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       ATENDIMENTO / CONTACTO
+       ===================================================== -->
+
+  <section
+    class="cta"
+    id="contacto"
+  >
+
+    <div class="container">
+
+      <span
+        class="eyebrow"
+        style="color:var(--color-accent-soft);"
+      >
+        Atendimento ao cidadão
+      </span>
+
+
+      <h2>
+        Disque e Denúncia!
+      </h2>
+
+
+      <p>
+
+        Fale connosco por telefone, WhatsApp ou através
+
+        do formulário de contacto.
+
+      </p>
+
+
+      <div class="cta-buttons">
+
+
+        <!-- TELEFONE -->
+
+        <a
+          href="tel:+24493536674"
+          class="btn primary btn-icon"
+        >
+
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+            ></path>
+
+          </svg>
+
+
+          <span>
+            Ligar agora
+          </span>
+
+        </a>
+
+
+
+        <!-- WHATSAPP -->
+
+        <a
+          href="https://wa.me/24493536674"
+          class="btn outline btn-icon"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+
+            <path
+              d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.33 4.97L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.42 5.83c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.99-1.22-.73-.66-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.36-.77-1.86-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.89 2.42 1.02 2.59.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.17-.48-.29z"
+            ></path>
+
+          </svg>
+
+
+          <span>
+            WhatsApp
+          </span>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
+  <footer class="site-footer">
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+
+        <!-- SOBRE EPASB -->
+
+        <div class="footer-column">
+
+          <div class="footer-brand">
+
+            <img
+              src="epasb/images/logo-epasb.jpg"
+              alt="EPASB-EP"
+            >
+
+          </div>
+
+
+          <p class="footer-about">
+
+            Empresa Provincial responsável pelo abastecimento
+
+            de água potável e saneamento básico na província
+
+            de Benguela, Angola.
+
+          </p>
+
+        </div>
+
+
+
+        <!-- INSTITUCIONAL -->
+
+        <div class="footer-column">
+
+          <h3>
+            Institucional
+          </h3>
+
+
+          <ul>
+
+            <li>
+              <a href="sobre.html">
+                Sobre a EPASB
+              </a>
+            </li>
+
+            <li>
+              <a href="organigrama.html">
+                Organigrama
+              </a>
+            </li>
+
+            <li>
+              <a href="estatutos.html">
+                Estatutos
+              </a>
+            </li>
+
+            <li>
+              <a href="noticias.html">
+                Notícias
+              </a>
+            </li>
+
+            <li>
+              <a href="contacto.html">
+                Contacto
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+
+
+        <!-- LINKS INSTITUCIONAIS -->
+
+        <div class="footer-column">
+
+          <h3>
+            Links institucionais
+          </h3>
+
+
+          <ul>
+
+            <li>
+
+              <a
+                href="https://minea.gov.ao/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ministério da Energia e Águas
+              </a>
+
+            </li>
+
+
+            <li>
+
+              <a
+                href="https://governo.gov.ao/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Governo de Angola
+              </a>
+
+            </li>
+
+
+            <li>
+
+              <a
+                href="https://benguela.gov.ao/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Governo Provincial de Benguela
+              </a>
+
+            </li>
+
+
+            <li>
+
+              <a
+                href="https://epal.co.ao/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                EPAL
+              </a>
+
+            </li>
+
+          </ul>
+
+        </div>
+
+
+
+        <!-- CONTACTO -->
+
+        <div class="footer-column">
+
+          <h3>
+            Contacto
+          </h3>
+
+
+          <ul>
+
+            <li>
+              Rua Sacadura Cabral, nº 122
+            </li>
+
+
+            <li>
+
+              <a href="tel:+24493536674">
+                +244 935 366 74
+              </a>
+
+            </li>
+
+
+            <li>
+
+              <a href="mailto:geral@epasb.ao">
+                geral@epasb.ao
+              </a>
+
+            </li>
+
+
+            <li>
+
+              <a href="mailto:secretariageral@epasb.ao">
+                secretariageral@epasb.ao
+              </a>
+
+            </li>
+
+
+            <!-- FACEBOOK -->
+
+            <li>
+
+              <a
+                href="https://www.facebook.com/share/1Zt2aXdFm7/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-link"
+              >
+
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+
+                  <path
+                    d="M22 12.06C22 6.505 17.523 2 12 2S2 6.505 2 12.06c0 5.02 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.91h-2.33V22c4.78-.756 8.437-4.92 8.437-9.94Z"
+                  ></path>
+
+                </svg>
+
+
+                <span>
+                  Facebook
+                </span>
+
+              </a>
+
+            </li>
+
+
+
+            <!-- INSTAGRAM -->
+
+            <li>
+
+              <a
+                href="https://www.instagram.com/epasb_ep?igsh=MWk0dXdua2UwbmViNA=="
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-link"
+              >
+
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  aria-hidden="true"
+                >
+
+                  <rect
+                    x="3"
+                    y="3"
+                    width="18"
+                    height="18"
+                    rx="5"
+                    ry="5"
+                  ></rect>
+
+                  <path
+                    d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                  ></path>
+
+                  <line
+                    x1="17.5"
+                    y1="6.5"
+                    x2="17.51"
+                    y2="6.5"
+                  ></line>
+
+                </svg>
+
+
+                <span>
+                  Instagram
+                </span>
+
+              </a>
+
+            </li>
+
+
+
+            <!-- WHATSAPP -->
+
+            <li>
+
+              <a
+                href="https://wa.me/24493536674"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-link"
+              >
+
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+
+                  <path
+                    d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.33 4.97L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.42 5.83c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.99-1.22-.73-.66-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.36-.77-1.86-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.89 2.42 1.02 2.59.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.17-.48-.29z"
+                  ></path>
+
+                </svg>
+
+
+                <span>
+                  WhatsApp
+                </span>
+
+              </a>
+
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- COPYRIGHT -->
+
+      <div class="footer-bottom">
+
+        <p>
+
+          © <span id="year"></span>
+
+          Empresa Provincial de Águas e Saneamento de Benguela
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
+  <script
+    src="epasb/assets/main.js"
+    defer
+  ></script>
+
+
+  <!-- LEAFLET -->
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"
+  ></script>
+
+
+
+  <!-- =====================================================
+       MAPA DA REDE DE AGÊNCIAS EPASB
+       ===================================================== -->
+
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+      var mapEl = document.getElementById('epasbMap');
+
+      if (!mapEl || typeof L === 'undefined') return;
+
+
+      var zones = [
+
+        {
+          nome: "Baía Farta",
+          cor: "#0077B6",
+          coords: [-12.6742, 13.3722],
+          pontos: [
+            "Agência da Baía Farta"
+          ]
+        },
+
+        {
+          nome: "Benguela",
+          cor: "#001F33",
+          coords: [-12.5763, 13.4055],
+          pontos: [
+            "Zona A",
+            "Zona C",
+            "Zona D",
+            "Zona E",
+            "Zona F",
+            "Centro empresarial Sul"
+          ]
+        },
+
+        {
+          nome: "Catumbela",
+          cor: "#40ADC8",
+          coords: [-12.4333, 13.5333],
+          pontos: [
+            "Vila da Catumbela",
+            "Luongo Vimbalambi",
+            "Agência Alto Niva",
+            "Agência Acala"
+          ]
+        },
+
+        {
+          nome: "Lobito",
+          cor: "#48CAD9",
+          coords: [-12.3481, 13.5456],
+          pontos: [
+            "Agência antiga do 28",
+            "Agência Sede Canata",
+            "Agência Nova do 28",
+            "Agência Centralidade do Lobito",
+            "Agência Centralidade do Luongo",
+            "Agência Bela Vista",
+            "Agência 27 de março",
+            "Agência Alto Esperança"
+          ]
+        },
+
+        {
+          nome: "Navegantes",
+          cor: "#0096C7",
+          coords: [-12.3612, 13.5231],
+          pontos: [
+            "Zona B R3",
+            "Zona B EE6",
+            "Agência das Bacias de Oxidação"
+          ]
+        },
+
+        {
+          nome: "Zona Norte (Lobito) — Balombo",
+          cor: "#F4A300",
+          coords: [-12.3667, 14.7667],
+          pontos: [
+            "Balombo"
+          ]
+        },
+
+        {
+          nome: "Zona Norte (Lobito) — Bocoio",
+          cor: "#F4A300",
+          coords: [-12.4667, 14.4000],
+          pontos: [
+            "Bocoio"
+          ]
+        },
+
+        {
+          nome: "Zona Sul (Benguela) — Caimbambo",
+          cor: "#E07A00",
+          coords: [-12.9333, 13.9667],
+          pontos: [
+            "Caimbambo"
+          ]
+        },
+
+        {
+          nome: "Zona Sul (Benguela) — Ganda",
+          cor: "#E07A00",
+          coords: [-13.0167, 14.6667],
+          pontos: [
+            "Ganda"
+          ]
+        },
+
+        {
+          nome: "Zona Sul (Benguela) — Cubal",
+          cor: "#E07A00",
+          coords: [-13.0500, 14.2500],
+          pontos: [
+            "Cubal"
+          ]
+        },
+
+        {
+          nome: "Zona Sul (Benguela) — Chongoroi",
+          cor: "#E07A00",
+          coords: [-12.5833, 13.9667],
+          pontos: [
+            "Chongoroi"
+          ]
+        }
+
+      ];
+
+
+
+      var map = L.map(
+        'epasbMap',
+        {
+          scrollWheelZoom: false
+        }
+      ).setView(
+        [-12.75, 14.0],
+        8
+      );
+
+
+
+      L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+          maxZoom: 18,
+          attribution: '&copy; OpenStreetMap contributors'
+        }
+      ).addTo(map);
+
+
+
+      function makeIcon(cor) {
+
+        return L.divIcon({
+
+          className: '',
+
+          html:
+            '<div style="' +
+            'width:22px;' +
+            'height:22px;' +
+            'border-radius:50% 50% 50% 0;' +
+            'background:' + cor + ';' +
+            'transform:rotate(-45deg);' +
+            'border:2px solid #fff;' +
+            'box-shadow:0 2px 6px rgba(0,0,0,.35);' +
+            '"></div>',
+
+          iconSize: [22, 22],
+
+          iconAnchor: [11, 22],
+
+          popupAnchor: [0, -20]
+
+        });
+
+      }
+
+
+
+      var markers = {};
+
+
+
+      zones.forEach(function (z) {
+
+        var listHtml = z.pontos
+          .map(function (p) {
+
+            return '<li>' + p + '</li>';
+
+          })
+          .join('');
+
+
+        var popupHtml =
+
+          '<p class="epasb-popup-title">' +
+          z.nome +
+          '</p>' +
+
+          '<ul class="epasb-popup-list">' +
+          listHtml +
+          '</ul>';
+
+
+        markers[z.nome] =
+
+          L.marker(
+            z.coords,
+            {
+              icon: makeIcon(z.cor)
+            }
+          )
+
+          .addTo(map)
+
+          .bindPopup(popupHtml);
+
+      });
+
+
+
+      var zoneList =
+        document.getElementById(
+          'epasbZoneList'
+        );
+
+
+      if (zoneList) {
+
+        zones.forEach(function (z) {
+
+          var btn =
+            document.createElement(
+              'button'
+            );
+
+
+          btn.type = 'button';
+
+          btn.className =
+            'epasb-zone-btn';
+
+
+          btn.innerHTML =
+
+            '<span class="epasb-dot" ' +
+            'style="background:' +
+            z.cor +
+            '"></span>' +
+
+            '<span>' +
+            z.nome +
+            '</span>' +
+
+            '<span class="epasb-zone-count">' +
+            z.pontos.length +
+            '</span>';
+
+
+          btn.addEventListener(
+            'click',
+            function () {
+
+              document
+                .querySelectorAll(
+                  '.epasb-zone-btn'
+                )
+                .forEach(function (b) {
+
+                  b.classList.remove(
+                    'active'
+                  );
+
+                });
+
+
+              btn.classList.add(
+                'active'
+              );
+
+
+              map.flyTo(
+                z.coords,
+                12,
+                {
+                  duration: 0.8
+                }
+              );
+
+
+              markers[z.nome]
+                .openPopup();
+
+            }
+          );
+
+
+          zoneList.appendChild(btn);
+
+        });
+
+      }
+
+
+
+      setTimeout(
+        function () {
+
+          map.invalidateSize();
+
+        },
+        300
+      );
+
+    });
+
+  </script>
+
+
 </body>
+
 </html>

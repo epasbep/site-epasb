@@ -1,0 +1,2012 @@
+<!doctype html>
+<html lang="pt">
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Atendimento Administrativo | EPASB-EP</title>
+
+  <meta
+    name="description"
+    content="Painel administrativo de atendimento da EPASB-EP."
+  >
+
+  <link
+    rel="icon"
+    type="image/x-icon"
+    href="epasb/images/favicon/favicon.ico"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", Arial, sans-serif;
+      background: #f4f7f9;
+      color: #172033;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+
+    /* =====================================================
+       LOGIN
+    ===================================================== */
+
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: #eef4f7;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 430px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 35px;
+      box-shadow: 0 15px 45px rgba(0,0,0,.10);
+    }
+
+    .login-logo {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .login-logo img {
+      width: 190px;
+      max-width: 100%;
+    }
+
+    .login-box h1 {
+      text-align: center;
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .login-description {
+      text-align: center;
+      color: #64748b;
+      margin: 0 0 25px;
+    }
+
+    .login-group {
+      margin-bottom: 18px;
+    }
+
+    .login-group label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .login-group input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      outline: none;
+    }
+
+    .login-group input:focus {
+      border-color: #087f8c;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 13px;
+      border: 0;
+      border-radius: 9px;
+      background: #087f8c;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .login-button:hover {
+      opacity: .92;
+    }
+
+    .error-message {
+      display: none;
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+
+    /* =====================================================
+       PAINEL
+    ===================================================== */
+
+    .admin-page {
+      min-height: 100vh;
+    }
+
+    .admin-header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .admin-header-inner {
+      max-width: 1250px;
+      margin: auto;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .admin-brand img {
+      width: 165px;
+      height: auto;
+    }
+
+    .admin-title h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .admin-title p {
+      margin: 4px 0 0;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .logout-button {
+      border: 0;
+      background: #dc2626;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+
+    .admin-container {
+      max-width: 1250px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+
+    /* =====================================================
+       CARDS
+    ===================================================== */
+
+    .dashboard-cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+    .dashboard-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 22px;
+    }
+
+    .dashboard-card span {
+      display: block;
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .dashboard-card strong {
+      font-size: 30px;
+    }
+
+
+    /* =====================================================
+       TABELA
+    ===================================================== */
+
+    .panel {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 20px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-header h2 {
+      margin: 0;
+      font-size: 19px;
+    }
+
+    .refresh-button {
+      border: 1px solid #cbd5e1;
+      background: white;
+      padding: 9px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 14px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+      white-space: nowrap;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #475569;
+      font-size: 13px;
+    }
+
+    td {
+      font-size: 14px;
+    }
+
+    .loading,
+    .empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: #64748b;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .view-button {
+      border: 0;
+      background: #087f8c;
+      color: white;
+      padding: 8px 13px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .delete-row-button {
+      border: 0;
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 8px 13px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .delete-row-button:hover {
+      background: #fecaca;
+    }
+
+
+    /* =====================================================
+       STATUS
+    ===================================================== */
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status-novo {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .status-analise {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-respondido {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-encerrado {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+
+    /* =====================================================
+       MODAL
+    ===================================================== */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, .65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 9999;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 780px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: white;
+      border-radius: 14px;
+      padding: 25px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 21px;
+    }
+
+    .close-button {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
+      background: #e2e8f0;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .detail-item {
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 8px;
+    }
+
+    .detail-item.full {
+      grid-column: 1 / -1;
+    }
+
+    .detail-item small {
+      display: block;
+      color: #64748b;
+      margin-bottom: 5px;
+    }
+
+    .message-content {
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    .document-link {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 9px 14px;
+      background: #087f8c;
+      color: white;
+      text-decoration: none;
+      border-radius: 7px;
+      font-weight: 600;
+    }
+
+    .document-link:hover {
+      opacity: .9;
+    }
+
+    .document-error {
+      color: #dc2626;
+    }
+
+    .admin-form {
+      margin-top: 25px;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 22px;
+    }
+
+    .admin-form label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .admin-form select,
+    .admin-form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      outline: none;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .save-button {
+      border: 0;
+      background: #087f8c;
+      color: white;
+      padding: 11px 17px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .delete-button {
+      border: 0;
+      background: #dc2626;
+      color: white;
+      padding: 11px 17px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .delete-button:hover {
+      opacity: .9;
+    }
+
+
+    /* =====================================================
+       RESPONSIVO
+    ===================================================== */
+
+    @media (max-width: 900px) {
+
+      .dashboard-cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+    }
+
+    @media (max-width: 800px) {
+
+      .admin-brand img {
+        width: 125px;
+      }
+
+      .admin-title h1 {
+        font-size: 18px;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .dashboard-cards {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .admin-header-inner {
+        flex-wrap: wrap;
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-item.full {
+        grid-column: auto;
+      }
+
+      .modal-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LOGIN
+========================================================= -->
+
+<section
+  id="loginScreen"
+  class="login-screen"
+>
+
+  <div class="login-box">
+
+    <div class="login-logo">
+
+      <img
+        src="epasb/images/logo-epasb.jpg"
+        alt="EPASB-EP"
+      >
+
+    </div>
+
+    <h1>
+      Área Administrativa
+    </h1>
+
+    <p class="login-description">
+      Gestão de Atendimento ao Cidadão
+    </p>
+
+
+    <div
+      id="loginError"
+      class="error-message"
+    ></div>
+
+
+    <form id="loginForm">
+
+      <div class="login-group">
+
+        <label for="loginEmail">
+          Email
+        </label>
+
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="Email do administrador"
+          autocomplete="email"
+          required
+        >
+
+      </div>
+
+
+      <div class="login-group">
+
+        <label for="loginPassword">
+          Palavra-passe
+        </label>
+
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Digite a sua palavra-passe"
+          autocomplete="current-password"
+          required
+        >
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="login-button"
+        id="loginButton"
+      >
+        Entrar
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PAINEL ADMINISTRATIVO
+========================================================= -->
+
+<div
+  id="adminPage"
+  class="admin-page"
+  style="display:none;"
+>
+
+
+  <header class="admin-header">
+
+    <div class="admin-header-inner">
+
+      <div class="admin-brand">
+
+        <img
+          src="epasb/images/logo-epasb.jpg"
+          alt="EPASB-EP"
+        >
+
+        <div class="admin-title">
+
+          <h1>
+            Atendimento
+          </h1>
+
+          <p>
+            Painel Administrativo
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="logout-button"
+        id="logoutButton"
+      >
+        Sair
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <main class="admin-container">
+
+
+    <!-- CARDS -->
+
+    <section class="dashboard-cards">
+
+      <div class="dashboard-card">
+
+        <span>
+          Total
+        </span>
+
+        <strong id="totalCount">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="dashboard-card">
+
+        <span>
+          Novos
+        </span>
+
+        <strong id="newCount">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="dashboard-card">
+
+        <span>
+          Em análise
+        </span>
+
+        <strong id="analysisCount">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="dashboard-card">
+
+        <span>
+          Respondidos
+        </span>
+
+        <strong id="answeredCount">
+          0
+        </strong>
+
+      </div>
+
+
+      <div class="dashboard-card">
+
+        <span>
+          Encerrados
+        </span>
+
+        <strong id="closedCount">
+          0
+        </strong>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ATENDIMENTOS -->
+
+    <section class="panel">
+
+      <div class="panel-header">
+
+        <h2>
+          Atendimentos recebidos
+        </h2>
+
+        <button
+          type="button"
+          class="refresh-button"
+          id="refreshButton"
+        >
+          Atualizar
+        </button>
+
+      </div>
+
+
+      <div
+        id="loading"
+        class="loading"
+      >
+        A carregar atendimentos...
+      </div>
+
+
+      <div
+        id="empty"
+        class="empty"
+        style="display:none;"
+      >
+        Não existem atendimentos registados.
+      </div>
+
+
+      <div
+        id="tableWrapper"
+        class="table-wrapper"
+        style="display:none;"
+      >
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>ID</th>
+              <th>Data</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Assunto</th>
+              <th>Status</th>
+              <th>Ação</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="atendimentosBody"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+
+<!-- =========================================================
+     MODAL DE DETALHES
+========================================================= -->
+
+<div
+  id="detailModal"
+  class="modal"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h2>
+        Detalhes do atendimento
+      </h2>
+
+      <button
+        type="button"
+        class="close-button"
+        id="closeModal"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div
+      id="detailContent"
+      class="detail-grid"
+    ></div>
+
+
+    <div class="admin-form">
+
+      <label for="statusSelect">
+        Estado do atendimento
+      </label>
+
+      <select id="statusSelect">
+
+        <option value="Novo">
+          Novo
+        </option>
+
+        <option value="Em análise">
+          Em análise
+        </option>
+
+        <option value="Respondido">
+          Respondido
+        </option>
+
+        <option value="Encerrado">
+          Encerrado
+        </option>
+
+      </select>
+
+
+      <label for="respostaInput">
+        Resposta ao cidadão
+      </label>
+
+      <textarea
+        id="respostaInput"
+        rows="6"
+        placeholder="Escreva aqui a resposta ao cidadão..."
+      ></textarea>
+
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="delete-button"
+          id="deleteButton"
+        >
+          Eliminar atendimento
+        </button>
+
+
+        <button
+          type="button"
+          class="save-button"
+          id="saveButton"
+        >
+          Guardar alterações
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async function () {
+
+
+    /* =====================================================
+       CONFIGURAÇÃO SUPABASE
+    ===================================================== */
+
+    const SUPABASE_URL =
+      "https://yctyaycgxbbwnzgrkfwq.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_rg8_rF7TpfGwoqCZtQSFqQ_D4q1a_6F";
+
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+
+    /* =====================================================
+       ELEMENTOS
+    ===================================================== */
+
+    const loginScreen =
+      document.getElementById("loginScreen");
+
+    const adminPage =
+      document.getElementById("adminPage");
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const loginError =
+      document.getElementById("loginError");
+
+    const loginButton =
+      document.getElementById("loginButton");
+
+    const logoutButton =
+      document.getElementById("logoutButton");
+
+    const refreshButton =
+      document.getElementById("refreshButton");
+
+    const loading =
+      document.getElementById("loading");
+
+    const empty =
+      document.getElementById("empty");
+
+    const tableWrapper =
+      document.getElementById("tableWrapper");
+
+    const atendimentosBody =
+      document.getElementById("atendimentosBody");
+
+    const totalCount =
+      document.getElementById("totalCount");
+
+    const newCount =
+      document.getElementById("newCount");
+
+    const analysisCount =
+      document.getElementById("analysisCount");
+
+    const answeredCount =
+      document.getElementById("answeredCount");
+
+    const closedCount =
+      document.getElementById("closedCount");
+
+    const detailModal =
+      document.getElementById("detailModal");
+
+    const detailContent =
+      document.getElementById("detailContent");
+
+    const closeModal =
+      document.getElementById("closeModal");
+
+    const statusSelect =
+      document.getElementById("statusSelect");
+
+    const respostaInput =
+      document.getElementById("respostaInput");
+
+    const saveButton =
+      document.getElementById("saveButton");
+
+    const deleteButton =
+      document.getElementById("deleteButton");
+
+
+    let currentAtendimento = null;
+
+
+    /* =====================================================
+       ESCAPAR HTML
+    ===================================================== */
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =====================================================
+       CLASSE DO STATUS
+    ===================================================== */
+
+    function getStatusClass(status) {
+
+      if (status === "Novo") {
+        return "status-novo";
+      }
+
+      if (status === "Em análise") {
+        return "status-analise";
+      }
+
+      if (status === "Respondido") {
+        return "status-respondido";
+      }
+
+      if (status === "Encerrado") {
+        return "status-encerrado";
+      }
+
+      return "status-novo";
+
+    }
+
+
+    /* =====================================================
+       LOGIN
+    ===================================================== */
+
+    loginForm.addEventListener(
+      "submit",
+      async function (event) {
+
+        event.preventDefault();
+
+        loginError.style.display = "none";
+
+        loginButton.disabled = true;
+
+        loginButton.textContent =
+          "A entrar...";
+
+
+        const email =
+          document
+            .getElementById("loginEmail")
+            .value
+            .trim();
+
+
+        const password =
+          document
+            .getElementById("loginPassword")
+            .value;
+
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.auth
+            .signInWithPassword({
+              email: email,
+              password: password
+            });
+
+
+        if (error) {
+
+          console.error(
+            "Erro de login:",
+            error
+          );
+
+          loginError.textContent =
+            "Não foi possível iniciar sessão. Verifica o email e a palavra-passe.";
+
+          loginError.style.display =
+            "block";
+
+          loginButton.disabled = false;
+
+          loginButton.textContent =
+            "Entrar";
+
+          return;
+
+        }
+
+
+        console.log(
+          "Login realizado:",
+          data.user.email
+        );
+
+
+        loginButton.disabled = false;
+
+        loginButton.textContent =
+          "Entrar";
+
+
+        await mostrarPainel();
+
+      }
+    );
+
+
+    /* =====================================================
+       MOSTRAR PAINEL
+    ===================================================== */
+
+    async function mostrarPainel() {
+
+      loginScreen.style.display =
+        "none";
+
+      adminPage.style.display =
+        "block";
+
+      await carregarAtendimentos();
+
+    }
+
+
+    /* =====================================================
+       CARREGAR ATENDIMENTOS
+    ===================================================== */
+
+    async function carregarAtendimentos() {
+
+      loading.style.display =
+        "block";
+
+      empty.style.display =
+        "none";
+
+      tableWrapper.style.display =
+        "none";
+
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .from("atendimentos")
+          .select("*")
+          .order(
+            "created_at",
+            {
+              ascending: false
+            }
+          );
+
+
+      loading.style.display =
+        "none";
+
+
+      if (error) {
+
+        console.error(
+          "Erro Supabase:",
+          error
+        );
+
+        empty.textContent =
+          "Erro ao carregar atendimentos: " +
+          error.message;
+
+        empty.style.display =
+          "block";
+
+        return;
+
+      }
+
+
+      if (!data || data.length === 0) {
+
+        empty.textContent =
+          "Não existem atendimentos registados.";
+
+        empty.style.display =
+          "block";
+
+        atualizarContadores([]);
+
+        return;
+
+      }
+
+
+      tableWrapper.style.display =
+        "block";
+
+      atendimentosBody.innerHTML =
+        "";
+
+
+      data.forEach(
+        function (item) {
+
+          const tr =
+            document.createElement("tr");
+
+
+          const dataFormatada =
+            item.created_at
+              ? new Date(
+                  item.created_at
+                ).toLocaleString(
+                  "pt-PT"
+                )
+              : "-";
+
+
+          tr.innerHTML = `
+
+            <td>
+              #${escapeHtml(item.id)}
+            </td>
+
+            <td>
+              ${escapeHtml(dataFormatada)}
+            </td>
+
+            <td>
+              ${escapeHtml(item.nome)}
+            </td>
+
+            <td>
+              ${escapeHtml(item.email)}
+            </td>
+
+            <td>
+              ${escapeHtml(item.assunto)}
+            </td>
+
+            <td>
+
+              <span
+                class="status ${getStatusClass(item.status)}"
+              >
+                ${escapeHtml(item.status)}
+              </span>
+
+            </td>
+
+            <td>
+
+              <div class="action-buttons">
+
+                <button
+                  type="button"
+                  class="view-button"
+                >
+                  Ver
+                </button>
+
+
+                <button
+                  type="button"
+                  class="delete-row-button"
+                >
+                  Eliminar
+                </button>
+
+              </div>
+
+            </td>
+
+          `;
+
+
+          tr
+            .querySelector(".view-button")
+            .addEventListener(
+              "click",
+              function () {
+
+                abrirDetalhes(item);
+
+              }
+            );
+
+
+          tr
+            .querySelector(".delete-row-button")
+            .addEventListener(
+              "click",
+              function () {
+
+                eliminarAtendimento(item);
+
+              }
+            );
+
+
+          atendimentosBody.appendChild(tr);
+
+        }
+      );
+
+
+      atualizarContadores(data);
+
+    }
+
+
+    /* =====================================================
+       CONTADORES
+    ===================================================== */
+
+    function atualizarContadores(data) {
+
+      totalCount.textContent =
+        data.length;
+
+
+      newCount.textContent =
+        data.filter(
+          item =>
+            item.status === "Novo"
+        ).length;
+
+
+      analysisCount.textContent =
+        data.filter(
+          item =>
+            item.status === "Em análise"
+        ).length;
+
+
+      answeredCount.textContent =
+        data.filter(
+          item =>
+            item.status === "Respondido"
+        ).length;
+
+
+      closedCount.textContent =
+        data.filter(
+          item =>
+            item.status === "Encerrado"
+        ).length;
+
+    }
+
+
+    /* =====================================================
+       ABRIR DETALHES
+    ===================================================== */
+
+    async function abrirDetalhes(item) {
+
+      currentAtendimento =
+        item;
+
+
+      const dataFormatada =
+        item.created_at
+          ? new Date(
+              item.created_at
+            ).toLocaleString(
+              "pt-PT"
+            )
+          : "-";
+
+
+      /* ===================================================
+         DOCUMENTO
+      =================================================== */
+
+      let documentoHtml = `
+        <span style="color:#64748b;">
+          Nenhum documento anexado.
+        </span>
+      `;
+
+
+      if (item.documento_url) {
+
+        const {
+          data: signedData,
+          error: signedError
+        } =
+          await supabaseClient
+            .storage
+            .from("atendimentos")
+            .createSignedUrl(
+              item.documento_url,
+              300
+            );
+
+
+        if (signedError) {
+
+          console.error(
+            "Erro ao gerar link do documento:",
+            signedError
+          );
+
+          documentoHtml = `
+            <span class="document-error">
+              Não foi possível abrir o documento.
+            </span>
+          `;
+
+        } else if (
+          signedData &&
+          signedData.signedUrl
+        ) {
+
+          documentoHtml = `
+            <a
+              href="${signedData.signedUrl}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="document-link"
+            >
+              📎 Abrir documento
+            </a>
+          `;
+
+        }
+
+      }
+
+
+      /* ===================================================
+         DETALHES
+      =================================================== */
+
+      detailContent.innerHTML = `
+
+        <div class="detail-item">
+
+          <small>
+            ID
+          </small>
+
+          <strong>
+            #${escapeHtml(item.id)}
+          </strong>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <small>
+            Data
+          </small>
+
+          <strong>
+            ${escapeHtml(dataFormatada)}
+          </strong>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <small>
+            Nome
+          </small>
+
+          <strong>
+            ${escapeHtml(item.nome)}
+          </strong>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <small>
+            Email
+          </small>
+
+          <strong>
+            ${escapeHtml(item.email)}
+          </strong>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <small>
+            Telefone
+          </small>
+
+          <strong>
+            ${escapeHtml(
+              item.telefone || "-"
+            )}
+          </strong>
+
+        </div>
+
+
+        <div class="detail-item">
+
+          <small>
+            Assunto
+          </small>
+
+          <strong>
+            ${escapeHtml(
+              item.assunto
+            )}
+          </strong>
+
+        </div>
+
+
+        <div class="detail-item full">
+
+          <small>
+            Mensagem
+          </small>
+
+          <div class="message-content">
+            ${escapeHtml(
+              item.mensagem
+            )}
+          </div>
+
+        </div>
+
+
+        <div class="detail-item full">
+
+          <small>
+            Documento anexado
+          </small>
+
+          <div>
+            ${documentoHtml}
+          </div>
+
+        </div>
+
+      `;
+
+
+      statusSelect.value =
+        item.status || "Novo";
+
+
+      respostaInput.value =
+        item.resposta || "";
+
+
+      detailModal.classList.add(
+        "active"
+      );
+
+    }
+
+
+    /* =====================================================
+       FECHAR MODAL
+    ===================================================== */
+
+    closeModal.addEventListener(
+      "click",
+      function () {
+
+        detailModal.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+    detailModal.addEventListener(
+      "click",
+      function (event) {
+
+        if (
+          event.target === detailModal
+        ) {
+
+          detailModal.classList.remove(
+            "active"
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       GUARDAR ALTERAÇÕES
+    ===================================================== */
+
+    saveButton.addEventListener(
+      "click",
+      async function () {
+
+        if (!currentAtendimento) {
+          return;
+        }
+
+
+        saveButton.disabled =
+          true;
+
+        saveButton.textContent =
+          "A guardar...";
+
+
+        const {
+          error
+        } =
+          await supabaseClient
+            .from("atendimentos")
+            .update({
+
+              status:
+                statusSelect.value,
+
+              resposta:
+                respostaInput.value.trim(),
+
+              atualizado_at:
+                new Date()
+                  .toISOString()
+
+            })
+            .eq(
+              "id",
+              currentAtendimento.id
+            );
+
+
+        if (error) {
+
+          console.error(
+            "Erro ao atualizar:",
+            error
+          );
+
+          alert(
+            "Não foi possível guardar: " +
+            error.message
+          );
+
+          saveButton.disabled =
+            false;
+
+          saveButton.textContent =
+            "Guardar alterações";
+
+          return;
+
+        }
+
+
+        alert(
+          "Atendimento atualizado com sucesso."
+        );
+
+
+        detailModal.classList.remove(
+          "active"
+        );
+
+
+        saveButton.disabled =
+          false;
+
+        saveButton.textContent =
+          "Guardar alterações";
+
+
+        await carregarAtendimentos();
+
+      }
+    );
+
+
+    /* =====================================================
+       ELIMINAR ATENDIMENTO (a partir do modal)
+    ===================================================== */
+
+    deleteButton.addEventListener(
+      "click",
+      async function () {
+
+        if (!currentAtendimento) {
+          return;
+        }
+
+
+        const confirmar =
+          window.confirm(
+            "Tem a certeza que deseja eliminar este atendimento?\n\n" +
+            "Esta ação não pode ser desfeita."
+          );
+
+
+        if (!confirmar) {
+          return;
+        }
+
+
+        deleteButton.disabled =
+          true;
+
+        deleteButton.textContent =
+          "A eliminar...";
+
+
+        await eliminarAtendimentoPorId(
+          currentAtendimento
+        );
+
+
+        deleteButton.disabled =
+          false;
+
+        deleteButton.textContent =
+          "Eliminar atendimento";
+
+
+        detailModal.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       ELIMINAR ATENDIMENTO (a partir da lista)
+    ===================================================== */
+
+    async function eliminarAtendimento(item) {
+
+      const confirmar =
+        window.confirm(
+          "Tem a certeza que deseja eliminar o atendimento #" +
+          item.id +
+          "?\n\nEsta ação não pode ser desfeita."
+        );
+
+
+      if (!confirmar) {
+        return;
+      }
+
+
+      await eliminarAtendimentoPorId(
+        item
+      );
+
+    }
+
+
+    /* =====================================================
+       LÓGICA PARTILHADA DE ELIMINAÇÃO
+    ===================================================== */
+
+    async function eliminarAtendimentoPorId(item) {
+
+      /*
+       * Primeiro eliminamos o registo da tabela.
+       * Se tiver documento associado, tentamos
+       * remover também o ficheiro do Storage.
+       */
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from("atendimentos")
+          .delete()
+          .eq(
+            "id",
+            item.id
+          );
+
+
+      if (error) {
+
+        console.error(
+          "Erro ao eliminar atendimento:",
+          error
+        );
+
+        alert(
+          "Não foi possível eliminar: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      if (item.documento_url) {
+
+        const {
+          error: removeError
+        } =
+          await supabaseClient
+            .storage
+            .from("atendimentos")
+            .remove([
+              item.documento_url
+            ]);
+
+
+        if (removeError) {
+
+          console.error(
+            "Erro ao remover documento do Storage:",
+            removeError
+          );
+
+          /*
+           * Não interrompemos o fluxo por causa disto;
+           * o registo já foi eliminado com sucesso.
+           */
+
+        }
+
+      }
+
+
+      alert(
+        "Atendimento eliminado com sucesso."
+      );
+
+
+      await carregarAtendimentos();
+
+    }
+
+
+    /* =====================================================
+       ATUALIZAR
+    ===================================================== */
+
+    refreshButton.addEventListener(
+      "click",
+      async function () {
+
+        await carregarAtendimentos();
+
+      }
+    );
+
+
+    /* =====================================================
+       SAIR
+    ===================================================== */
+
+    logoutButton.addEventListener(
+      "click",
+      async function () {
+
+        await supabaseClient.auth.signOut();
+
+        adminPage.style.display =
+          "none";
+
+        loginScreen.style.display =
+          "flex";
+
+      }
+    );
+
+
+    /* =====================================================
+       VERIFICAR SESSÃO EXISTENTE
+    ===================================================== */
+
+    const {
+      data: sessionData
+    } =
+      await supabaseClient.auth
+        .getSession();
+
+
+    if (
+      sessionData &&
+      sessionData.session
+    ) {
+
+      await mostrarPainel();
+
+    }
+
+  }
+);
+
+</script>
+
+
+</body>
+
+</html>

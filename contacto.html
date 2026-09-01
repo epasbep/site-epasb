@@ -1,0 +1,1916 @@
+<!doctype html>
+<html lang="pt">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Atendimento ao Cidadão | EPASB-EP</title>
+
+  <meta
+    name="description"
+    content="Atendimento ao cidadão da EPASB-EP."
+  >
+
+  <!-- =====================================================
+       FAVICON
+  ====================================================== -->
+
+  <link
+    rel="icon"
+    type="image/x-icon"
+    href="epasb/images/favicon/favicon.ico"
+  >
+
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="epasb/images/favicon/favicon-16x16.png"
+  >
+
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="epasb/images/favicon/favicon-32x32.png"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="epasb/images/favicon/apple-touch-icon.png"
+  >
+
+  <!-- =====================================================
+       FONTE
+  ====================================================== -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- =====================================================
+       CSS DO SITE
+  ====================================================== -->
+
+  <link
+    rel="stylesheet"
+    href="epasb/assets/styles.css"
+  >
+
+  <!-- =====================================================
+       ESTILOS ESPECÍFICOS
+  ====================================================== -->
+
+  <style>
+
+    .file-info {
+      margin-top: 8px;
+      padding: 10px 12px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #475569;
+      display: none;
+    }
+
+    .file-info.show {
+      display: block;
+    }
+
+    .form-note.error {
+      color: #b91c1c;
+    }
+
+    .form-note.success {
+      color: #15803d;
+    }
+
+    .form-submit:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+    }
+
+    .submit-message {
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 8px;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .submit-message.success {
+      display: block;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .submit-message.error {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* =====================================================
+       ÍCONES DO RODAPÉ
+    ====================================================== */
+
+    .footer-social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-social-link svg {
+      flex: 0 0 auto;
+    }
+
+  </style>
+
+
+  <!-- =====================================================
+       SEGURANÇA
+  ====================================================== -->
+
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
+  >
+
+  <meta
+    name="referrer"
+    content="strict-origin-when-cross-origin"
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <meta
+    http-equiv="X-Content-Type-Options"
+    content="nosniff"
+  >
+
+  <!-- =====================================================
+       GOOGLE ANALYTICS — contagem de visitantes
+       ID de Medição da propriedade "Site EPASB"
+       (obtido em analytics.google.com)
+  ====================================================== -->
+
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-K7QJSD77SM"
+  ></script>
+
+  <script>
+
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+
+    gtag("config", "G-K7QJSD77SM");
+
+  </script>
+
+</head>
+
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="site-header">
+
+  <div class="header-inner">
+
+    <a
+      href="index.html"
+      class="brand"
+      aria-label="EPASB-EP - Início"
+    >
+
+      <img
+        src="epasb/images/logo-epasb.jpg"
+        alt="EPASB-EP"
+      >
+
+    </a>
+
+
+    <div class="header-actions">
+
+      <nav
+        class="nav-main"
+        aria-label="Navegação principal"
+      >
+
+        <a href="index.html">
+          Início
+        </a>
+
+        <a href="sobre.html">
+          Sobre
+        </a>
+
+        <a href="organigrama.html">
+          Organigrama
+        </a>
+
+        <a href="estatutos.html">
+          Estatutos
+        </a>
+
+        <a href="noticias.html">
+          Notícias
+        </a>
+
+        <a
+          href="contacto.html"
+          class="active"
+          aria-current="page"
+        >
+          Contacto
+        </a>
+
+      </nav>
+
+
+      <button
+        class="menu-toggle"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        type="button"
+      >
+
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+
+          <line
+            x1="4"
+            x2="20"
+            y1="6"
+            y2="6"
+          ></line>
+
+          <line
+            x1="4"
+            x2="20"
+            y1="12"
+            y2="12"
+          ></line>
+
+          <line
+            x1="4"
+            x2="20"
+            y1="18"
+            y2="18"
+          ></line>
+
+        </svg>
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       MENU MOBILE
+  ====================================================== -->
+
+  <div class="nav-mobile">
+
+    <nav
+      aria-label="Navegação principal mobile"
+    >
+
+      <a href="index.html">
+        Início
+      </a>
+
+      <a href="sobre.html">
+        Sobre
+      </a>
+
+      <a href="organigrama.html">
+        Organigrama
+      </a>
+
+      <a href="estatutos.html">
+        Estatutos
+      </a>
+
+      <a href="noticias.html">
+        Notícias
+      </a>
+
+      <a
+        href="contacto.html"
+        class="active"
+        aria-current="page"
+      >
+        Contacto
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+  <img
+    class="hero-bg"
+    src="epasb/images/hero-water.jpg"
+    alt=""
+    aria-hidden="true"
+  >
+
+  <div class="overlay"></div>
+
+
+  <div class="container hero-content">
+
+    <span class="hero-badge">
+      Atendimento ao cidadão · EPASB-EP
+    </span>
+
+
+    <h1>
+      Entre em contacto conosco
+    </h1>
+
+
+    <p>
+      Para formalizar o envio da sua solicitação,
+      esclarecimento, denúncia ou sugestão, preencha
+      o formulário abaixo.
+    </p>
+
+
+    <div class="hero-buttons">
+
+      <a
+        href="#formulario"
+        class="btn primary"
+      >
+        Preencher formulário
+      </a>
+
+
+      <a
+        href="tel:+24493536674"
+        class="btn outline btn-icon"
+      >
+
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+
+          <path
+            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+          ></path>
+
+        </svg>
+
+        <span>
+          Ligar agora
+        </span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="wave-divider on-dark"
+    aria-hidden="true"
+  >
+
+    <svg
+      viewBox="0 0 1200 32"
+      preserveAspectRatio="none"
+    >
+
+      <path
+        d="M0,16 C150,32 350,0 600,16 C850,32 1050,0 1200,16 L1200,32 L0,32 Z"
+      ></path>
+
+    </svg>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FORMULÁRIO
+===================================================== -->
+
+<section
+  class="section light atendimento-section"
+  id="formulario"
+>
+
+  <div class="container">
+
+    <div class="contact-form-wrapper">
+
+      <form
+        class="contact-form"
+        id="atendimentoForm"
+        novalidate
+      >
+
+
+        <!-- NOME -->
+
+        <div class="form-group">
+
+          <label
+            for="nome"
+            class="form-label"
+          >
+            Nome
+          </label>
+
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            class="form-input"
+            placeholder="Digite o seu nome"
+            autocomplete="name"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+          <label
+            for="email"
+            class="form-label"
+          >
+            Email
+            <span aria-hidden="true">*</span>
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-input"
+            placeholder="Digite o seu email"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- TELEFONE -->
+
+        <div class="form-group">
+
+          <label
+            for="telefone"
+            class="form-label"
+          >
+            Telefone
+          </label>
+
+          <input
+            type="tel"
+            id="telefone"
+            name="telefone"
+            class="form-input"
+            placeholder="+244 9XX XXX XXX"
+            autocomplete="tel"
+          >
+
+        </div>
+
+
+
+        <!-- ASSUNTO -->
+
+        <div class="form-group">
+
+          <label
+            for="assunto"
+            class="form-label"
+          >
+            Assunto
+          </label>
+
+          <select
+            id="assunto"
+            name="assunto"
+            class="form-select"
+            required
+          >
+
+            <option
+              value=""
+              selected
+              disabled
+            >
+              Selecione um assunto
+            </option>
+
+            <option value="elogio">
+              Elogio
+            </option>
+
+            <option value="solicitacao">
+              Solicitação
+            </option>
+
+            <option value="denuncia">
+              Denúncia
+            </option>
+
+            <option value="sugestao">
+              Sugestão
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- MENSAGEM -->
+
+        <div class="form-group">
+
+          <label
+            for="mensagem"
+            class="form-label"
+          >
+            Mensagem
+            <span aria-hidden="true">*</span>
+          </label>
+
+          <textarea
+            id="mensagem"
+            name="mensagem"
+            class="form-textarea"
+            rows="7"
+            placeholder="Escreva a sua mensagem..."
+            required
+          ></textarea>
+
+        </div>
+
+
+
+        <!-- DOCUMENTO -->
+
+        <div class="form-group">
+
+          <label
+            for="documento"
+            class="form-label"
+          >
+            Anexar documento
+          </label>
+
+          <input
+            type="file"
+            id="documento"
+            name="documento"
+            class="form-input"
+            accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
+          >
+
+          <p class="form-note">
+            PDF, JPG ou PNG — tamanho máximo: 5 MB.
+          </p>
+
+
+          <div
+            id="fileInfo"
+            class="file-info"
+          ></div>
+
+        </div>
+
+
+
+        <!-- MENSAGEM DE RESULTADO -->
+
+        <div
+          id="submitMessage"
+          class="submit-message"
+          role="alert"
+        ></div>
+
+
+
+        <!-- BOTÃO -->
+
+        <button
+          type="submit"
+          class="btn primary form-submit"
+          id="submitAtendimento"
+        >
+          Enviar solicitação
+        </button>
+
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTACTO
+===================================================== -->
+
+<section
+  class="cta"
+  id="denuncia"
+>
+
+  <div class="container">
+
+    <span
+      class="eyebrow"
+      style="color:var(--color-accent-soft);"
+    >
+      Atendimento ao cidadão
+    </span>
+
+
+    <h2>
+      Disque e Denúncia!
+    </h2>
+
+
+    <p>
+      Fale connosco por telefone, WhatsApp ou através
+      do formulário de contacto.
+    </p>
+
+
+    <div class="cta-buttons">
+
+      <a
+        href="tel:+24493536674"
+        class="btn primary btn-icon"
+      >
+
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+
+          <path
+            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+          ></path>
+
+        </svg>
+
+        <span>
+          Ligar agora
+        </span>
+
+      </a>
+
+
+      <a
+        href="https://wa.me/24493536674"
+        class="btn outline btn-icon"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+
+          <path
+            d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.33 4.97L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.42 5.83c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.99-1.22-.73-.66-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.36-.77-1.86-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.89 2.42 1.02 2.59.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.17-.48-.29z"
+          ></path>
+
+        </svg>
+
+        <span>
+          WhatsApp
+        </span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+
+      <!-- =================================================
+           EPASB
+      ================================================== -->
+
+      <div class="footer-column">
+
+        <div class="footer-brand">
+
+          <img
+            src="epasb/images/logo-epasb.jpg"
+            alt="EPASB-EP"
+          >
+
+        </div>
+
+
+        <p class="footer-about">
+          Empresa Provincial responsável pelo abastecimento
+          de água potável e saneamento básico na província
+          de Benguela, Angola.
+        </p>
+
+      </div>
+
+
+
+      <!-- =================================================
+           INSTITUCIONAL
+      ================================================== -->
+
+      <div class="footer-column">
+
+        <h3>
+          Institucional
+        </h3>
+
+
+        <ul>
+
+          <li>
+            <a href="sobre.html">
+              Sobre a EPASB
+            </a>
+          </li>
+
+          <li>
+            <a href="organigrama.html">
+              Organigrama
+            </a>
+          </li>
+
+          <li>
+            <a href="estatutos.html">
+              Estatutos
+            </a>
+          </li>
+
+          <li>
+            <a href="noticias.html">
+              Notícias
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="contacto.html"
+              aria-current="page"
+            >
+              Contacto
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+
+
+      <!-- =================================================
+           LINKS INSTITUCIONAIS
+      ================================================== -->
+
+      <div class="footer-column">
+
+        <h3>
+          Links institucionais
+        </h3>
+
+
+        <ul>
+
+          <li>
+
+            <a
+              href="https://minea.gov.ao/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ministério da Energia e Águas
+            </a>
+
+          </li>
+
+
+          <li>
+
+            <a
+              href="https://governo.gov.ao/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Governo de Angola
+            </a>
+
+          </li>
+
+
+          <li>
+
+            <a
+              href="https://benguela.gov.ao/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Governo Provincial de Benguela
+            </a>
+
+          </li>
+
+
+          <li>
+
+            <a
+              href="https://epal.co.ao/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              EPAL
+            </a>
+
+          </li>
+
+        </ul>
+
+      </div>
+
+
+
+      <!-- =================================================
+           CONTACTO
+      ================================================== -->
+
+      <div class="footer-column">
+
+        <h3>
+          Contacto
+        </h3>
+
+
+        <ul>
+
+          <!-- MORADA -->
+
+          <li>
+            Rua Sacadura Cabral, nº 122
+          </li>
+
+
+          <!-- TELEFONE COM SÍMBOLO -->
+
+          <li>
+
+            <a
+              href="tel:+24493536674"
+              class="footer-social-link"
+              aria-label="Ligar para a EPASB"
+            >
+
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2
+                  19.79 19.79 0 0 1-8.63-3.07
+                  19.5 19.5 0 0 1-6-6
+                  A19.79 19.79 0 0 1 2.12 4.18
+                  2 2 0 0 1 5.11 2h3a2 2 0 0 1 2
+                  1.72c.12.9.33 1.78.62 2.63
+                  a2 2 0 0 1-.45 2.11L9 9.73
+                  a16 16 0 0 0 6 6l1.27-1.27
+                  a2 2 0 0 1 2.11-.45
+                  c.85.29 1.73.5 2.63.62
+                  A2 2 0 0 1 22 16.92z"
+                ></path>
+
+              </svg>
+
+              <span>
+                +244 935 366 74
+              </span>
+
+            </a>
+
+          </li>
+
+
+          <!-- EMAIL -->
+
+          <li>
+
+            <a
+              href="mailto:geral@epasb.ao"
+              class="footer-social-link"
+              aria-label="Enviar email para a EPASB"
+            >
+
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+
+                <rect
+                  x="2"
+                  y="4"
+                  width="20"
+                  height="16"
+                  rx="2"
+                ></rect>
+
+                <path
+                  d="m22 6-10 7L2 6"
+                ></path>
+
+              </svg>
+
+              <span>
+                geral@epasb.ao
+              </span>
+
+            </a>
+
+          </li>
+
+
+          <!-- EMAIL SECRETARIA -->
+
+          <li>
+
+            <a
+              href="mailto:secretariageral@epasb.ao"
+              class="footer-social-link"
+              aria-label="Enviar email para a secretaria geral da EPASB"
+            >
+
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+
+                <rect
+                  x="2"
+                  y="4"
+                  width="20"
+                  height="16"
+                  rx="2"
+                ></rect>
+
+                <path
+                  d="m22 6-10 7L2 6"
+                ></path>
+
+              </svg>
+
+              <span>
+                secretariageral@epasb.ao
+              </span>
+
+            </a>
+
+          </li>
+
+
+          <!-- FACEBOOK -->
+
+          <li>
+
+            <a
+              href="https://www.facebook.com/share/1Zt2aXdFm7/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-social-link"
+              aria-label="Facebook da EPASB"
+            >
+
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+
+                <path
+                  d="M22 12.06C22 6.505 17.523 2 12 2S2 6.505 2 12.06
+                  c0 5.02 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845
+                  c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195
+                  2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.875
+                  h2.773l-.443 2.91h-2.33V22c4.78-.756 8.437-4.92
+                  8.437-9.94Z"
+                ></path>
+
+              </svg>
+
+              <span>
+                Facebook
+              </span>
+
+            </a>
+
+          </li>
+
+
+          <!-- INSTAGRAM -->
+
+          <li>
+
+            <a
+              href="https://www.instagram.com/epasb_ep?igsh=MWk0dXdua2UwbmViNA=="
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-social-link"
+              aria-label="Instagram da EPASB"
+            >
+
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                aria-hidden="true"
+              >
+
+                <rect
+                  x="3"
+                  y="3"
+                  width="18"
+                  height="18"
+                  rx="5"
+                  ry="5"
+                ></rect>
+
+                <path
+                  d="M16 11.37A4 4 0 1 1 12.63 8
+                  4 4 0 0 1 16 11.37z"
+                ></path>
+
+                <line
+                  x1="17.5"
+                  y1="6.5"
+                  x2="17.51"
+                  y2="6.5"
+                ></line>
+
+              </svg>
+
+              <span>
+                Instagram
+              </span>
+
+            </a>
+
+          </li>
+
+
+          <!-- WHATSAPP COM SÍMBOLO -->
+
+          <li>
+
+            <a
+              href="https://wa.me/24493536674"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-social-link"
+              aria-label="WhatsApp da EPASB"
+            >
+
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+
+                <path
+                  d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91
+                  c0 1.75.46 3.46 1.33 4.97L2.05 22
+                  l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01
+                  c5.46 0 9.91-4.45 9.91-9.91
+                  0-2.65-1.03-5.14-2.9-7.01
+                  A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01
+                  a8.2 8.2 0 0 1-4.19-1.15l-.3-.18
+                  -3.12.82.83-3.04-.2-.31
+                  a8.19 8.19 0 0 1-1.26-4.36
+                  c0-4.54 3.7-8.24 8.25-8.24
+                  2.2 0 4.27.86 5.83 2.42
+                  a8.18 8.18 0 0 1 2.42 5.83
+                  c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.16
+                  c-.25-.12-1.47-.72-1.7-.81
+                  -.23-.08-.39-.12-.56.13
+                  -.17.25-.64.81-.78.97
+                  -.14.17-.29.19-.54.06
+                  -.25-.12-1.04-.38-1.99-1.22
+                  -.73-.66-1.23-1.46-1.37-1.71
+                  -.14-.25-.02-.38.11-.51
+                  .11-.11.25-.29.37-.44
+                  .12-.15.16-.25.25-.42
+                  .08-.17.04-.31-.02-.44
+                  -.06-.12-.56-1.36-.77-1.86
+                  -.2-.49-.41-.42-.56-.43h-.48
+                  c-.17 0-.44.06-.67.31
+                  -.23.25-.87.85-.87 2.08
+                  0 1.23.89 2.42 1.02 2.59
+                  .12.17 1.75 2.67 4.24 3.74
+                  .59.26 1.05.41 1.41.52
+                  .59.19 1.13.16 1.56.1
+                  .48-.07 1.47-.6 1.68-1.18
+                  .21-.58.21-1.08.15-1.18
+                  -.06-.1-.23-.17-.48-.29z"
+                ></path>
+
+              </svg>
+
+              <span>
+                WhatsApp
+              </span>
+
+            </a>
+
+          </li>
+
+        </ul>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- =================================================
+         FOOTER BOTTOM
+    ================================================== -->
+
+    <div class="footer-bottom">
+
+      <p>
+        © <span id="year"></span>
+        Empresa Provincial de Águas e Saneamento de Benguela
+      </p>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT PRINCIPAL
+===================================================== -->
+
+<script
+  src="epasb/assets/main.js"
+  defer
+></script>
+
+
+
+<!-- =====================================================
+     ATENDIMENTO + SUPABASE STORAGE
+===================================================== -->
+
+<script>
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+
+    /* =====================================================
+       CONFIGURAÇÃO SUPABASE
+    ===================================================== */
+
+    const SUPABASE_URL =
+      "https://yctyaycgxbbwnzgrkfwq.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_rg8_rF7TpfGwoqCZtQSFqQ_D4q1a_6F";
+
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+
+    /* =====================================================
+       ELEMENTOS
+    ===================================================== */
+
+    const form =
+      document.getElementById(
+        "atendimentoForm"
+      );
+
+    const submitButton =
+      document.getElementById(
+        "submitAtendimento"
+      );
+
+    const documentoInput =
+      document.getElementById(
+        "documento"
+      );
+
+    const fileInfo =
+      document.getElementById(
+        "fileInfo"
+      );
+
+    const submitMessage =
+      document.getElementById(
+        "submitMessage"
+      );
+
+
+    /* =====================================================
+       CONFIGURAÇÕES DO DOCUMENTO
+    ===================================================== */
+
+    const MAX_FILE_SIZE =
+      5 * 1024 * 1024;
+
+    const ALLOWED_TYPES = [
+      "application/pdf",
+      "image/jpeg",
+      "image/png"
+    ];
+
+
+    /* =====================================================
+       MOSTRAR INFORMAÇÃO DO FICHEIRO
+    ===================================================== */
+
+    documentoInput.addEventListener(
+      "change",
+      function () {
+
+        const file =
+          documentoInput.files[0];
+
+
+        fileInfo.classList.remove(
+          "show"
+        );
+
+
+        if (!file) {
+          return;
+        }
+
+
+        const sizeMB =
+          (
+            file.size /
+            1024 /
+            1024
+          ).toFixed(2);
+
+
+        fileInfo.textContent =
+          "Ficheiro selecionado: " +
+          file.name +
+          " (" +
+          sizeMB +
+          " MB)";
+
+
+        fileInfo.classList.add(
+          "show"
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       MENSAGEM
+    ===================================================== */
+
+    function mostrarMensagem(
+      texto,
+      tipo
+    ) {
+
+      submitMessage.textContent =
+        texto;
+
+      submitMessage.className =
+        "submit-message " +
+        tipo;
+
+    }
+
+
+    /* =====================================================
+       VALIDAR DOCUMENTO
+    ===================================================== */
+
+    function validarDocumento(
+      file
+    ) {
+
+      if (!file) {
+
+        return {
+          valido: true
+        };
+
+      }
+
+
+      if (
+        file.size >
+        MAX_FILE_SIZE
+      ) {
+
+        return {
+
+          valido: false,
+
+          mensagem:
+            "O documento ultrapassa o limite de 5 MB."
+
+        };
+
+      }
+
+
+      if (
+        !ALLOWED_TYPES.includes(
+          file.type
+        )
+      ) {
+
+        return {
+
+          valido: false,
+
+          mensagem:
+            "Tipo de documento não permitido. " +
+            "Envie apenas PDF, JPG ou PNG."
+
+        };
+
+      }
+
+
+      return {
+        valido: true
+      };
+
+    }
+
+
+    /* =====================================================
+       ENVIO DO FORMULÁRIO
+    ===================================================== */
+
+    form.addEventListener(
+      "submit",
+      async function (event) {
+
+        event.preventDefault();
+
+
+        submitMessage.className =
+          "submit-message";
+
+        submitMessage.textContent =
+          "";
+
+
+        /* =================================================
+           RECOLHER DADOS
+        ================================================= */
+
+        const nome =
+          document
+            .getElementById("nome")
+            .value
+            .trim();
+
+
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
+
+
+        const telefone =
+          document
+            .getElementById("telefone")
+            .value
+            .trim();
+
+
+        const assunto =
+          document
+            .getElementById("assunto")
+            .value;
+
+
+        const mensagem =
+          document
+            .getElementById("mensagem")
+            .value
+            .trim();
+
+
+        const documento =
+          documentoInput.files[0] ||
+          null;
+
+
+        /* =================================================
+           VALIDAÇÃO
+        ================================================= */
+
+        if (!nome) {
+
+          mostrarMensagem(
+            "Por favor, informe o seu nome.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        if (!email) {
+
+          mostrarMensagem(
+            "Por favor, informe o seu email.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        if (!assunto) {
+
+          mostrarMensagem(
+            "Por favor, selecione o assunto.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        if (!mensagem) {
+
+          mostrarMensagem(
+            "Por favor, escreva a sua mensagem.",
+            "error"
+          );
+
+          return;
+        }
+
+
+        /* =================================================
+           VALIDAR FICHEIRO
+        ================================================= */
+
+        const validacao =
+          validarDocumento(
+            documento
+          );
+
+
+        if (
+          !validacao.valido
+        ) {
+
+          mostrarMensagem(
+            validacao.mensagem,
+            "error"
+          );
+
+          return;
+        }
+
+
+        /* =================================================
+           BLOQUEAR BOTÃO
+        ================================================= */
+
+        submitButton.disabled =
+          true;
+
+        submitButton.textContent =
+          documento
+            ? "A enviar documento..."
+            : "A enviar...";
+
+
+        try {
+
+
+          /* =================================================
+             CAMINHO DO DOCUMENTO
+          ================================================= */
+
+          let documentoUrl =
+            null;
+
+
+          let documentoPath =
+            null;
+
+
+          /* =================================================
+             UPLOAD
+          ================================================= */
+
+          if (documento) {
+
+            const timestamp =
+              Date.now();
+
+
+            const nomeLimpo =
+              documento.name
+                .normalize("NFD")
+                .replace(
+                  /[\u0300-\u036f]/g,
+                  ""
+                )
+                .replace(
+                  /[^a-zA-Z0-9._-]/g,
+                  "_"
+                );
+
+
+            documentoPath =
+              "documentos/" +
+              timestamp +
+              "_" +
+              nomeLimpo;
+
+
+            console.log(
+              "A enviar para Storage:",
+              documentoPath
+            );
+
+
+            const {
+              data: uploadData,
+              error: uploadError
+            } =
+              await supabaseClient
+                .storage
+                .from("atendimentos")
+                .upload(
+                  documentoPath,
+                  documento,
+                  {
+                    cacheControl: "3600",
+                    upsert: false,
+                    contentType:
+                      documento.type
+                  }
+                );
+
+
+            if (uploadError) {
+
+              console.error(
+                "ERRO NO STORAGE:",
+                uploadError
+              );
+
+              throw new Error(
+                "Não foi possível enviar o documento: " +
+                uploadError.message
+              );
+
+            }
+
+
+            console.log(
+              "Documento enviado:",
+              uploadData
+            );
+
+
+            documentoUrl =
+              documentoPath;
+
+          }
+
+
+          /* =================================================
+             GRAVAR ATENDIMENTO
+          ================================================= */
+
+          submitButton.textContent =
+            "A guardar atendimento...";
+
+
+          const dadosAtendimento = {
+
+            nome: nome,
+
+            email: email,
+
+            telefone:
+              telefone || null,
+
+            assunto: assunto,
+
+            mensagem: mensagem,
+
+            status: "Novo",
+
+            resposta: null,
+
+            documento_url:
+              documentoUrl
+
+          };
+
+
+          console.log(
+            "Dados a enviar:",
+            dadosAtendimento
+          );
+
+
+          const {
+            error: atendimentoError
+          } =
+            await supabaseClient
+              .from("atendimentos")
+              .insert(
+                dadosAtendimento
+              );
+
+
+          if (atendimentoError) {
+
+            console.error(
+              "ERRO NA TABELA ATENDIMENTOS:",
+              atendimentoError
+            );
+
+
+            if (documentoPath) {
+
+              await supabaseClient
+                .storage
+                .from("atendimentos")
+                .remove([
+                  documentoPath
+                ]);
+
+            }
+
+
+            throw new Error(
+              "Não foi possível gravar o atendimento: " +
+              atendimentoError.message
+            );
+
+          }
+
+
+          console.log(
+            "Atendimento criado com sucesso."
+          );
+
+
+          /* =================================================
+             SUCESSO
+          ================================================= */
+
+          mostrarMensagem(
+            "Atendimento enviado com sucesso! " +
+            "A EPASB-EP recebeu a sua solicitação.",
+            "success"
+          );
+
+
+          alert(
+            "Atendimento enviado com sucesso!\n\n" +
+            "A EPASB-EP recebeu a sua solicitação."
+          );
+
+
+          /* =================================================
+             LIMPAR
+          ================================================= */
+
+          form.reset();
+
+          fileInfo.classList.remove(
+            "show"
+          );
+
+
+        } catch (error) {
+
+
+          console.error(
+            "ERRO COMPLETO:",
+            error
+          );
+
+
+          mostrarMensagem(
+            error.message ||
+            "Não foi possível enviar o atendimento.",
+            "error"
+          );
+
+
+          alert(
+            error.message ||
+            "Não foi possível enviar o atendimento."
+          );
+
+
+        } finally {
+
+
+          submitButton.disabled =
+            false;
+
+          submitButton.textContent =
+            "Enviar solicitação";
+
+        }
+
+      }
+    );
+
+  }
+
+);
+
+</script>
+
+
+</body>
+
+</html>
