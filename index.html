@@ -93,151 +93,6 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
   >
 
-  <style>
-
-    .footer-social-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .footer-social-link svg {
-      flex: 0 0 auto;
-    }
-
-    .btn-icon {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-icon svg {
-      flex: 0 0 auto;
-    }
-
-    .service-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: rgba(0, 119, 182, 0.1);
-      color: #0077B6;
-      margin-bottom: 12px;
-    }
-
-    .service-icon svg {
-      flex: 0 0 auto;
-    }
-
-    /* ================================
-       MAPA
-       ================================ */
-
-    .epasb-map-wrap {
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 0;
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    @media (max-width: 860px) {
-
-      .epasb-map-wrap {
-        grid-template-columns: 1fr;
-      }
-
-      .epasb-map-canvas {
-        height: 380px;
-      }
-
-      .epasb-map-sidebar {
-        max-height: 260px;
-      }
-
-    }
-
-    .epasb-map-sidebar {
-      background: #fff;
-      padding: 14px;
-      overflow-y: auto;
-      max-height: 480px;
-    }
-
-    .epasb-zone-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-      text-align: left;
-      background: var(--color-bg);
-      border: 1px solid var(--color-border);
-      border-radius: 10px;
-      padding: 10px 12px;
-      margin-bottom: 8px;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: .88rem;
-      color: inherit;
-      transition:
-        background .15s,
-        border-color .15s,
-        color .15s;
-    }
-
-    .epasb-zone-btn:hover {
-      border-color: #40ADC8;
-    }
-
-    .epasb-zone-btn.active {
-      background: #0077B6;
-      border-color: #0077B6;
-      color: #fff;
-    }
-
-    .epasb-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      flex: 0 0 auto;
-    }
-
-    .epasb-zone-count {
-      margin-left: auto;
-      font-size: .72rem;
-      background: rgba(0, 0, 0, .06);
-      padding: 2px 8px;
-      border-radius: 999px;
-    }
-
-    .epasb-zone-btn.active .epasb-zone-count {
-      background: rgba(255, 255, 255, .25);
-    }
-
-    .epasb-map-canvas {
-      width: 100%;
-      height: 480px;
-    }
-
-    .epasb-popup-title {
-      font-weight: 700;
-      color: #001F33;
-      margin: 0 0 4px;
-      font-size: .95rem;
-    }
-
-    .epasb-popup-list {
-      margin: 6px 0 0;
-      padding-left: 18px;
-      font-size: .85rem;
-      line-height: 1.5;
-    }
-
-  </style>
-
 
   <!-- =====================================================
        SEGURANÇA
@@ -764,10 +619,7 @@
       </h2>
 
 
-      <div
-        class="grid"
-        style="grid-template-columns: repeat(2, minmax(0, 1fr));"
-      >
+      <div class="grid stats-numbers-grid">
 
 
         <!-- MUNICÍPIOS ATENDIDOS -->
@@ -880,7 +732,7 @@
 
       <p>
 
-        Fale connosco por telefone, WhatsApp ou através
+        Fale conosco por telefone, WhatsApp ou através
 
         do formulário de contacto.
 
@@ -980,7 +832,7 @@
           <div class="footer-brand">
 
             <img
-              src="epasb/images/logo-epasb.jpg"
+              src="images/logo-epasb.jpg"
               alt="EPASB-EP"
             >
 

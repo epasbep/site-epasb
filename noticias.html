@@ -1,49 +1,53 @@
 <!doctype html>
+
 <html lang="pt">
 
 <head>
 
   <meta charset="utf-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1"
 
-  <title>
-    Notícias | EPASB-EP
-  </title>
+>
 
-  <meta
-    name="description"
-    content="Notícias, comunicados e atualizações da Empresa Provincial de Águas e Saneamento de Benguela."
-  >
+  <title>Notícias | EPASB-EP</title>
 
-  <meta
-    property="og:title"
-    content="Notícias | EPASB-EP"
-  >
+<meta
+name="description"
+content="Notícias, comunicados e atualizações da Empresa Provincial de Águas e Saneamento de Benguela."
 
-  <meta
-    property="og:description"
-    content="Notícias, comunicados e atualizações da EPASB-EP."
-  >
+>
 
-  <meta
-    property="og:type"
-    content="website"
-  >
+<meta
+property="og:title"
+content="Notícias | EPASB-EP"
 
-  <meta
-    property="og:url"
-    content="/noticias"
-  >
+>
+
+<meta
+property="og:description"
+content="Notícias, comunicados e atualizações da EPASB-EP."
+
+>
+
+<meta
+property="og:type"
+content="website"
+
+>
+
+<meta
+property="og:url"
+content="/noticias"
+
+>
 
   <link
     rel="canonical"
     href="/noticias"
   >
-
 
   <!-- =====================================================
        FAVICON
@@ -87,9 +91,8 @@
     href="epasb/images/favicon/site.webmanifest"
   >
 
-
   <!-- =====================================================
-       FONTE — INTER
+       FONTE
   ====================================================== -->
 
   <link
@@ -108,7 +111,6 @@
     rel="stylesheet"
   >
 
-
   <!-- =====================================================
        CSS
   ====================================================== -->
@@ -118,7 +120,6 @@
     href="epasb/assets/styles.css"
   >
 
-
   <!-- =====================================================
        ESTILOS ESPECÍFICOS
   ====================================================== -->
@@ -126,34 +127,22 @@
   <style>
 
     .footer-social-link {
-
       display: inline-flex;
       align-items: center;
       gap: 8px;
-
     }
-
 
     .footer-social-link svg {
-
       flex: 0 0 auto;
-
     }
-
 
     .footer-whatsapp {
-
       font-weight: 600;
-
     }
-
 
     .footer-whatsapp svg {
-
       animation: whatsappPulse 2.5s ease-in-out infinite;
-
     }
-
 
     @keyframes whatsappPulse {
 
@@ -171,82 +160,74 @@
 
     }
 
-
     .btn-icon {
-
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-
     }
-
 
     .btn-icon svg {
-
       flex: 0 0 auto;
-
     }
 
-
     .news-date {
-
       margin: 0 0 0.75rem;
       font-size: 0.85rem;
       font-weight: 600;
       color: var(--color-primary, #0b6e99);
-
     }
-
 
     .news-body p {
-
       line-height: 1.7;
-
     }
 
+    .news-readmore {
+      display: inline-block;
+      margin-top: 1rem;
+      font-weight: 700;
+    }
 
     @media (prefers-reduced-motion: reduce) {
 
       .footer-whatsapp svg {
-
         animation: none;
-
       }
 
     }
 
   </style>
 
-
   <!-- =====================================================
        SEGURANÇA
   ====================================================== -->
 
-  <meta
-    http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
-  >
+<meta
+http-equiv="Content-Security-Policy"
+content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
 
-  <meta
-    name="referrer"
-    content="strict-origin-when-cross-origin"
-  >
+>
 
-  <meta
-    name="robots"
-    content="index, follow"
-  >
+<meta
+name="referrer"
+content="strict-origin-when-cross-origin"
 
-  <meta
-    http-equiv="X-Content-Type-Options"
-    content="nosniff"
-  >
+>
+
+<meta
+name="robots"
+content="index, follow"
+
+>
+
+<meta
+http-equiv="X-Content-Type-Options"
+content="nosniff"
+
+>
 
   <!-- =====================================================
-       GOOGLE ANALYTICS — contagem de visitantes
-       ID de Medição da propriedade "Site EPASB"
-       (obtido em analytics.google.com)
+       GOOGLE ANALYTICS
   ====================================================== -->
 
   <script
@@ -270,10 +251,7 @@
 
 </head>
 
-
-
 <body>
-
 
 <!-- =========================================================
      HEADER
@@ -284,159 +262,158 @@
   <div class="header-inner">
 
 
-    <!-- LOGO -->
+<!-- LOGO -->
 
-    <a
-      href="index.html"
-      class="brand"
-      aria-label="EPASB-EP - Início"
-    >
+<a
+  href="index.html"
+  class="brand"
+  aria-label="EPASB-EP - Início"
+>
 
-      <img
-        src="epasb/images/logo-epasb.jpg"
-        alt="EPASB-EP"
-      >
+  <img
+    src="epasb/images/logo-epasb.jpg"
+    alt="EPASB-EP"
+  >
 
+</a>
+
+
+<!-- NAVEGAÇÃO -->
+
+<div class="header-actions">
+
+  <nav
+    class="nav-main"
+    aria-label="Navegação principal"
+  >
+
+    <a href="index.html">
+      Início
     </a>
 
+    <a href="sobre.html">
+      Sobre
+    </a>
 
-    <!-- NAVEGAÇÃO -->
+    <a href="organigrama.html">
+      Organigrama
+    </a>
 
-    <div class="header-actions">
+    <a href="estatutos.html">
+      Estatutos
+    </a>
 
-      <nav
-        class="nav-main"
-        aria-label="Navegação principal"
-      >
+    <a
+      href="noticias.html"
+      class="active"
+      aria-current="page"
+    >
+      Notícias
+    </a>
 
-        <a href="index.html">
-          Início
-        </a>
+    <a href="contacto.html">
+      Contacto
+    </a>
 
-        <a href="sobre.html">
-          Sobre
-        </a>
-
-        <a href="organigrama.html">
-          Organigrama
-        </a>
-
-        <a href="estatutos.html">
-          Estatutos
-        </a>
-
-        <a
-          href="noticias.html"
-          class="active"
-          aria-current="page"
-        >
-          Notícias
-        </a>
-
-        <a href="contacto.html">
-          Contacto
-        </a>
-
-      </nav>
+  </nav>
 
 
-      <!-- MENU MOBILE -->
+  <!-- MENU MOBILE -->
 
-      <button
-        class="menu-toggle"
-        aria-label="Abrir menu"
-        aria-expanded="false"
-        type="button"
-      >
+  <button
+    class="menu-toggle"
+    aria-label="Abrir menu"
+    aria-expanded="false"
+    type="button"
+  >
 
-        <svg
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
 
-          <line
-            x1="4"
-            x2="20"
-            y1="6"
-            y2="6"
-          ></line>
+      <line
+        x1="4"
+        x2="20"
+        y1="6"
+        y2="6"
+      ></line>
 
-          <line
-            x1="4"
-            x2="20"
-            y1="12"
-            y2="12"
-          ></line>
+      <line
+        x1="4"
+        x2="20"
+        y1="12"
+        y2="12"
+      ></line>
 
-          <line
-            x1="4"
-            x2="20"
-            y1="18"
-            y2="18"
-          ></line>
+      <line
+        x1="4"
+        x2="20"
+        y1="18"
+        y2="18"
+      ></line>
 
-        </svg>
+    </svg>
 
-      </button>
+  </button>
 
-    </div>
+</div>
+
 
   </div>
-
 
   <!-- MENU MOBILE -->
 
   <div class="nav-mobile">
 
-    <nav
-      aria-label="Navegação principal (mobile)"
-    >
 
-      <a href="index.html">
-        Início
-      </a>
+<nav
+  aria-label="Navegação principal no telemóvel"
+>
 
-      <a href="sobre.html">
-        Sobre
-      </a>
+  <a href="index.html">
+    Início
+  </a>
 
-      <a href="organigrama.html">
-        Organigrama
-      </a>
+  <a href="sobre.html">
+    Sobre
+  </a>
 
-      <a href="estatutos.html">
-        Estatutos
-      </a>
+  <a href="organigrama.html">
+    Organigrama
+  </a>
 
-      <a
-        href="noticias.html"
-        class="active"
-        aria-current="page"
-      >
-        Notícias
-      </a>
+  <a href="estatutos.html">
+    Estatutos
+  </a>
 
-      <a href="contacto.html">
-        Contacto
-      </a>
+  <a
+    href="noticias.html"
+    class="active"
+    aria-current="page"
+  >
+    Notícias
+  </a>
 
-    </nav>
+  <a href="contacto.html">
+    Contacto
+  </a>
+
+</nav>
+
 
   </div>
 
 </header>
 
-
-
 <main>
-
 
 <!-- =========================================================
      HERO
@@ -444,50 +421,52 @@
 
 <section class="hero">
 
-  <img
-    class="hero-bg"
-    src="epasb/images/hero-water.jpg"
-    alt=""
-    aria-hidden="true"
-  >
+<img
+class="hero-bg"
+src="epasb/images/hero-water.jpg"
+alt=""
+aria-hidden="true"
+
+>
 
   <div class="overlay"></div>
 
   <div class="container hero-content">
 
-    <span class="hero-badge">
-      📰 Comunicação · EPASB-EP
-    </span>
 
-    <h1>
-      Notícias
-    </h1>
+<span class="hero-badge">
+  📰 Comunicação · EPASB-EP
+</span>
 
-    <p>
-      Acompanhe as principais novidades, projetos,
-      comunicados e iniciativas da EPASB-EP.
-    </p>
+<h1>
+  Notícias
+</h1>
 
-    <div class="hero-buttons">
+<p>
+  Acompanhe as principais novidades, projetos,
+  comunicados e iniciativas da EPASB-EP.
+</p>
 
-      <a
-        href="#ultimas-noticias"
-        class="btn primary"
-      >
-        Ver notícias
-      </a>
+<div class="hero-buttons">
 
-      <a
-        href="contacto.html"
-        class="btn outline"
-      >
-        Falar connosco
-      </a>
+  <a
+    href="#ultimas-noticias"
+    class="btn primary"
+  >
+    Ver notícias
+  </a>
 
-    </div>
+  <a
+    href="contacto.html"
+    class="btn outline"
+  >
+    Falar conosco
+  </a>
+
+</div>
+
 
   </div>
-
 
   <!-- ONDA -->
 
@@ -496,22 +475,22 @@
     aria-hidden="true"
   >
 
-    <svg
-      viewBox="0 0 1200 32"
-      preserveAspectRatio="none"
-    >
 
-      <path
-        d="M0,16 C150,32 350,0 600,16 C850,32 1050,0 1200,16 L1200,32 L0,32 Z"
-      ></path>
+<svg
+  viewBox="0 0 1200 32"
+  preserveAspectRatio="none"
+>
 
-    </svg>
+  <path
+    d="M0,16 C150,32 350,0 600,16 C850,32 1050,0 1200,16 L1200,32 L0,32 Z"
+  ></path>
+
+</svg>
+
 
   </div>
 
 </section>
-
-
 
 <!-- =========================================================
      NOTÍCIAS
@@ -524,405 +503,495 @@
 
   <div class="container">
 
-    <span class="eyebrow">
-      Comunicação
-    </span>
 
-    <h2 class="section-title">
-      Últimas Notícias
-    </h2>
+<span class="eyebrow">
+  Comunicação
+</span>
 
-
-    <div class="grid">
+<h2 class="section-title">
+  Últimas Notícias
+</h2>
 
 
-      <!-- =================================================
-           NOTÍCIA 1 — CONTADORES PRÉ-PAGOS
-      ================================================== -->
+<div class="grid">
 
-      <a
-        href="https://www.facebook.com/share/1Zt2aXdFm7/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="card news-card"
+
+  <!-- =================================================
+       NOTÍCIA 1 — 26 AGOSTO
+  ================================================== -->
+
+  <a
+    href="https://www.facebook.com/share/p/19G1bNdJav/"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="card news-card"
+  >
+
+    <div class="news-thumb">
+
+      <img
+        src="epasb/images/noticia-bairro-luz.jpg"
+        alt="EPASB-EP realiza campanha de mobilização social no Bairro da Luz"
+        loading="lazy"
       >
 
-        <div class="news-thumb">
-
-          <img
-            src="epasb/images/noticia-contadores-pre-pagos.jpg"
-            alt="EPASB-EP apresenta Projecto de Instalação de Contadores Pré-Pagos à Imprensa"
-            loading="lazy"
-          >
-
-          <span class="news-category">
-            Projectos
-          </span>
-
-        </div>
-
-
-        <div class="news-body">
-
-          <h3>
-            EPASB-EP apresenta Projecto de Instalação de Contadores Pré-Pagos à Imprensa
-          </h3>
-
-          <p class="news-date">
-            25 de Agosto de 2026
-          </p>
-
-          <p>
-            A EPASB-EP apresentou aos Órgãos de Comunicação Social
-            e aos Gabinetes de Comunicação Social das Administrações
-            Municipais o Projecto de Instalação de Contadores
-            Pré-Pagos, que prevê a modernização do sistema de
-            medição e gestão do consumo de água.
-          </p>
-
-          <p>
-            Os primeiros contadores pré-pagos serão instalados no
-            dia <strong>7 de Setembro</strong>, na Restinga do Lobito,
-            dando início à implementação do projecto na província
-            de Benguela.
-          </p>
-
-          <span class="news-readmore">
-            Ler mais →
-          </span>
-
-        </div>
-
-      </a>
-
-
-
-      <!-- =================================================
-           NOTÍCIA 2 — LOBITO
-      ================================================== -->
-
-      <a
-        href="https://www.facebook.com/share/1Zt2aXdFm7/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="card news-card"
-      >
-
-        <div class="news-thumb">
-
-          <img
-            src="epasb/images/noticia-programa-lobito.jpg"
-            alt="Programa de instalação de contadores pré-pagos no Município do Lobito"
-            loading="lazy"
-          >
-
-          <span class="news-category">
-            Projectos
-          </span>
-
-        </div>
-
-
-        <div class="news-body">
-
-          <h3>
-            Lobito dá início ao Programa de Instalação de Contadores Pré-Pagos
-          </h3>
-
-          <p class="news-date">
-            24 de Agosto de 2026
-          </p>
-
-          <p>
-            O Município do Lobito será o ponto de partida do
-            Programa de Instalação de Contadores Pré-Pagos
-            da EPASB-EP, com a fase-piloto prevista para a
-            Restinga.
-          </p>
-
-          <p>
-            A iniciativa será estendida aos municípios de
-            Benguela, Catumbela, Navegantes e Baía Farta,
-            ao longo de <strong>sete meses</strong>.
-          </p>
-
-          <p>
-            O novo modelo permitirá aos clientes efectuar
-            carregamentos antecipados e acompanhar o seu consumo,
-            mantendo os contadores convencionais em funcionamento.
-          </p>
-
-          <span class="news-readmore">
-            Ler mais →
-          </span>
-
-        </div>
-
-      </a>
-
-
-
-      <!-- =================================================
-           NOTÍCIA 3 — COLÓNIA DE FÉRIAS
-      ================================================== -->
-
-      <a
-        href="https://www.facebook.com/share/1Zt2aXdFm7/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="card news-card"
-      >
-
-        <div class="news-thumb">
-
-          <img
-            src="epasb/images/noticia-colonia-ferias.jpg"
-            alt="3.ª edição da Colónia de Férias na EPASB-EP"
-            loading="lazy"
-          >
-
-          <span class="news-category">
-            Educação Ambiental
-          </span>
-
-        </div>
-
-
-        <div class="news-body">
-
-          <h3>
-            3.ª Edição da Colónia de Férias chega à EPASB-EP
-          </h3>
-
-          <p class="news-date">
-            19 de Agosto de 2026
-          </p>
-
-          <p>
-            Mais de <strong>120 crianças, dos 5 aos 17 anos</strong>,
-            visitaram a EPASB-EP no âmbito da 3.ª edição da
-            Colónia de Férias, dedicada ao tema “Ambiente”.
-          </p>
-
-          <p>
-            Os participantes visitaram o Rio Catumbela, a
-            Estação de Bombagem de Água Bruta e o sistema
-            integrado da Estação de Tratamento de Água
-            do Luongo.
-          </p>
-
-          <p>
-            A actividade combinou conhecimento, recreação e
-            convívio, permitindo às crianças conhecer melhor
-            o percurso da água, desde a captação até ao tratamento.
-          </p>
-
-          <span class="news-readmore">
-            Ler mais →
-          </span>
-
-        </div>
-
-      </a>
-
-
-
-      <!-- =================================================
-           NOTÍCIA 4
-      ================================================== -->
-
-      <a
-        href="https://www.facebook.com/share/1Zt2aXdFm7/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="card news-card"
-      >
-
-        <div class="news-thumb">
-
-          <img
-            src="epasb/images/noticia-rede.jpg"
-            alt="Expansão da rede de água"
-            loading="lazy"
-          >
-
-          <span class="news-category">
-            Projectos
-          </span>
-
-        </div>
-
-
-        <div class="news-body">
-
-          <h3>
-            Expansão da Rede de Abastecimento de Água
-          </h3>
-
-          <p>
-            EPASB-EP desenvolve novos projetos para ampliar
-            o acesso à água potável nas comunidades da
-            província de Benguela.
-          </p>
-
-          <span class="news-readmore">
-            Ler mais →
-          </span>
-
-        </div>
-
-      </a>
-
-
-
-      <!-- =================================================
-           NOTÍCIA 5
-      ================================================== -->
-
-      <a
-        href="https://www.facebook.com/share/1Zt2aXdFm7/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="card news-card"
-      >
-
-        <div class="news-thumb">
-
-          <img
-            src="epasb/images/noticia-obras.jpg"
-            alt="Obras de infraestrutura da EPASB-EP"
-            loading="lazy"
-          >
-
-          <span class="news-category">
-            Infraestrutura
-          </span>
-
-        </div>
-
-
-        <div class="news-body">
-
-          <h3>
-            Obras em Novos Municípios
-          </h3>
-
-          <p>
-            Novas intervenções técnicas estão em andamento
-            para melhorar a distribuição de água e fortalecer
-            os serviços públicos.
-          </p>
-
-          <span class="news-readmore">
-            Ler mais →
-          </span>
-
-        </div>
-
-      </a>
-
-
-
-      <!-- =================================================
-           NOTÍCIA 6
-      ================================================== -->
-
-      <a
-        href="https://www.facebook.com/share/1Zt2aXdFm7/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="card news-card"
-      >
-
-        <div class="news-thumb">
-
-          <img
-            src="epasb/images/noticia-comunicado.jpg"
-            alt="Comunicados oficiais da EPASB-EP"
-            loading="lazy"
-          >
-
-          <span class="news-category">
-            Comunicado Oficial
-          </span>
-
-        </div>
-
-
-        <div class="news-body">
-
-          <h3>
-            Informações Oficiais da EPASB-EP
-          </h3>
-
-          <p>
-            Consulte avisos, comunicados e informações
-            importantes para os cidadãos.
-          </p>
-
-          <span class="news-readmore">
-            Ler mais →
-          </span>
-
-        </div>
-
-      </a>
-
-
-
-      <!-- =================================================
-           NOTÍCIA 7
-      ================================================== -->
-
-      <a
-        href="https://www.facebook.com/share/1Zt2aXdFm7/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="card news-card"
-      >
-
-        <div class="news-thumb">
-
-          <img
-            src="epasb/images/noticia-campanha.jpg"
-            alt="Campanhas de sensibilização ambiental"
-            loading="lazy"
-          >
-
-          <span class="news-category">
-            Educação Ambiental
-          </span>
-
-        </div>
-
-
-        <div class="news-body">
-
-          <h3>
-            Campanhas de Sensibilização
-          </h3>
-
-          <p>
-            A EPASB promove ações de sensibilização sobre
-            o uso responsável da água e proteção ambiental.
-          </p>
-
-          <span class="news-readmore">
-            Ler mais →
-          </span>
-
-        </div>
-
-      </a>
-
+      <span class="news-category">
+        Mobilização Social
+      </span>
 
     </div>
+
+
+    <div class="news-body">
+
+      <h3>
+        EPASB-EP realiza campanha de mobilização social no Bairro da Luz
+      </h3>
+
+      <p class="news-date">
+        26 de Agosto de 2026
+      </p>
+
+      <p>
+        A EPASB-EP realizou uma campanha de mobilização social
+        junto dos moradores do Bairro da Luz, com o objetivo
+        de estreitar a relação com os clientes, ouvir as suas
+        preocupações e apresentar novas soluções.
+      </p>
+
+      <p>
+        Entre as novidades apresentadas estão a
+        <strong>Cobrança Móvel</strong> e a
+        <strong>Instalação de Contadores Pré-Pagos</strong>,
+        soluções que procuram tornar o acesso aos serviços
+        mais simples e próximo.
+      </p>
+
+      <p>
+        A iniciativa reforça o compromisso da EPASB-EP com
+        um serviço mais próximo dos cidadãos e com a
+        sustentabilidade do abastecimento de água.
+      </p>
+
+      <span class="news-readmore">
+        Ler mais →
+      </span>
+
+    </div>
+
+  </a>
+
+
+
+  <!-- =================================================
+       NOTÍCIA 2 — 25 AGOSTO
+  ================================================== -->
+
+  <a
+    href="https://www.facebook.com/share/p/1DKZuz7yHv/"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="card news-card"
+  >
+
+    <div class="news-thumb">
+
+      <img
+        src="epasb/images/noticia-contadores-pre-pagos.jpg"
+        alt="EPASB-EP apresenta Projecto de Instalação de Contadores Pré-Pagos à Imprensa"
+        loading="lazy"
+      >
+
+      <span class="news-category">
+        Projectos
+      </span>
+
+    </div>
+
+
+    <div class="news-body">
+
+      <h3>
+        EPASB-EP apresenta Projecto de Instalação de Contadores Pré-Pagos à Imprensa
+      </h3>
+
+      <p class="news-date">
+        25 de Agosto de 2026
+      </p>
+
+      <p>
+        A EPASB-EP apresentou aos Órgãos de Comunicação Social
+        e aos Gabinetes de Comunicação Social das Administrações
+        Municipais o Projecto de Instalação de Contadores
+        Pré-Pagos.
+      </p>
+
+      <p>
+        O projecto prevê a modernização do sistema de medição
+        e gestão do consumo de água, contribuindo para uma
+        maior autonomia dos clientes.
+      </p>
+
+      <p>
+        Os primeiros contadores pré-pagos serão instalados
+        no dia <strong>7 de Setembro</strong>, na Restinga
+        do Lobito.
+      </p>
+
+      <span class="news-readmore">
+        Ler mais →
+      </span>
+
+    </div>
+
+  </a>
+
+
+
+  <!-- =================================================
+       NOTÍCIA 3 — 24 AGOSTO
+  ================================================== -->
+
+  <a
+    href="https://www.facebook.com/share/p/1Bw57vwnjB/"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="card news-card"
+  >
+
+    <div class="news-thumb">
+
+      <img
+        src="epasb/images/noticia-programa-lobito.jpg"
+        alt="Programa de instalação de contadores pré-pagos no Município do Lobito"
+        loading="lazy"
+      >
+
+      <span class="news-category">
+        Projectos
+      </span>
+
+    </div>
+
+
+    <div class="news-body">
+
+      <h3>
+        Lobito dá início ao Programa de Instalação de Contadores Pré-Pagos
+      </h3>
+
+      <p class="news-date">
+        24 de Agosto de 2026
+      </p>
+
+      <p>
+        O Município do Lobito será o ponto de partida do
+        Programa de Instalação de Contadores Pré-Pagos
+        da EPASB-EP, com a fase-piloto prevista para a
+        <strong>Restinga</strong>.
+      </p>
+
+      <p>
+        A iniciativa será estendida aos municípios de
+        Benguela, Catumbela, Navegantes e Baía Farta,
+        ao longo de <strong>sete meses</strong>.
+      </p>
+
+      <p>
+        O acto de apresentação pública reuniu autoridades
+        municipais, membros do Conselho de Administração
+        da EPASB-EP, autoridades tradicionais, entidades
+        religiosas, comissões de moradores, representantes
+        da sociedade civil e a ACQUA.
+      </p>
+
+      <span class="news-readmore">
+        Ler mais →
+      </span>
+
+    </div>
+
+  </a>
+
+
+
+  <!-- =================================================
+       NOTÍCIA 4
+  ================================================== -->
+
+  <a
+    href="https://www.facebook.com/epasbep"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="card news-card"
+  >
+
+    <div class="news-thumb">
+
+      <img
+        src="epasb/images/noticia-colonia-ferias.jpg"
+        alt="3.ª edição da Colónia de Férias na EPASB-EP"
+        loading="lazy"
+      >
+
+      <span class="news-category">
+        Educação Ambiental
+      </span>
+
+    </div>
+
+
+    <div class="news-body">
+
+      <h3>
+        3.ª Edição da Colónia de Férias chega à EPASB-EP
+      </h3>
+
+      <p class="news-date">
+        19 de Agosto de 2026
+      </p>
+
+      <p>
+        Mais de <strong>120 crianças, dos 5 aos 17 anos</strong>,
+        visitaram a EPASB-EP no âmbito da 3.ª edição da
+        Colónia de Férias, dedicada ao tema “Ambiente”.
+      </p>
+
+      <p>
+        Os participantes visitaram o Rio Catumbela,
+        a Estação de Bombagem de Água Bruta e o sistema
+        integrado da Estação de Tratamento de Água do Luongo.
+      </p>
+
+      <span class="news-readmore">
+        Ler mais →
+      </span>
+
+    </div>
+
+  </a>
+
+
+
+  <!-- =================================================
+       NOTÍCIA 5
+  ================================================== -->
+
+  <a
+    href="https://www.facebook.com/epasbep"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="card news-card"
+  >
+
+    <div class="news-thumb">
+
+      <img
+        src="epasb/images/noticia-rede.jpg"
+        alt="Expansão da rede de abastecimento de água"
+        loading="lazy"
+      >
+
+      <span class="news-category">
+        Projectos
+      </span>
+
+    </div>
+
+
+    <div class="news-body">
+
+      <h3>
+        Expansão da Rede de Abastecimento de Água
+      </h3>
+
+      <p>
+        A EPASB-EP desenvolve novos projetos para ampliar
+        o acesso à água potável nas comunidades da
+        província de Benguela.
+      </p>
+
+      <p>
+        As iniciativas fazem parte dos esforços para
+        melhorar a cobertura e a qualidade dos serviços
+        de abastecimento de água.
+      </p>
+
+      <span class="news-readmore">
+        Ler mais →
+      </span>
+
+    </div>
+
+  </a>
+
+
+
+  <!-- =================================================
+       NOTÍCIA 6
+  ================================================== -->
+
+  <a
+    href="https://www.facebook.com/epasbep"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="card news-card"
+  >
+
+    <div class="news-thumb">
+
+      <img
+        src="epasb/images/noticia-obras.jpg"
+        alt="Obras de infraestrutura da EPASB-EP"
+        loading="lazy"
+      >
+
+      <span class="news-category">
+        Infraestrutura
+      </span>
+
+    </div>
+
+
+    <div class="news-body">
+
+      <h3>
+        Obras em Novos Municípios
+      </h3>
+
+      <p>
+        Novas intervenções técnicas estão em andamento
+        para melhorar a distribuição de água e fortalecer
+        os serviços públicos.
+      </p>
+
+      <p>
+        A EPASB-EP continua a acompanhar e desenvolver
+        ações destinadas a melhorar as infraestruturas
+        de abastecimento na província.
+      </p>
+
+      <span class="news-readmore">
+        Ler mais →
+      </span>
+
+    </div>
+
+  </a>
+
+
+
+  <!-- =================================================
+       NOTÍCIA 7
+  ================================================== -->
+
+  <a
+    href="https://www.facebook.com/epasbep"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="card news-card"
+  >
+
+    <div class="news-thumb">
+
+      <img
+        src="epasb/images/noticia-comunicado.jpg"
+        alt="Comunicados oficiais da EPASB-EP"
+        loading="lazy"
+      >
+
+      <span class="news-category">
+        Comunicado Oficial
+      </span>
+
+    </div>
+
+
+    <div class="news-body">
+
+      <h3>
+        Informações Oficiais da EPASB-EP
+      </h3>
+
+      <p>
+        Consulte avisos, comunicados e informações
+        importantes divulgados pela EPASB-EP para
+        os cidadãos.
+      </p>
+
+      <p>
+        Acompanhe as informações oficiais através dos
+        canais institucionais da Empresa.
+      </p>
+
+      <span class="news-readmore">
+        Ler mais →
+      </span>
+
+    </div>
+
+  </a>
+
+
+
+  <!-- =================================================
+       NOTÍCIA 8
+  ================================================== -->
+
+  <a
+    href="https://www.facebook.com/epasbep"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="card news-card"
+  >
+
+    <div class="news-thumb">
+
+      <img
+        src="epasb/images/noticia-campanha.jpg"
+        alt="Campanhas de sensibilização ambiental"
+        loading="lazy"
+      >
+
+      <span class="news-category">
+        Educação Ambiental
+      </span>
+
+    </div>
+
+
+    <div class="news-body">
+
+      <h3>
+        Campanhas de Sensibilização
+      </h3>
+
+      <p>
+        A EPASB promove ações de sensibilização sobre
+        o uso responsável da água e a proteção ambiental.
+      </p>
+
+      <p>
+        As campanhas procuram aproximar a Empresa das
+        comunidades e incentivar práticas responsáveis
+        na utilização dos recursos hídricos.
+      </p>
+
+      <span class="news-readmore">
+        Ler mais →
+      </span>
+
+    </div>
+
+  </a>
+
+
+</div>
+
 
   </div>
 
 </section>
-
-
 
 <!-- =========================================================
      DISQUE E DENÚNCIA
@@ -935,144 +1004,143 @@
 
   <div class="container">
 
-    <span
-      class="eyebrow"
-      style="color:var(--color-accent-soft);"
+
+<span
+  class="eyebrow"
+  style="color:var(--color-accent-soft);"
+>
+  Atendimento ao cidadão
+</span>
+
+<h2>
+  Disque e Denúncia!
+</h2>
+
+<p>
+  Fale connosco por telefone, WhatsApp ou através
+  do formulário de contacto.
+</p>
+
+
+<div class="cta-buttons">
+
+
+  <!-- TELEFONE -->
+
+  <a
+    href="tel:+24493536674"
+    class="btn primary btn-icon"
+    aria-label="Ligar para a EPASB"
+  >
+
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
     >
-      Atendimento ao cidadão
+
+      <path
+        d="M22 16.92v3a2 2 0 0 1-2.18 2
+        19.79 19.79 0 0 1-8.63-3.07
+        19.5 19.5 0 0 1-6-6
+        19.79 19.79 0 0 1-3.07-8.67
+        A2 2 0 0 1 4.11 2h3
+        a2 2 0 0 1 2 1.72
+        12.84 12.84 0 0 0 .7 2.81
+        2 2 0 0 1-.45 2.11L8.09 9.91
+        a16 16 0 0 0 6 6l1.27-1.27
+        a2 2 0 0 1 2.11-.45
+        12.84 12.84 0 0 0 2.81.7
+        A2 2 0 0 1 22 16.92z"
+      ></path>
+
+    </svg>
+
+    <span>
+      Ligar agora
     </span>
 
-    <h2>
-      Disque e Denúncia!
-    </h2>
-
-    <p>
-      Fale connosco por telefone, WhatsApp ou através
-      do formulário de contacto.
-    </p>
-
-
-    <div class="cta-buttons">
-
-
-      <!-- TELEFONE -->
-
-      <a
-        href="tel:+24493536674"
-        class="btn primary btn-icon"
-        aria-label="Ligar para a EPASB"
-      >
-
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-
-          <path
-            d="M22 16.92v3a2 2 0 0 1-2.18 2
-            19.79 19.79 0 0 1-8.63-3.07
-            19.5 19.5 0 0 1-6-6
-            19.79 19.79 0 0 1-3.07-8.67
-            A2 2 0 0 1 4.11 2h3
-            a2 2 0 0 1 2 1.72
-            12.84 12.84 0 0 0 .7 2.81
-            2 2 0 0 1-.45 2.11L8.09 9.91
-            a16 16 0 0 0 6 6l1.27-1.27
-            a2 2 0 0 1 2.11-.45
-            12.84 12.84 0 0 0 2.81.7
-            A2 2 0 0 1 22 16.92z"
-          ></path>
-
-        </svg>
-
-        <span>
-          Ligar agora
-        </span>
-
-      </a>
+  </a>
 
 
 
-      <!-- WHATSAPP -->
+  <!-- WHATSAPP -->
 
-      <a
-        href="https://wa.me/24493536674"
-        class="btn outline btn-icon"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Contactar a EPASB pelo WhatsApp"
-      >
+  <a
+    href="https://wa.me/24493536674"
+    class="btn outline btn-icon"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contactar a EPASB pelo WhatsApp"
+  >
 
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          aria-hidden="true"
-        >
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
 
-          <path
-            d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91
-            c0 1.75.46 3.46 1.33 4.97L2.05 22
-            l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01
-            c5.46 0 9.91-4.45 9.91-9.91
-            c0-2.65-1.03-5.14-2.9-7.01
-            A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01
-            a8.2 8.2 0 0 1-4.19-1.15l-.3-.18
-            -3.12.82.83-3.04-.2-.31
-            a8.19 8.19 0 0 1-1.26-4.36
-            c0-4.54 3.7-8.24 8.25-8.24
-            2.2 0 4.27.86 5.83 2.42
-            a8.18 8.18 0 0 1 2.42 5.83
-            c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.16
-            c-.25-.12-1.47-.72-1.7-.81
-            -.23-.08-.39-.12-.56.13
-            -.17.25-.64.81-.78.97
-            -.14.17-.29.19-.54.06
-            -.25-.12-1.04-.38-1.99-1.22
-            -.73-.66-1.23-1.46-1.37-1.71
-            -.14-.25-.02-.38.11-.51
-            .11-.11.25-.29.37-.44
-            .12-.15.16-.25.25-.42
-            .08-.17.04-.31-.02-.44
-            -.06-.12-.56-1.36-.77-1.86
-            -.2-.49-.41-.42-.56-.43h-.48
-            c-.17 0-.44.06-.67.31
-            -.23.25-.87.85-.87 2.08
-            0 1.23.89 2.42 1.02 2.59
-            .12.17 1.75 2.67 4.24 3.74
-            .59.26 1.05.41 1.41.52
-            .59.19 1.13.16 1.56.1
-            .48-.07 1.47-.6 1.68-1.18
-            .21-.58.21-1.08.15-1.18
-            -.06-.1-.23-.17-.48-.29z"
-          ></path>
+      <path
+        d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91
+        c0 1.75.46 3.46 1.33 4.97L2.05 22
+        l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01
+        c5.46 0 9.91-4.45 9.91-9.91
+        c0-2.65-1.03-5.14-2.9-7.01
+        A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01
+        a8.2 8.2 0 0 1-4.19-1.15l-.3-.18
+        -3.12.82.83-3.04-.2-.31
+        a8.19 8.19 0 0 1-1.26-4.36
+        c0-4.54 3.7-8.24 8.25-8.24
+        2.2 0 4.27.86 5.83 2.42
+        a8.18 8.18 0 0 1 2.42 5.83
+        c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.16
+        c-.25-.12-1.47-.72-1.7-.81
+        -.23-.08-.39-.12-.56.13
+        -.17.25-.64.81-.78.97
+        -.14.17-.29.19-.54.06
+        -.25-.12-1.04-.38-1.99-1.22
+        -.73-.66-1.23-1.46-1.37-1.71
+        -.14-.25-.02-.38.11-.51
+        .11-.11.25-.29.37-.44
+        .12-.15.16-.25.25-.42
+        .08-.17.04-.31-.02-.44
+        -.06-.12-.56-1.36-.77-1.86
+        -.2-.49-.41-.42-.56-.43h-.48
+        c-.17 0-.44.06-.67.31
+        -.23.25-.87.85-.87 2.08
+        0 1.23.89 2.42 1.02 2.59
+        .12.17 1.75 2.67 4.24 3.74
+        .59.26 1.05.41 1.41.52
+        .59.19 1.13.16 1.56.1
+        .48-.07 1.47-.6 1.68-1.18
+        .21-.58.21-1.08.15-1.18
+        -.06-.1-.23-.17-.48-.29z"
+      ></path>
 
-        </svg>
+    </svg>
 
-        <span>
-          WhatsApp
-        </span>
+    <span>
+      WhatsApp
+    </span>
 
-      </a>
+  </a>
 
-    </div>
+</div>
+
 
   </div>
 
 </section>
 
-
 </main>
-
-
 
 <!-- =========================================================
      FOOTER
@@ -1082,447 +1150,433 @@
 
   <div class="container">
 
-    <div class="footer-grid">
+
+<div class="footer-grid">
 
 
-      <!-- EPASB -->
+  <!-- EPASB -->
 
-      <div class="footer-column">
+  <div class="footer-column">
 
-        <div class="footer-brand">
+    <div class="footer-brand">
 
-          <img
-            src="epasb/images/logo-epasb.jpg"
-            alt="EPASB-EP"
+      <img
+        src="images/logo-epasb.jpg"
+        alt="EPASB-EP"
+      >
+
+    </div>
+
+    <p class="footer-about">
+
+      Empresa Provincial responsável pelo abastecimento
+      de água potável e saneamento básico na província
+      de Benguela, Angola.
+
+    </p>
+
+  </div>
+
+
+
+  <!-- INSTITUCIONAL -->
+
+  <div class="footer-column">
+
+    <h3>
+      Institucional
+    </h3>
+
+    <ul>
+
+      <li>
+        <a href="sobre.html">
+          Sobre a EPASB
+        </a>
+      </li>
+
+      <li>
+        <a href="organigrama.html">
+          Organigrama
+        </a>
+      </li>
+
+      <li>
+        <a href="estatutos.html">
+          Estatutos
+        </a>
+      </li>
+
+      <li>
+        <a href="noticias.html">
+          Notícias
+        </a>
+      </li>
+
+      <li>
+        <a href="contacto.html">
+          Contacto
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+
+
+
+  <!-- LINKS INSTITUCIONAIS -->
+
+  <div class="footer-column">
+
+    <h3>
+      Links institucionais
+    </h3>
+
+    <ul>
+
+      <li>
+        <a
+          href="https://minea.gov.ao/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Ministério da Energia e Águas
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="https://governo.gov.ao/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Governo de Angola
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="https://benguela.gov.ao/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Governo Provincial de Benguela
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="https://epal.co.ao/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          EPAL
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+
+
+
+  <!-- CONTACTO -->
+
+  <div class="footer-column">
+
+    <h3>
+      Contacto
+    </h3>
+
+    <ul>
+
+      <li>
+        Rua Sacadura Cabral, nº 122
+      </li>
+
+      <li>
+        <a href="tel:+24493536674">
+          +244 935 366 74
+        </a>
+      </li>
+
+      <li>
+
+        <a
+          href="mailto:geral@epasb.ao"
+          class="footer-social-link"
+          aria-label="Enviar email para a EPASB"
+        >
+
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
           >
 
-        </div>
+            <rect
+              x="2"
+              y="4"
+              width="20"
+              height="16"
+              rx="2"
+            ></rect>
+
+            <path
+              d="m22 6-10 7L2 6"
+            ></path>
 
-        <p class="footer-about">
-
-          Empresa Provincial responsável pelo abastecimento
-          de água potável e saneamento básico na província
-          de Benguela, Angola.
-
-        </p>
-
-      </div>
-
-
-
-      <!-- INSTITUCIONAL -->
-
-      <div class="footer-column">
-
-        <h3>
-          Institucional
-        </h3>
-
-        <ul>
-
-          <li>
-            <a href="sobre.html">
-              Sobre a EPASB
-            </a>
-          </li>
-
-          <li>
-            <a href="organigrama.html">
-              Organigrama
-            </a>
-          </li>
-
-          <li>
-            <a href="estatutos.html">
-              Estatutos
-            </a>
-          </li>
-
-          <li>
-            <a href="noticias.html">
-              Notícias
-            </a>
-          </li>
-
-          <li>
-            <a href="contacto.html">
-              Contacto
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
-
-
-
-      <!-- LINKS INSTITUCIONAIS -->
-
-      <div class="footer-column">
-
-        <h3>
-          Links institucionais
-        </h3>
-
-        <ul>
-
-          <li>
-
-            <a
-              href="https://minea.gov.ao/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Ministério da Energia e Águas
-            </a>
-
-          </li>
-
-          <li>
-
-            <a
-              href="https://governo.gov.ao/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Governo de Angola
-            </a>
-
-          </li>
-
-          <li>
-
-            <a
-              href="https://benguela.gov.ao/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Governo Provincial de Benguela
-            </a>
-
-          </li>
-
-          <li>
-
-            <a
-              href="https://epal.co.ao/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              EPAL
-            </a>
-
-          </li>
-
-        </ul>
-
-      </div>
-
-
-
-      <!-- CONTACTO -->
-
-      <div class="footer-column">
-
-        <h3>
-          Contacto
-        </h3>
-
-        <ul>
-
-          <li>
-            Rua Sacadura Cabral, nº 122
-          </li>
-
-          <li>
-
-            <a href="tel:+24493536674">
-              +244 935 366 74
-            </a>
-
-          </li>
-
-          <li>
-
-            <a
-              href="mailto:geral@epasb.ao"
-              class="footer-social-link"
-              aria-label="Enviar email para a EPASB"
-            >
-
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-
-                <rect
-                  x="2"
-                  y="4"
-                  width="20"
-                  height="16"
-                  rx="2"
-                ></rect>
-
-                <path
-                  d="m22 6-10 7L2 6"
-                ></path>
-
-              </svg>
-
-              <span>
-                geral@epasb.ao
-              </span>
-
-            </a>
-
-          </li>
-
-          <li>
-
-            <a
-              href="mailto:secretariageral@epasb.ao"
-              class="footer-social-link"
-              aria-label="Enviar email para a secretaria geral da EPASB"
-            >
-
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-
-                <rect
-                  x="2"
-                  y="4"
-                  width="20"
-                  height="16"
-                  rx="2"
-                ></rect>
-
-                <path
-                  d="m22 6-10 7L2 6"
-                ></path>
-
-              </svg>
-
-              <span>
-                secretariageral@epasb.ao
-              </span>
-
-            </a>
-
-          </li>
-
-
-
-          <!-- FACEBOOK -->
-
-          <li>
-
-            <a
-              href="https://www.facebook.com/share/1Zt2aXdFm7/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="footer-social-link"
-              aria-label="Facebook da EPASB"
-            >
-
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-
-                <path
-                  d="M22 12.06C22 6.505 17.523 2 12 2
-                  S2 6.505 2 12.06c0 5.02 3.657 9.184
-                  8.438 9.94v-7.03H7.898v-2.91h2.54V9.845
-                  c0-2.507 1.492-3.89 3.777-3.89
-                  1.094 0 2.238.195 2.238.195v2.46
-                  h-1.26c-1.243 0-1.63.771-1.63 1.562
-                  v1.875h2.773l-.443 2.91h-2.33V22
-                  c4.78-.756 8.437-4.92 8.437-9.94Z"
-                />
-
-              </svg>
-
-              <span>
-                Facebook
-              </span>
-
-            </a>
-
-          </li>
-
-
-
-          <!-- INSTAGRAM -->
-
-          <li>
-
-            <a
-              href="https://www.instagram.com/epasb_ep?igsh=MWk0dXdua2UwbmViNA=="
-              target="_blank"
-              rel="noopener noreferrer"
-              class="footer-social-link"
-              aria-label="Instagram da EPASB"
-            >
-
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                aria-hidden="true"
-              >
-
-                <rect
-                  x="3"
-                  y="3"
-                  width="18"
-                  height="18"
-                  rx="5"
-                  ry="5"
-                ></rect>
-
-                <path
-                  d="M16 11.37A4 4 0 1 1 12.63 8
-                  4 4 0 0 1 16 11.37z"
-                ></path>
-
-                <line
-                  x1="17.5"
-                  y1="6.5"
-                  x2="17.51"
-                  y2="6.5"
-                ></line>
-
-              </svg>
-
-              <span>
-                Instagram
-              </span>
-
-            </a>
-
-          </li>
-
-
-
-          <!-- WHATSAPP -->
-
-          <li>
-
-            <a
-              href="https://wa.me/24493536674"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="footer-social-link footer-whatsapp"
-              aria-label="Contactar a EPASB pelo WhatsApp"
-            >
-
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-
-                <path
-                  d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91
-                  c0 1.75.46 3.46 1.33 4.97L2.05 22
-                  l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01
-                  c5.46 0 9.91-4.45 9.91-9.91
-                  c0-2.65-1.03-5.14-2.9-7.01
-                  A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01
-                  a8.2 8.2 0 0 1-4.19-1.15l-.3-.18
-                  -3.12.82.83-3.04-.2-.31
-                  a8.19 8.19 0 0 1-1.26-4.36
-                  c0-4.54 3.7-8.24 8.25-8.24
-                  2.2 0 4.27.86 5.83 2.42
-                  a8.18 8.18 0 0 1 2.42 5.83
-                  c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.16
-                  c-.25-.12-1.47-.72-1.7-.81
-                  -.23-.08-.39-.12-.56.13
-                  -.17.25-.64.81-.78.97
-                  -.14.17-.29.19-.54.06
-                  -.25-.12-1.04-.38-1.99-1.22
-                  -.73-.66-1.23-1.46-1.37-1.71
-                  -.14-.25-.02-.38.11-.51
-                  .11-.11.25-.29.37-.44
-                  .12-.15.16-.25.25-.42
-                  .08-.17.04-.31-.02-.44
-                  -.06-.12-.56-1.36-.77-1.86
-                  -.2-.49-.41-.42-.56-.43h-.48
-                  c-.17 0-.44.06-.67.31
-                  -.23.25-.87.85-.87 2.08
-                  0 1.23.89 2.42 1.02 2.59
-                  .12.17 1.75 2.67 4.24 3.74
-                  .59.26 1.05.41 1.41.52
-                  .59.19 1.13.16 1.56.1
-                  .48-.07 1.47-.6 1.68-1.18
-                  .21-.58.21-1.08.15-1.18
-                  -.06-.1-.23-.17-.48-.29z"
-                />
-
-              </svg>
-
-              <span>
-                WhatsApp
-              </span>
-
-            </a>
-
-          </li>
-
-        </ul>
-
-      </div>
-
-
-    </div>
-
-
-
-    <!-- =====================================================
-         FOOTER BOTTOM
-    ====================================================== -->
-
-    <div class="footer-bottom">
-
-      <p>
-
-        © <span id="year"></span>
-
-        Empresa Provincial de Águas e Saneamento de Benguela
-
-      </p>
-
-    </div>
+          </svg>
+
+          <span>
+            geral@epasb.ao
+          </span>
+
+        </a>
+
+      </li>
+
+      <li>
+
+        <a
+          href="mailto:secretariageral@epasb.ao"
+          class="footer-social-link"
+          aria-label="Enviar email para a secretaria geral da EPASB"
+        >
+
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+
+            <rect
+              x="2"
+              y="4"
+              width="20"
+              height="16"
+              rx="2"
+            ></rect>
+
+            <path
+              d="m22 6-10 7L2 6"
+            ></path>
+
+          </svg>
+
+          <span>
+            secretariageral@epasb.ao
+          </span>
+
+        </a>
+
+      </li>
+
+
+      <!-- FACEBOOK -->
+
+      <li>
+
+        <a
+          href="https://www.facebook.com/epasbep"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-social-link"
+          aria-label="Facebook da EPASB"
+        >
+
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+
+            <path
+              d="M22 12.06C22 6.505 17.523 2 12 2
+              S2 6.505 2 12.06c0 5.02 3.657 9.184
+              8.438 9.94v-7.03H7.898v-2.91h2.54V9.845
+              c0-2.507 1.492-3.89 3.777-3.89
+              1.094 0 2.238.195 2.238.195v2.46
+              h-1.26c-1.243 0-1.63.771-1.63 1.562
+              v1.875h2.773l-.443 2.91h-2.33V22
+              c4.78-.756 8.437-4.92 8.437-9.94Z"
+            />
+
+          </svg>
+
+          <span>
+            Facebook
+          </span>
+
+        </a>
+
+      </li>
+
+
+      <!-- INSTAGRAM -->
+
+      <li>
+
+        <a
+          href="https://www.instagram.com/epasb_ep?igsh=MWk0dXdua2UwbmViNA=="
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-social-link"
+          aria-label="Instagram da EPASB"
+        >
+
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+          >
+
+            <rect
+              x="3"
+              y="3"
+              width="18"
+              height="18"
+              rx="5"
+              ry="5"
+            ></rect>
+
+            <path
+              d="M16 11.37A4 4 0 1 1 12.63 8
+              4 4 0 0 1 16 11.37z"
+            ></path>
+
+            <line
+              x1="17.5"
+              y1="6.5"
+              x2="17.51"
+              y2="6.5"
+            ></line>
+
+          </svg>
+
+          <span>
+            Instagram
+          </span>
+
+        </a>
+
+      </li>
+
+
+      <!-- WHATSAPP -->
+
+      <li>
+
+        <a
+          href="https://wa.me/24493536674"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-social-link footer-whatsapp"
+          aria-label="Contactar a EPASB pelo WhatsApp"
+        >
+
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+
+            <path
+              d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91
+              c0 1.75.46 3.46 1.33 4.97L2.05 22
+              l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01
+              c5.46 0 9.91-4.45 9.91-9.91
+              c0-2.65-1.03-5.14-2.9-7.01
+              A9.82 9.82 0 0 0 12.04 2zm0 18.13h-.01
+              a8.2 8.2 0 0 1-4.19-1.15l-.3-.18
+              -3.12.82.83-3.04-.2-.31
+              a8.19 8.19 0 0 1-1.26-4.36
+              c0-4.54 3.7-8.24 8.25-8.24
+              2.2 0 4.27.86 5.83 2.42
+              a8.18 8.18 0 0 1 2.42 5.83
+              c0 4.55-3.7 8.24-8.25 8.24zm4.52-6.16
+              c-.25-.12-1.47-.72-1.7-.81
+              -.23-.08-.39-.12-.56.13
+              -.17.25-.64.81-.78.97
+              -.14.17-.29.19-.54.06
+              -.25-.12-1.04-.38-1.99-1.22
+              -.73-.66-1.23-1.46-1.37-1.71
+              -.14-.25-.02-.38.11-.51
+              .11-.11.25-.29.37-.44
+              .12-.15.16-.25.25-.42
+              .08-.17.04-.31-.02-.44
+              -.06-.12-.56-1.36-.77-1.86
+              -.2-.49-.41-.42-.56-.43h-.48
+              c-.17 0-.44.06-.67.31
+              -.23.25-.87.85-.87 2.08
+              0 1.23.89 2.42 1.02 2.59
+              .12.17 1.75 2.67 4.24 3.74
+              .59.26 1.05.41 1.41.52
+              .59.19 1.13.16 1.56.1
+              .48-.07 1.47-.6 1.68-1.18
+              .21-.58.21-1.08.15-1.18
+              -.06-.1-.23-.17-.48-.29z"
+            />
+
+          </svg>
+
+          <span>
+            WhatsApp
+          </span>
+
+        </a>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER BOTTOM
+====================================================== -->
+
+<div class="footer-bottom">
+
+  <p>
+
+    © <span id="year"></span>
+
+    Empresa Provincial de Águas e Saneamento de Benguela
+
+  </p>
+
+</div>
 
   </div>
 
 </footer>
-
-
 
 <!-- =========================================================
      JAVASCRIPT
@@ -1532,7 +1586,6 @@
   src="epasb/assets/main.js"
   defer
 ></script>
-
 
 </body>
 
