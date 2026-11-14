@@ -4,3 +4,5 @@ design_handoff_*/
 
 # Configuração local da pré-visualização
 .claude/
+node_modules/
+dist/

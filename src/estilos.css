@@ -138,6 +138,18 @@ h1,h2,h3,p{margin:0}
 .mapa__ponto{width:12px;height:12px;border-radius:50%;flex:none}
 .mapa__conta{margin-left:auto;font-size:13px;font-weight:700;color:var(--texto-3);background:var(--linha-suave);border-radius:var(--r-pill);padding:2px 9px}
 .mapa__tela{flex:2 1 420px;min-height:380px;height:460px;border-radius:var(--r-card);overflow:hidden;background:var(--placeholder);border:1px solid var(--linha);display:flex;align-items:center;justify-content:center;color:var(--texto-3);font-size:15px;z-index:0}
+.mapa__tela{position:relative}
+.mapa__leaflet{position:absolute;inset:0}
+
+/* "O que fazemos": cada caixa enche-se de água e recomeça de 6 em 6 segundos */
+.caixa--agua{position:relative;overflow:hidden;isolation:isolate}
+.caixa--agua > *{position:relative;z-index:1}
+.caixa--agua .agua{position:absolute;z-index:0;inset:0;background:linear-gradient(#D6F0FB,#B5E2F6);transform:translateY(102%);animation:epEncher 6s cubic-bezier(.45,0,.25,1) var(--atraso,0s) infinite backwards}
+.caixa--agua .agua::before{content:"";position:absolute;left:0;bottom:100%;width:200%;height:12px;margin-bottom:-1px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q15 0 30 6 T60 6 T90 6 T120 6 V12 H0Z' fill='%23D6F0FB'/%3E%3C/svg%3E") repeat-x 0 0/120px 12px;animation:epOnda 2.4s linear infinite}
+.caixa--agua .caixa__icone{background:#fff}
+@keyframes epEncher{0%{transform:translateY(102%)}45%,82%{transform:translateY(0)}100%{transform:translateY(102%)}}
+@keyframes epOnda{to{transform:translateX(-120px)}}
+
 .mapa__detalhe{margin:0;padding:10px 12px 10px 34px;font-size:15px;color:var(--texto-2);list-style:disc}
 .leaflet-popup-content{font-family:var(--font);font-size:15px}
 .leaflet-popup-content strong{display:block;margin-bottom:4px;color:var(--azul-escuro)}

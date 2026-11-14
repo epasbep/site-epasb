@@ -5,10 +5,11 @@
 //
 // As notícias vêm de dois sítios e são juntas numa só lista:
 //   1. tabela "noticias" do Supabase (as publicadas pelo painel);
-//   2. data/noticias.json (as notícias iniciais, que funcionam mesmo sem backend).
+//   2. public/data/noticias.json (as notícias iniciais, que funcionam mesmo sem backend).
 import { SUPABASE_URL, SUPABASE_KEY } from './config.js';
+import { pub } from './util.js';
 
-const SEMENTE = new URL('../data/noticias.json', import.meta.url);
+const SEMENTE = pub('data/noticias.json');
 const BUCKET = 'noticias';
 let cache = null;
 

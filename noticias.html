@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Notícias | EPASB-EP</title>
 <meta name="description" content="Notícias e comunicados da EPASB-EP: cortes programados, obras, campanhas e avisos sobre água e saneamento na província de Benguela.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self' https://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; base-uri 'self'; form-action 'self'">
-<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="canonical" href="https://www.epasb.ao/noticias.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="EPASB-EP">
@@ -16,56 +14,10 @@
 <meta property="og:image" content="https://www.epasb.ao/assets/img/partilha.jpg">
 <meta property="og:locale" content="pt_AO">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#004B70">
-<link rel="icon" href="assets/logo/icone-gota-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="assets/logo/icone-gota-180.png">
-<link rel="manifest" href="site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
 </head>
-<body data-pagina="noticias">
-<main id="conteudo">
-  <section class="hero">
-    <div class="container hero__dentro">
-      <div class="hero__texto">
-        <p class="eyebrow">Notícias e comunicados</p>
-        <h1 class="h1">Da torneira à rede: o que se passa na EPASB</h1>
-        <p class="lead">Cortes programados, obras, campanhas e avisos sobre o abastecimento de água e o saneamento nos 11 municípios da província.</p>
-        <button class="btn btn--pill" id="repetir" type="button">↻ Repetir efeito</button>
-      </div>
-      <div class="hero__arte" id="torneira">
-      <svg class="torneira" viewBox="0 0 400 240" role="img" aria-label="Torneira a escorrer água que segue pela rede até ao saneamento">
-        <defs><linearGradient id="epG" x1="96" y1="0" x2="392" y2="0" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#39C6F4"/><stop offset=".35" stop-color="#009FE3"/><stop offset=".7" stop-color="#40ADC8"/><stop offset="1" stop-color="#004B70"/>
-        </linearGradient></defs>
-        <path d="M142 196 H392" stroke="#C9D7DA" stroke-width="28" stroke-linecap="round" fill="none"/>
-        <path d="M142 196 H392" stroke="#EEF3F4" stroke-width="23" stroke-linecap="round" fill="none"/>
-        <rect x="232" y="180" width="8" height="32" rx="2" fill="#C9D7DA"/>
-        <rect x="322" y="180" width="8" height="32" rx="2" fill="#C9D7DA"/>
-        <g fill="#004B70">
-          <rect x="0" y="30" width="14" height="44" rx="3"/><rect x="10" y="42" width="72" height="20" rx="4"/>
-          <path d="M78 42 H88 A18 18 0 0 1 106 60 V82 H86 V66 A4 4 0 0 0 82 62 H78 Z"/>
-          <rect x="84" y="80" width="24" height="5" rx="2"/><rect x="38" y="28" width="8" height="16"/>
-        </g>
-        <rect x="22" y="20" width="40" height="9" rx="4.5" fill="#009FE3"/>
-        <path class="gota" d="M96 86 C96 86 90 94 90 98 A6 6 0 0 0 102 98 C102 94 96 86 96 86Z" fill="#39C6F4"/>
-        <path class="jacto" d="M96 85 V168 Q96 196 124 196 H392" fill="none" stroke="url(#epG)" stroke-width="9" pathLength="1"/>
-        <path class="fluxo" d="M96 85 V168 Q96 196 124 196 H392" fill="none" stroke="#fff" stroke-opacity=".65" stroke-width="2.5" stroke-linecap="round" pathLength="100" stroke-dasharray="3 9"/>
-        <text class="et-agua" x="114" y="132" font-size="14" fill="#004B70">Água</text>
-        <text class="et-dist" x="236" y="234" font-size="12.5" fill="#3C5257" text-anchor="middle">Distribuição</text>
-        <text class="et-san" x="386" y="234" font-size="12.5" fill="#004B70" text-anchor="end">Saneamento</text>
-      </svg>
-      </div>
-    </div>
-  </section>
-  <section class="container seccao">
-    <h2 class="sr">Todas as notícias</h2>
-    <div class="grelha" id="lista" aria-live="polite"><p class="vazio">A carregar notícias…</p></div>
-  </section>
-</main>
-<script type="module" src="js/layout.js"></script>
-<script type="module" src="js/noticias.js"></script>
+<body>
+<div id="raiz"></div>
+<noscript><p style="padding:24px;font-family:sans-serif">Este site precisa de JavaScript activo. Contacte a EPASB-EP: geral@epasb.ao</p></noscript>
+<script type="module" src="/src/entradas/noticias.jsx"></script>
 </body>
 </html>

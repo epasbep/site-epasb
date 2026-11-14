@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Atendimento ao Cidadão | EPASB-EP</title>
 <meta name="description" content="Contacte a EPASB-EP: envie um pedido, reclamação, denúncia ou sugestão, ou fale connosco por telefone e WhatsApp.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self' https://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; base-uri 'self'; form-action 'self'">
-<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="canonical" href="https://www.epasb.ao/contacto.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="EPASB-EP">
@@ -16,59 +14,10 @@
 <meta property="og:image" content="https://www.epasb.ao/assets/img/partilha.jpg">
 <meta property="og:locale" content="pt_AO">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#004B70">
-<link rel="icon" href="assets/logo/icone-gota-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="assets/logo/icone-gota-180.png">
-<link rel="manifest" href="site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
 </head>
-<body data-pagina="contacto">
-<main id="conteudo">
-  <section class="hero hero--simples">
-    <div class="container hero__dentro">
-      <div class="hero__texto">
-        <p class="eyebrow">Atendimento ao cidadão</p>
-        <h1 class="h1">Fale connosco</h1>
-        <p class="lead">Para formalizar uma solicitação, um esclarecimento, uma denúncia ou uma sugestão, preencha o formulário. Se for urgente, ligue ou escreva pelo WhatsApp.</p>
-      </div>
-    </div>
-  </section>
-  <section class="container seccao">
-    <div class="admin__colunas">
-      <form class="form" id="form-atendimento" novalidate>
-        <div class="campo"><label for="nome">Nome *</label>
-          <input class="input" id="nome" name="nome" autocomplete="name" required><p class="campo__erro" data-erro="nome"></p></div>
-        <div class="campo"><label for="email">Email *</label>
-          <input class="input" id="email" name="email" type="email" autocomplete="email" inputmode="email" required><p class="campo__erro" data-erro="email"></p></div>
-        <div class="campo"><label for="telefone">Telefone</label>
-          <input class="input" id="telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+244 9XX XXX XXX"></div>
-        <div class="campo"><label for="assunto">Assunto *</label>
-          <select class="select" id="assunto" name="assunto" required>
-            <option value="">Seleccione um assunto</option><option>Elogio</option><option>Solicitação</option><option>Denúncia</option><option>Sugestão</option>
-          </select><p class="campo__erro" data-erro="assunto"></p></div>
-        <div class="campo"><label for="mensagem">Mensagem *</label>
-          <textarea class="textarea" id="mensagem" name="mensagem" rows="6" required></textarea><p class="campo__erro" data-erro="mensagem"></p></div>
-        <div class="campo"><span class="campo__label" id="l-doc">Anexar documento (opcional)</span>
-          <p class="campo__ajuda">PDF, JPG ou PNG, até 5 MB.</p>
-          <label class="ficheiro"><span id="doc-nome">Escolher ficheiro</span><input class="sr" id="documento" name="documento" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" aria-labelledby="l-doc"></label>
-          <p class="campo__erro" data-erro="documento"></p></div>
-        <div class="mensagem" id="resultado" role="status"></div>
-        <div class="form__accoes"><button class="btn btn--primario" id="enviar" type="submit">Enviar solicitação</button></div>
-      </form>
-      <aside class="admin__previa" aria-labelledby="t-cont">
-        <div class="caixa">
-          <h2 class="h3" id="t-cont">Outros contactos</h2>
-          <dl class="contactos" id="contactos"></dl>
-        </div>
-      </aside>
-    </div>
-  </section>
-</main>
-<script type="module" src="js/layout.js"></script>
-<script type="module" src="js/contacto.js"></script>
+<body>
+<div id="raiz"></div>
+<noscript><p style="padding:24px;font-family:sans-serif">Este site precisa de JavaScript activo. Contacte a EPASB-EP: geral@epasb.ao</p></noscript>
+<script type="module" src="/src/entradas/contacto.jsx"></script>
 </body>
 </html>
