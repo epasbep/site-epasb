@@ -1,0 +1,6 @@
+# Pacotes de design recebidos (ficam fora do repositório)
+*.zip
+design_handoff_*/
+
+# Configuração local da pré-visualização
+.claude/

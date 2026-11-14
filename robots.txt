@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /admin-atendimentos.html
 
 Sitemap: https://www.epasb.ao/sitemap.xml

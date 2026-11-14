@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atendimentos | Painel EPASB-EP</title>
+<meta name="description" content="Painel administrativo da EPASB-EP.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self' https://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#004B70">
+<link rel="icon" href="../assets/logo/icone-gota-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/logo/icone-gota-180.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+</head>
+<body data-pagina="admin">
+<section class="login" id="login" hidden>
+  <form class="form" id="form-login">
+    <img class="login__logo" src="../assets/logo/logo-epasb-256.webp" width="96" height="96" alt="EPASB-EP">
+    <h1>Área administrativa</h1>
+    <p class="texto">Atendimento ao cidadão e notícias</p>
+    <div class="campo"><label for="login-email">Email</label><input class="input" id="login-email" type="email" autocomplete="email" required></div>
+    <div class="campo"><label for="login-senha">Palavra-passe</label><input class="input" id="login-senha" type="password" autocomplete="current-password" required>
+      <p class="campo__erro" id="login-erro" role="alert"></p></div>
+    <button class="btn btn--primario" id="entrar" type="submit">Entrar</button>
+  </form>
+</section>
+
+<div id="painel" hidden>
+  <header class="admin-topo">
+    <div class="container admin-topo__dentro">
+      <img src="../assets/logo/logo-epasb-128.webp" width="36" height="36" alt="">
+      <strong>Painel administrativo</strong>
+      <nav aria-label="Painel"><a href="index.html" aria-current="page">Atendimentos</a><a href="nova-noticia.html">Publicar notícia</a><a href="../index.html">Ver o site</a></nav>
+      <span id="quem" style="font-size:14px;color:#D7ECF5"></span>
+      <button class="admin-topo__sair" id="sair" type="button">Sair</button>
+    </div>
+  </header>
+  <main class="container admin">
+    <p class="admin__migalhas">Painel / Atendimentos</p>
+    <h1 class="admin__titulo">Atendimento ao cidadão</h1>
+    <section class="contadores" aria-label="Resumo">
+      <div class="contador"><span>Total</span><strong id="c-total">0</strong></div>
+      <div class="contador"><span>Novos</span><strong id="c-novos">0</strong></div>
+      <div class="contador"><span>Em análise</span><strong id="c-analise">0</strong></div>
+      <div class="contador"><span>Respondidos</span><strong id="c-respondidos">0</strong></div>
+      <div class="contador"><span>Encerrados</span><strong id="c-encerrados">0</strong></div>
+    </section>
+    <section class="painel">
+      <div class="painel__topo"><h2>Atendimentos recebidos</h2><button class="btn btn--secundario" id="actualizar" type="button">Actualizar</button></div>
+      <p class="vazio" id="estado-lista" style="border:0">A carregar atendimentos…</p>
+      <div class="tabela-rolo" id="tabela" hidden>
+        <table class="tabela">
+          <thead><tr><th>ID</th><th>Data</th><th>Nome</th><th>Email</th><th>Assunto</th><th>Estado</th><th>Acção</th></tr></thead>
+          <tbody id="linhas"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal__caixa modal__caixa--largo" role="dialog" aria-modal="true" aria-labelledby="m-t">
+    <div class="modal__topo"><h2 id="m-t">Detalhes do atendimento</h2><button class="modal__fechar" id="fechar" type="button" aria-label="Fechar">×</button></div>
+    <dl class="detalhes" id="detalhes"></dl>
+    <div class="campo"><label for="estado">Estado do atendimento</label>
+      <select class="select" id="estado"><option>Novo</option><option>Em análise</option><option>Respondido</option><option>Encerrado</option></select></div>
+    <div class="campo"><label for="resposta">Resposta ao cidadão</label>
+      <textarea class="textarea" id="resposta" rows="5"></textarea><p class="campo__erro" id="modal-erro" role="alert"></p></div>
+    <div class="botoes"><button class="btn btn--primario" id="guardar" type="button">Guardar alterações</button><button class="btn btn--perigo" id="eliminar" type="button">Eliminar atendimento</button></div>
+  </div>
+</div>
+<script type="module" src="../js/admin-atendimentos.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Publicar notícia | Painel EPASB-EP</title>
+<meta name="description" content="Painel administrativo da EPASB-EP.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob: https:; frame-src https://www.youtube-nocookie.com; connect-src 'self' https://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#004B70">
+<link rel="icon" href="../assets/logo/icone-gota-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/logo/icone-gota-180.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+</head>
+<body data-pagina="admin">
+<div id="painel" hidden>
+  <header class="admin-topo">
+    <div class="container admin-topo__dentro">
+      <img src="../assets/logo/logo-epasb-128.webp" width="36" height="36" alt="">
+      <strong>Painel administrativo</strong>
+      <nav aria-label="Painel"><a href="index.html">Atendimentos</a><a href="nova-noticia.html" aria-current="page">Publicar notícia</a><a href="../index.html">Ver o site</a></nav>
+      <span id="quem" style="font-size:14px;color:#D7ECF5"></span>
+      <button class="admin-topo__sair" id="sair" type="button">Sair</button>
+    </div>
+  </header>
+  <main class="container admin">
+    <p class="admin__migalhas">Painel / Notícias / Nova notícia</p>
+    <h1 class="admin__titulo">Publicar notícia</h1>
+    <p class="mensagem mensagem--sucesso" id="aviso-rascunho" style="margin-bottom:20px" hidden>Recuperámos o rascunho que estava a escrever. Escolha de novo as fotografias.</p>
+    <div class="admin__colunas">
+      <form class="form" id="form-noticia" novalidate>
+        <div class="campo">
+          <div class="campo__topo"><label for="f-titulo">Título *</label><span class="campo__contador" id="n-titulo">0/120</span></div>
+          <input class="input" id="f-titulo" maxlength="120" placeholder="Ex.: Interrupção programada no Lobito">
+          <p class="campo__erro" data-erro="titulo"></p>
+        </div>
+        <div class="campo">
+          <label for="f-autor">Autor *</label>
+          <input class="input" id="f-autor" placeholder="Nome ou gabinete responsável" autocomplete="off">
+          <p class="campo__erro" data-erro="autor"></p>
+        </div>
+        <div class="campo">
+          <div class="campo__topo"><label for="f-breve">Breve descrição *</label><span class="campo__contador" id="n-breve">0/200</span></div>
+          <p class="campo__ajuda" style="margin-top:-4px">Aparece no cartão da notícia e na partilha.</p>
+          <textarea class="textarea" id="f-breve" maxlength="200" rows="3"></textarea>
+          <p class="campo__erro" data-erro="breve"></p>
+        </div>
+        <div class="campo">
+          <label for="f-descricao">Descrição *</label>
+          <p class="campo__ajuda">Texto completo. Deixe uma linha em branco entre parágrafos.</p>
+          <textarea class="textarea" id="f-descricao" rows="9"></textarea>
+          <p class="campo__erro" data-erro="descricao"></p>
+        </div>
+        <div class="campo">
+          <div class="campo__topo"><span class="campo__label">Fotografias *</span><span class="campo__contador" id="n-fotos" style="font-weight:700;color:var(--azul-escuro)">0 / 10</span></div>
+          <p class="campo__ajuda" style="margin-top:-4px">Até 10 fotografias, JPG ou PNG, máx. 5 MB cada. A primeira é a capa.</p>
+          <div class="fotos" id="fotos"></div>
+          <p class="campo__aviso" id="aviso-fotos" role="status"></p>
+          <p class="campo__erro" data-erro="fotos"></p>
+        </div>
+        <div class="campo">
+          <span class="campo__label">Vídeo (opcional)</span>
+          <p class="campo__ajuda">Aparece em primeiro no carrossel e só carrega quando o leitor toca em reproduzir.</p>
+          <div class="segmentos" id="video-modo" role="group" aria-label="Tipo de vídeo">
+            <button type="button" data-modo="nenhum">Sem vídeo</button><button type="button" data-modo="link">Link do YouTube</button><button type="button" data-modo="ficheiro">Carregar ficheiro</button>
+          </div>
+          <div id="video-link" hidden>
+            <input class="input" id="f-yt" type="url" inputmode="url" placeholder="https://youtu.be/…" aria-label="Link do YouTube" style="margin-top:10px">
+            <div class="video-ok" id="yt-ok" hidden><img id="yt-mini" alt=""><span>✓ Vídeo do YouTube reconhecido</span></div>
+          </div>
+          <div id="video-ficheiro" hidden>
+            <div class="video-ok" id="mp4-ok" style="color:var(--texto)" hidden><span id="mp4-nome"></span><button class="btn btn--secundario" id="mp4-remover" type="button" style="min-height:40px">Remover</button></div>
+            <label class="ficheiro" style="margin-top:10px">Escolher vídeo MP4 (máx. 50 MB)<input class="sr" id="f-mp4" type="file" accept="video/mp4"></label>
+          </div>
+          <p class="campo__erro" data-erro="video"></p>
+        </div>
+        <div class="form__accoes">
+          <button class="btn btn--primario" type="submit">Publicar notícia</button>
+          <button class="btn btn--secundario" id="limpar" type="button">Limpar</button>
+        </div>
+      </form>
+
+      <aside class="admin__previa" aria-label="Pré-visualização do cartão">
+        <p>Pré-visualização do cartão</p>
+        <article class="cartao">
+          <div class="cartao__media" id="p-capa">Sem fotografia de capa</div>
+          <div class="cartao__corpo">
+            <p class="cartao__meta" id="p-meta"></p>
+            <h2 class="cartao__titulo" id="p-titulo">Título da notícia</h2>
+            <p class="cartao__resumo" id="p-breve">A breve descrição aparece aqui.</p>
+          </div>
+        </article>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal__caixa" role="dialog" aria-modal="true" aria-labelledby="m-titulo" aria-live="polite">
+    <div id="arte"></div>
+    <h2 id="m-titulo" tabindex="-1"></h2>
+    <p id="m-texto"></p>
+    <p class="campo__ajuda" id="m-detalhe" style="margin:0;overflow-wrap:anywhere"></p>
+    <div class="progresso" id="m-progresso"><div id="barra"></div></div>
+    <div class="botoes" id="m-sucesso" hidden><a class="btn btn--primario" id="ver" href="../noticias.html">Ver notícia</a><button class="btn btn--secundario" id="outra" type="button">Publicar outra</button></div>
+    <div class="botoes" id="m-erro" hidden><button class="btn btn--primario" id="repetir" type="button">Tentar novamente</button><button class="btn btn--secundario" id="voltar" type="button">Voltar ao formulário</button></div>
+  </div>
+</div>
+<script type="module" src="../js/nova-noticia.js"></script>
+</body>
+</html>

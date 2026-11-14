@@ -1,37 +1,47 @@
 # =====================================================
-# CABEÇALHOS DE SEGURANÇA — EPASB-EP
-# (válido para hospedagem Apache; se o servidor for
-# Nginx ou outro, estes cabeçalhos têm de ser configurados
-# no painel de hospedagem ou na configuração do servidor)
+# EPASB-EP — configuração do servidor (Apache)
 # =====================================================
+
+Options -Indexes
 
 <IfModule mod_headers.c>
-
-  # Impede que o site seja carregado dentro de <iframe> de outros domínios
   Header always set X-Frame-Options "SAMEORIGIN"
-
-  # Impede que o browser tente "adivinhar" o tipo de ficheiro
   Header always set X-Content-Type-Options "nosniff"
-
-  # Ativa a proteção XSS de browsers mais antigos
-  Header always set X-XSS-Protection "1; mode=block"
-
-  # Controla que informação é enviada no cabeçalho Referer
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
-
-  # Força HTTPS (ativar apenas depois de confirmar que o site
-  # já tem certificado SSL instalado)
+  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=()"
+  # Activar só depois de confirmar que o certificado SSL está instalado:
   # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 
+  # O painel administrativo nunca deve aparecer em motores de busca
+  <FilesMatch "^(admin-atendimentos\.html)$">
+    Header set X-Robots-Tag "noindex, nofollow"
+  </FilesMatch>
 </IfModule>
 
-# =====================================================
-# BLOQUEAR ACESSO A FICHEIROS SENSÍVEIS
-# =====================================================
-
-<FilesMatch "\.(env|log|ini|bak|sql|config)$">
+# Ficheiros sensiveis
+<FilesMatch "\.(env|log|ini|bak|sql|config|zip)$">
   Require all denied
 </FilesMatch>
 
-# Impede listagem de diretórios
-Options -Indexes
+# Compressao (poupa dados moveis)
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
+
+# Cache: imagens e logotipos ficam guardados 1 ano; paginas, CSS e JS sao sempre verificados
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType application/pdf "access plus 1 month"
+  ExpiresByType text/css "access plus 0 seconds"
+  ExpiresByType application/javascript "access plus 0 seconds"
+  ExpiresByType text/javascript "access plus 0 seconds"
+  ExpiresByType application/json "access plus 0 seconds"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType application/manifest+json .webmanifest
+</IfModule>
