@@ -1,5 +1,5 @@
 # Compila o site React e publica-o no GitHub Pages sempre que há um push para o main.
-# Requer: Settings → Pages → Build and deployment → Source: "GitHub Actions".
+# O Pages está configurado com Source: "GitHub Actions" (Settings → Pages).
 name: Publicar site
 
 on:
@@ -33,11 +33,5 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
-      # Enquanto o Pages estiver em "Deploy from a branch", o GitHub publica também os ficheiros
-      # em bruto a cada push. Esta espera garante que a versão compilada é a última a entrar.
-      # Pode ser removida depois de mudar Settings → Pages → Source para "GitHub Actions".
-      - name: Esperar pela publicação automática do GitHub
-        if: github.event_name == 'push'
-        run: sleep 150
       - id: deploy
         uses: actions/deploy-pages@v4
