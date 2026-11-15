@@ -1,0 +1,157 @@
+// Página "Contacto": formulário de atendimento ao cidadão.
+// Os pedidos são guardados na tabela "atendimentos" do Supabase (e o anexo no bucket "atendimentos").
+import { useRef, useState } from 'react';
+import { sb } from '../supabase.js';
+import { TELEFONE, EMAILS, MORADA } from '../config.js';
+
+const MAX = 5 * 1024 * 1024;
+const TIPOS = ['application/pdf', 'image/jpeg', 'image/png'];
+const VAZIO = { nome: '', email: '', telefone: '', assunto: '', mensagem: '' };
+
+function erroDocumento(f) {
+  if (!f) return '';
+  if (f.size > MAX) return 'O documento ultrapassa o limite de 5 MB.';
+  if (!TIPOS.includes(f.type)) return 'Tipo de documento não permitido. Envie apenas PDF, JPG ou PNG.';
+  return '';
+}
+
+function Campo({ nome, rotulo, erro, children }) {
+  return (
+    <div className={`campo${erro ? ' campo--erro' : ''}`}>
+      <label htmlFor={nome}>{rotulo}</label>
+      {children}
+      <p className="campo__erro">{erro}</p>
+    </div>
+  );
+}
+
+export default function Contacto() {
+  const [dados, setDados] = useState(VAZIO);
+  const [doc, setDoc] = useState(null);
+  const [erros, setErros] = useState({});
+  const [aEnviar, setAEnviar] = useState(false);
+  const [resultado, setResultado] = useState(null); // { tipo: 'sucesso' | 'erro', texto }
+  const form = useRef(null);
+  const ficheiro = useRef(null);
+
+  // O erro de um campo desaparece quando a pessoa o corrige.
+  const mudar = (e) => {
+    const { name, value } = e.target;
+    setDados((d) => ({ ...d, [name]: value }));
+    setErros((x) => ({ ...x, [name]: '' }));
+  };
+  const escolherDoc = (e) => {
+    const f = e.target.files[0] || null;
+    setDoc(f);
+    setErros((x) => ({ ...x, documento: erroDocumento(f) }));
+  };
+
+  async function enviar(ev) {
+    ev.preventDefault();
+    setResultado(null);
+    const d = Object.fromEntries(Object.entries(dados).map(([k, v]) => [k, v.trim()]));
+    const novos = {
+      nome: d.nome ? '' : 'Indique o seu nome.',
+      email: /^\S+@\S+\.\S+$/.test(d.email) ? '' : 'Indique um email válido.',
+      assunto: d.assunto ? '' : 'Seleccione o assunto.',
+      mensagem: d.mensagem ? '' : 'Escreva a sua mensagem.',
+      documento: erroDocumento(doc)
+    };
+    setErros(novos);
+    const primeiro = Object.keys(novos).find((k) => novos[k]);
+    if (primeiro) { form.current.elements[primeiro]?.focus(); return; }
+
+    setAEnviar(true);
+    let caminho = null;
+    try {
+      if (doc) {
+        const limpo = doc.name.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-zA-Z0-9._-]/g, '_');
+        caminho = `documentos/${Date.now()}_${limpo}`;
+        const { error } = await sb.storage.from('atendimentos').upload(caminho, doc, { cacheControl: '3600', upsert: false, contentType: doc.type });
+        if (error) throw error;
+      }
+      const { error } = await sb.from('atendimentos').insert({
+        nome: d.nome, email: d.email, telefone: d.telefone || null, assunto: d.assunto,
+        mensagem: d.mensagem, status: 'Novo', resposta: null, documento_url: caminho
+      });
+      if (error) {
+        if (caminho) await sb.storage.from('atendimentos').remove([caminho]);
+        throw error;
+      }
+      setDados(VAZIO);
+      setDoc(null);
+      ficheiro.current.value = '';
+      setResultado({ tipo: 'sucesso', texto: 'Atendimento enviado com sucesso. A EPASB-EP recebeu a sua solicitação.' });
+    } catch (e) {
+      console.error('Atendimento:', e);
+      setResultado({ tipo: 'erro', texto: 'Não foi possível enviar. Verifique a sua ligação e tente novamente, ou contacte-nos por telefone ou WhatsApp.' });
+    } finally {
+      setAEnviar(false);
+    }
+  }
+
+  return (
+    <main id="conteudo">
+      <section className="hero hero--simples">
+        <div className="container hero__dentro">
+          <div className="hero__texto">
+            <p className="eyebrow">Atendimento ao cidadão</p>
+            <h1 className="h1">Fale connosco</h1>
+            <p className="lead" style={{ marginBottom: 0 }}>Para formalizar uma solicitação, um esclarecimento, uma denúncia ou uma sugestão, preencha o formulário. Se for urgente, ligue ou escreva pelo WhatsApp.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="container seccao">
+        <div className="admin__colunas">
+          <form className="form" ref={form} onSubmit={enviar} noValidate>
+            <Campo nome="nome" rotulo="Nome *" erro={erros.nome}>
+              <input className="input" id="nome" name="nome" autoComplete="name" value={dados.nome} onChange={mudar} />
+            </Campo>
+            <Campo nome="email" rotulo="Email *" erro={erros.email}>
+              <input className="input" id="email" name="email" type="email" autoComplete="email" inputMode="email" value={dados.email} onChange={mudar} />
+            </Campo>
+            <Campo nome="telefone" rotulo="Telefone">
+              <input className="input" id="telefone" name="telefone" type="tel" autoComplete="tel" inputMode="tel" placeholder="+244 9XX XXX XXX" value={dados.telefone} onChange={mudar} />
+            </Campo>
+            <Campo nome="assunto" rotulo="Assunto *" erro={erros.assunto}>
+              <select className="select" id="assunto" name="assunto" value={dados.assunto} onChange={mudar}>
+                <option value="">Seleccione um assunto</option>
+                <option>Elogio</option><option>Solicitação</option><option>Denúncia</option><option>Sugestão</option>
+              </select>
+            </Campo>
+            <Campo nome="mensagem" rotulo="Mensagem *" erro={erros.mensagem}>
+              <textarea className="textarea" id="mensagem" name="mensagem" rows="6" value={dados.mensagem} onChange={mudar} />
+            </Campo>
+            <div className={`campo${erros.documento ? ' campo--erro' : ''}`}>
+              <span className="campo__label" id="l-doc">Anexar documento (opcional)</span>
+              <p className="campo__ajuda">PDF, JPG ou PNG, até 5 MB.</p>
+              <label className="ficheiro">
+                <span>{doc ? `${doc.name} (${(doc.size / 1024 / 1024).toFixed(2)} MB)` : 'Escolher ficheiro'}</span>
+                <input className="sr" name="documento" type="file" ref={ficheiro} onChange={escolherDoc}
+                  accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" aria-labelledby="l-doc" />
+              </label>
+              <p className="campo__erro">{erros.documento}</p>
+            </div>
+            <div className={`mensagem${resultado ? ` mensagem--${resultado.tipo}` : ''}`} role="status">{resultado?.texto}</div>
+            <div className="form__accoes">
+              <button className="btn btn--primario" type="submit" disabled={aEnviar}>{aEnviar ? 'A enviar…' : 'Enviar solicitação'}</button>
+            </div>
+          </form>
+
+          <aside className="admin__previa" aria-labelledby="t-cont">
+            <div className="caixa">
+              <h2 className="h3" id="t-cont">Outros contactos</h2>
+              <dl className="contactos">
+                <dt>Telefone</dt><dd><a href={`tel:${TELEFONE.ligar}`}>{TELEFONE.visivel}</a></dd>
+                <dt>WhatsApp</dt><dd><a href={`https://wa.me/${TELEFONE.whatsapp}`} target="_blank" rel="noopener noreferrer">Enviar mensagem</a></dd>
+                <dt>Email</dt><dd>{EMAILS.map((e) => <div key={e}><a href={`mailto:${e}`}>{e}</a></div>)}</dd>
+                <dt>Morada</dt><dd>{MORADA}</dd>
+              </dl>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+  );
+}
