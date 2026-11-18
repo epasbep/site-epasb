@@ -8,7 +8,8 @@ export default function Noticia() {
   const [n, setN] = useState(undefined); // undefined = a carregar, null = não existe
 
   useEffect(() => {
-    const id = new URLSearchParams(location.search).get('id');
+    // O id vem do endereço (noticia.html?id=…) ou da página própria da notícia (noticia-<id>.html).
+    const id = new URLSearchParams(location.search).get('id') || document.querySelector('meta[name="noticia-id"]')?.content;
     (id ? getNews(id) : Promise.resolve(null)).then((noticia) => {
       setN(noticia);
       if (noticia) {

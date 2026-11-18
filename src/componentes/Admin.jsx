@@ -24,7 +24,8 @@ export function Topo({ sessao, activa }) {
         <strong>Painel administrativo</strong>
         <nav aria-label="Painel">
           {link('index.html', 'Atendimentos')}
-          {link('nova-noticia.html', 'Publicar notícia')}
+          {link('noticias.html', 'Notícias')}
+          {link('avisos.html', 'Avisos')}
           <a href="../index.html">Ver o site</a>
         </nav>
         <span style={{ fontSize: 14, color: '#D7ECF5' }}>{sessao.user.email}</span>

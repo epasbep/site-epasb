@@ -1,13 +1,13 @@
 // Cartão de notícia (página Notícias e página inicial) e o carregamento da lista.
 import { useEffect, useState } from 'react';
-import { listNews } from '../api.js';
+import { listNews, enderecoNoticia } from '../api.js';
 import { formatarData, contarFotos, fonteFoto } from '../util.js';
 
 export function CartaoNoticia({ noticia: n }) {
   const fotos = n.photos || [];
   const meta = [formatarData(n.date), contarFotos(fotos.length)].filter(Boolean).join(' · ');
   return (
-    <a className="cartao" href={`noticia.html?id=${encodeURIComponent(n.id)}`}>
+    <a className="cartao" href={enderecoNoticia(n)}>
       <div className="cartao__media">
         {fotos[0] && <img {...fonteFoto(fotos[0], '(min-width: 700px) 380px, 100vw')} alt="" loading="lazy" decoding="async" />}
         <div className="cartao__badges">

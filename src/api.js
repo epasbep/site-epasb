@@ -1,37 +1,41 @@
-// Camada de dados das notícias. É o único ficheiro que fala com o backend (Supabase).
-//   listNews()                          → todas as notícias, da mais recente para a mais antiga
-//   getNews(id)                         → uma notícia
-//   publishNews(dados, onProgress, token) → publica (só painel administrativo)
+// Dados públicos do site (notícias, avisos, consulta de pedidos), lidos directamente da API do Supabase.
+// Não usa a biblioteca supabase-js, para as páginas públicas ficarem leves.
 //
-// As notícias vêm de dois sítios e são juntas numa só lista:
-//   1. tabela "noticias" do Supabase (as publicadas pelo painel);
-//   2. public/data/noticias.json (as notícias iniciais, que funcionam mesmo sem backend).
+// Notícias: vêm da tabela "noticias" do Supabase. Se a tabela ainda não existir ou estiver vazia,
+// usa as notícias de public/data/noticias.json, para o site nunca ficar sem conteúdo.
 import { SUPABASE_URL, SUPABASE_KEY } from './config.js';
 import { pub } from './util.js';
 
-const SEMENTE = pub('data/noticias.json');
 const BUCKET = 'noticias';
-let cache = null;
-
 const cabecalhos = (token) => ({ apikey: SUPABASE_KEY, Authorization: `Bearer ${token || SUPABASE_KEY}` });
 
 async function lerJson(url, opcoes) {
   try {
     const r = await fetch(url, opcoes);
-    return r.ok ? await r.json() : [];
+    return r.ok ? await r.json() : null;
   } catch {
-    return [];
+    return null;
   }
 }
 
-export async function listNews() {
-  if (cache) return cache;
-  const [remotas, locais] = await Promise.all([
-    lerJson(`${SUPABASE_URL}/rest/v1/noticias?select=*&order=date.desc`, { headers: cabecalhos() }),
-    lerJson(SEMENTE)
-  ]);
-  // Notícias sem data ficam no fim.
-  cache = [...remotas, ...locais].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+// ---------- Notícias ----------
+let cache = null;
+
+export function listNews() {
+  if (!cache) {
+    cache = (async () => {
+      const [remotas, locais, estaticas] = await Promise.all([
+        lerJson(`${SUPABASE_URL}/rest/v1/noticias?select=*&order=date.desc.nullslast,created_at.desc`, { headers: cabecalhos() }),
+        lerJson(pub('data/noticias.json')),
+        lerJson(pub('data/paginas-noticias.json')) // criado na compilação: notícias com página própria para partilha
+      ]);
+      const lista = remotas?.length ? remotas : locais || [];
+      const comPagina = new Set(estaticas || []);
+      return lista
+        .map((n) => ({ ...n, pagina: comPagina.has(String(n.id)) }))
+        .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    })();
+  }
   return cache;
 }
 
@@ -39,7 +43,29 @@ export async function getNews(id) {
   return (await listNews()).find((n) => String(n.id) === String(id)) || null;
 }
 
-// ---------- Publicação ----------
+// Endereço de uma notícia: a página própria (boa para partilhar) ou a página genérica.
+export const enderecoNoticia = (n) =>
+  n.pagina ? pub(`noticia-${encodeURIComponent(n.id)}.html`) : pub(`noticia.html?id=${encodeURIComponent(n.id)}`);
+
+// ---------- Avisos (faixa no topo) ----------
+export async function listAvisos() {
+  return (await lerJson(`${SUPABASE_URL}/rest/v1/avisos?select=id,texto,tipo,link&order=created_at.desc`, { headers: cabecalhos() })) || [];
+}
+
+// ---------- Consulta de pedidos de atendimento ----------
+// Devolve { codigo, assunto, status, resposta, criado, atualizado } ou null se não existir.
+export async function consultarPedido(codigo) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/consultar_pedido`, {
+    method: 'POST',
+    headers: { ...cabecalhos(), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ p_codigo: codigo })
+  });
+  if (!r.ok) throw new Error(`consulta ${r.status}`);
+  const linhas = await r.json();
+  return linhas[0] || null;
+}
+
+// ---------- Publicação e edição de notícias (painel administrativo) ----------
 
 // Reduz uma fotografia para a largura indicada e devolve um JPEG leve.
 async function reduzir(ficheiro, largura) {
@@ -71,20 +97,45 @@ function carregar(caminho, blob, tipo, token, aoProgredir) {
   });
 }
 
-const publico = (caminho) => `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${caminho}`;
+const PUBLICO = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/`;
+const publico = (caminho) => PUBLICO + caminho;
 
-// dados: { title, author, short, body, fotos: File[], video: null | {type:'youtube', id} | {type:'file', ficheiro: File} }
-export async function publishNews(dados, onProgress, token) {
-  const id = crypto.randomUUID();
+// Caminhos no Storage dos ficheiros de uma notícia (para os apagar). Fotografias do próprio site são ignoradas.
+export function ficheirosNoStorage(urls) {
+  return urls.filter((u) => u?.startsWith(PUBLICO)).flatMap((u) => {
+    const caminho = u.slice(PUBLICO.length);
+    return /-1600\.jpg$/.test(caminho) ? [caminho, caminho.replace(/-1600\.jpg$/, '-800.jpg')] : [caminho];
+  });
+}
+
+const aleatorio = () => Math.random().toString(36).slice(2, 8);
+
+// Cria (sem id) ou actualiza (com id) uma notícia.
+// dados: { id?, title, author, short, body,
+//          fotos: [{ url } (já publicada) | { ficheiro: File } (nova)],
+//          video: null | {type:'youtube', id} | {type:'file', ficheiro: File} | {type:'file', src, poster} (já publicado) }
+// Devolve { id, removidas } — removidas = ficheiros antigos que deixaram de ser usados (o painel apaga-os).
+export async function guardarNoticia(dados, onProgress, token, anterior = null) {
+  const id = dados.id || crypto.randomUUID();
   const envios = [];
 
-  // 1. Preparar: cada fotografia em 1600px e 800px.
-  for (let i = 0; i < dados.fotos.length; i++) {
-    for (const largura of [1600, 800]) {
-      envios.push({ caminho: `${id}/${i + 1}-${largura}.jpg`, blob: await reduzir(dados.fotos[i], largura), tipo: 'image/jpeg' });
-    }
+  // 1. Preparar as fotografias novas (1600px e 800px).
+  const photos = [];
+  for (const f of dados.fotos) {
+    if (!f.ficheiro) { photos.push(f.url); continue; }
+    const nome = `${id}/${aleatorio()}`;
+    envios.push({ caminho: `${nome}-1600.jpg`, blob: await reduzir(f.ficheiro, 1600), tipo: 'image/jpeg' });
+    envios.push({ caminho: `${nome}-800.jpg`, blob: await reduzir(f.ficheiro, 800), tipo: 'image/jpeg' });
+    photos.push(publico(`${nome}-1600.jpg`));
   }
-  if (dados.video?.type === 'file') envios.push({ caminho: `${id}/video.mp4`, blob: dados.video.ficheiro, tipo: 'video/mp4' });
+  let video = null;
+  if (dados.video?.type === 'youtube') video = { type: 'youtube', id: dados.video.id, poster: `https://i.ytimg.com/vi/${dados.video.id}/hqdefault.jpg` };
+  if (dados.video?.type === 'file' && dados.video.ficheiro) {
+    const caminho = `${id}/video-${aleatorio()}.mp4`;
+    envios.push({ caminho, blob: dados.video.ficheiro, tipo: 'video/mp4' });
+    video = { type: 'file', src: publico(caminho), poster: photos[0] };
+  }
+  if (dados.video?.type === 'file' && !dados.video.ficheiro) video = { ...dados.video, poster: photos[0] };
 
   // 2. Enviar, um ficheiro de cada vez (mais seguro em ligações fracas).
   const total = envios.reduce((s, e) => s + e.blob.size, 0) || 1;
@@ -94,20 +145,19 @@ export async function publishNews(dados, onProgress, token) {
     feito += e.blob.size;
   }
 
-  // 3. Criar o registo da notícia.
-  const photos = dados.fotos.map((_, i) => publico(`${id}/${i + 1}-1600.jpg`));
-  let video = null;
-  if (dados.video?.type === 'youtube') video = { type: 'youtube', id: dados.video.id, poster: `https://i.ytimg.com/vi/${dados.video.id}/hqdefault.jpg` };
-  if (dados.video?.type === 'file') video = { type: 'file', src: publico(`${id}/video.mp4`), poster: photos[0] };
-
-  const r = await fetch(`${SUPABASE_URL}/rest/v1/noticias`, {
-    method: 'POST',
+  // 3. Criar ou actualizar o registo.
+  const registo = { title: dados.title, author: dados.author, short: dados.short, body: dados.body, photos, video };
+  const url = dados.id ? `${SUPABASE_URL}/rest/v1/noticias?id=eq.${encodeURIComponent(id)}` : `${SUPABASE_URL}/rest/v1/noticias`;
+  const r = await fetch(url, {
+    method: dados.id ? 'PATCH' : 'POST',
     headers: { ...cabecalhos(token), 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-    body: JSON.stringify({ id, title: dados.title, author: dados.author, short: dados.short, body: dados.body, photos, video })
+    body: JSON.stringify(dados.id ? { ...registo, updated_at: new Date().toISOString() } : { id, ...registo })
   });
   if (!r.ok) throw new Error(`Notícia ${r.status}: ${await r.text()}`);
 
   cache = null;
   onProgress(100);
-  return id;
+  const antigos = anterior ? [...(anterior.photos || []), anterior.video?.type === 'file' ? anterior.video.src : null] : [];
+  const actuais = new Set([...photos, video?.src]);
+  return { id, removidas: ficheirosNoStorage(antigos.filter((u) => u && !actuais.has(u))) };
 }

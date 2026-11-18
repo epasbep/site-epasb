@@ -1,0 +1,32 @@
+[
+  {
+    "id": "contadores-pre-pagos",
+    "titulo": "Programa de Instalação de Contadores Pré-Pagos",
+    "estado": "em-curso",
+    "local": "Lobito, Benguela, Catumbela, Navegantes e Baía Farta",
+    "resumo": "Modernização do sistema de medição e gestão do consumo de água, com mais autonomia para os clientes.",
+    "descricao": "O programa prevê a modernização do sistema de medição e gestão do consumo de água, contribuindo para uma maior autonomia dos clientes.\n\nO Município do Lobito é o ponto de partida, com a fase-piloto na Restinga, onde a instalação dos primeiros contadores pré-pagos ficou marcada para 7 de Setembro. A iniciativa será estendida aos municípios de Benguela, Catumbela, Navegantes e Baía Farta, ao longo de sete meses.\n\nO projecto foi apresentado aos Órgãos de Comunicação Social, aos Gabinetes de Comunicação Social das Administrações Municipais e, em acto público, a autoridades municipais e tradicionais, comissões de moradores e representantes da sociedade civil.",
+    "fotos": ["assets/img/noticias/programa-lobito-1600.webp", "assets/img/noticias/contadores-pre-pagos-1600.webp"],
+    "noticias": ["programa-contadores-lobito", "contadores-pre-pagos-imprensa", "campanha-bairro-da-luz"]
+  },
+  {
+    "id": "expansao-da-rede",
+    "titulo": "Expansão da Rede de Abastecimento de Água",
+    "estado": "em-curso",
+    "local": "Província de Benguela",
+    "resumo": "Novos projectos para ampliar o acesso à água potável nas comunidades da província.",
+    "descricao": "A EPASB-EP desenvolve novos projectos para ampliar o acesso à água potável nas comunidades da província de Benguela.\n\nAs iniciativas fazem parte dos esforços para melhorar a cobertura e a qualidade dos serviços de abastecimento de água.",
+    "fotos": ["assets/img/noticias/rede-1600.webp"],
+    "noticias": ["expansao-da-rede"]
+  },
+  {
+    "id": "obras-novos-municipios",
+    "titulo": "Obras de Infra-estrutura em Novos Municípios",
+    "estado": "em-curso",
+    "local": "Província de Benguela",
+    "resumo": "Intervenções técnicas para melhorar a distribuição de água e fortalecer os serviços públicos.",
+    "descricao": "Novas intervenções técnicas estão em andamento para melhorar a distribuição de água e fortalecer os serviços públicos.\n\nA EPASB-EP continua a acompanhar e desenvolver acções destinadas a melhorar as infra-estruturas de abastecimento na província.",
+    "fotos": ["assets/img/noticias/obras-1600.webp"],
+    "noticias": ["obras-em-novos-municipios"]
+  }
+]

@@ -22,7 +22,7 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--fundo);color:var(--texto);font-family:var(--font);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
 a{color:var(--link)} a:hover{color:var(--azul-escuro)}
-img{max-width:100%}
+img{max-width:100%;height:auto}
 h1,h2,h3,p{margin:0}
 [hidden]{display:none!important}
 :focus-visible{outline:3px solid var(--azul);outline-offset:2px}
@@ -70,7 +70,7 @@ h1,h2,h3,p{margin:0}
 .nav-movel a:not(.btn){font-size:17px;font-weight:600;color:var(--texto);text-decoration:none;padding:14px 4px;border-bottom:1px solid var(--linha-suave)}
 .nav-movel a[aria-current="page"]{color:var(--azul-escuro)}
 .nav-movel .btn{margin-top:12px}
-@media (max-width:819px){
+@media (max-width:1099px){
   .nav,.cabecalho .btn--atendimento{display:none}
   .hamburguer{display:flex}
   .nav-movel.aberto{display:flex}
@@ -141,14 +141,6 @@ h1,h2,h3,p{margin:0}
 .mapa__tela{position:relative}
 .mapa__leaflet{position:absolute;inset:0}
 
-/* "O que fazemos": cada caixa enche-se de água e recomeça de 6 em 6 segundos */
-.caixa--agua{position:relative;overflow:hidden;isolation:isolate}
-.caixa--agua > *{position:relative;z-index:1}
-.caixa--agua .agua{position:absolute;z-index:0;inset:0;background:linear-gradient(#D6F0FB,#B5E2F6);transform:translateY(102%);animation:epEncher 6s cubic-bezier(.45,0,.25,1) var(--atraso,0s) infinite backwards}
-.caixa--agua .agua::before{content:"";position:absolute;left:0;bottom:100%;width:200%;height:12px;margin-bottom:-1px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'%3E%3Cpath d='M0 6 Q15 0 30 6 T60 6 T90 6 T120 6 V12 H0Z' fill='%23D6F0FB'/%3E%3C/svg%3E") repeat-x 0 0/120px 12px;animation:epOnda 2.4s linear infinite}
-.caixa--agua .caixa__icone{background:#fff}
-@keyframes epEncher{0%{transform:translateY(102%)}45%,82%{transform:translateY(0)}100%{transform:translateY(102%)}}
-@keyframes epOnda{to{transform:translateX(-120px)}}
 
 .mapa__detalhe{margin:0;padding:10px 12px 10px 34px;font-size:15px;color:var(--texto-2);list-style:disc}
 .leaflet-popup-content{font-family:var(--font);font-size:15px}
@@ -156,13 +148,14 @@ h1,h2,h3,p{margin:0}
 .leaflet-popup-content ul{margin:0;padding-left:18px}
 
 /* Equipa (organigrama) */
-.equipa{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:20px}
+.equipa{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:20px}
+.equipa > *{min-width:0}
 .pessoa{background:#fff;border:1px solid var(--linha);border-radius:var(--r-card);overflow:hidden;text-align:center}
-.pessoa img{width:100%;aspect-ratio:1;object-fit:cover;object-position:top;background:var(--placeholder);display:block}
+.pessoa img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;object-position:50% 18%;background:var(--placeholder);display:block}
 .pessoa div{padding:16px}
 .pessoa h3{font-size:19px;font-weight:700}
 .pessoa p{margin-top:4px;font-size:15px;color:var(--texto-2)}
-.pessoa--pca{max-width:340px;margin:0 auto 20px}
+.pessoa--pca{max-width:300px;margin:0 auto 20px}
 .pessoa--pca p{color:var(--link);font-weight:700}
 
 /* Capítulos (estatutos) */
@@ -354,8 +347,114 @@ h1,h2,h3,p{margin:0}
 .form__accoes .btn--primario{flex:1 1 200px;min-height:50px}
 .form__accoes .btn{min-height:50px}
 
+/* ---------- Textos justificados (com divisão de palavras, para não abrir buracos no telemóvel) ---------- */
+.lead,.texto,.caixa p,.etapas p,.capitulos p,.cartao__resumo,.noticia__lead,.noticia__corpo p,.projecto p,.faq p{text-align:justify;hyphens:auto;-webkit-hyphens:auto;text-wrap:wrap}
+
+/* ---------- Faixa de avisos ---------- */
+.aviso{background:var(--destaque);color:var(--azul-escuro);border-bottom:1px solid #BFE6F7}
+.aviso--urgente{background:#FCEFD6;color:#5C3300;border-bottom-color:#F1D5A1}
+.aviso__dentro{display:flex;align-items:center;gap:12px;padding-block:10px;font-size:15px}
+.aviso__etiqueta{flex:none;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:var(--azul-escuro);color:#fff}
+.aviso--urgente .aviso__etiqueta{background:#8A4B00}
+.aviso p{flex:1;min-width:0}
+.aviso a{color:inherit;font-weight:700}
+.aviso__fechar{flex:none;width:44px;height:44px;margin:-8px -10px -8px 0;border:0;background:transparent;color:inherit;font-size:22px;cursor:pointer}
+
+/* ---------- Topo da página inicial: fundo da página "Novo site em breve" + partículas ---------- */
+.hero--particulas{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#F7FCFF 0%,#D9F0FF 100%);border-bottom:0}
+.hero--particulas .hero__dentro{position:relative;z-index:1}
+.particulas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.hero--particulas .hero__foto{box-shadow:0 18px 40px rgba(0,75,112,.16)}
+
+/* ---------- Ondas nos cartões de "O que fazemos" (vêm do rodapé da página "Novo site em breve") ---------- */
+.caixa--agua{position:relative;overflow:hidden;isolation:isolate}
+.caixa--agua > *:not(.agua){position:relative;z-index:1}
+.agua{position:absolute;inset:0;z-index:0;pointer-events:none}
+.agua__nivel{position:absolute;left:0;right:0;bottom:0;height:62%;transform:translateY(100%);animation:epSubir 6s cubic-bezier(.45,0,.3,1) var(--atraso,0s) infinite backwards}
+.agua__onda{position:absolute;left:0;bottom:calc(100% - 2px);width:200%;height:26px;animation:epOndas 7s linear infinite}
+.agua__onda--tras{height:32px;opacity:.55;animation-duration:11s;animation-direction:reverse}
+.agua__corpo{position:absolute;inset:0;background:linear-gradient(180deg,rgba(127,208,255,.34),rgba(30,167,245,.24))}
+.caixa--agua .caixa__icone{background:#fff;box-shadow:0 1px 3px rgba(0,75,112,.12)}
+@keyframes epSubir{0%{transform:translateY(100%)}40%,78%{transform:translateY(0)}100%{transform:translateY(100%)}}
+@keyframes epOndas{to{transform:translateX(-50%)}}
+
+/* ---------- Percurso da água (Notícias): seis etapas ---------- */
+.percurso{display:block;width:100%;max-width:520px;height:auto;overflow:visible}
+.percurso text{font-family:var(--font);font-weight:700}
+.percurso .agua-tubo{stroke-dasharray:1 1;stroke-dashoffset:1;animation:epReveal var(--dur,1s) linear var(--atraso,0s) both}
+.percurso .agua-fluxo{animation:epFade .4s var(--atraso,0s) both,epFlow 1s linear infinite}
+.percurso .surge{animation:epFade .45s var(--atraso,0s) both}
+.percurso .gota{transform-box:fill-box;transform-origin:50% 0;animation:epDrip .5s ease-in var(--atraso,0s) 1 both}
+.percurso .controlo{stroke-dasharray:3 4;animation:epFade .5s var(--atraso,0s) both,epFlow 1.2s linear infinite}
+
+/* ---------- Projectos ---------- */
+.filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.filtros button{font:inherit;font-size:15px;font-weight:600;min-height:44px;padding:0 16px;border-radius:var(--r-pill);border:1.5px solid var(--linha-input);background:#fff;color:var(--texto);cursor:pointer}
+.filtros button[aria-pressed="true"]{background:var(--azul-escuro);border-color:var(--azul-escuro);color:#fff}
+.projecto{background:#fff;border:1px solid var(--linha);border-radius:var(--r-card);overflow:hidden;display:flex;flex-direction:column}
+.projecto__media{position:relative;aspect-ratio:16/10;background:var(--placeholder)}
+.projecto__media img{width:100%;height:100%;object-fit:cover;display:block}
+.projecto__estado{position:absolute;left:10px;top:10px}
+.projecto__corpo{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.projecto__local{font-size:13px;color:var(--texto-3)}
+.projecto__corpo h3{font-size:20px;line-height:1.25;font-weight:700}
+.projecto__corpo p{font-size:16px;color:var(--texto-2)}
+.projecto__corpo .btn{margin-top:auto;align-self:flex-start;min-height:44px;font-size:15px}
+.estado--curso{background:#FCEFD6;color:var(--aviso)}
+.estado--concluido{background:#E4F3E9;color:var(--sucesso)}
+.detalhe-projecto{width:min(100%,820px);max-height:92vh;overflow-y:auto;background:#fff;border-radius:18px;padding:clamp(18px,3vw,28px);display:flex;flex-direction:column;gap:16px}
+.detalhe-projecto .noticia__corpo{margin-top:0}
+.ligacoes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.ligacoes a{font-weight:600}
+
+/* ---------- Serviços / perguntas frequentes ---------- */
+.faq{display:flex;flex-direction:column;gap:10px}
+.faq details{background:#fff;border:1px solid var(--linha);border-radius:12px;padding:0 18px}
+.faq summary{cursor:pointer;list-style:none;font-size:17px;font-weight:700;padding:16px 28px 16px 0;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:0;top:12px;font-size:24px;font-weight:400;color:var(--azul-escuro)}
+.faq details[open] summary::after{content:"−"}
+.faq details > p,.faq details > ul{padding-bottom:16px;color:var(--texto-2);font-size:16px}
+.faq details > p + p{margin-top:-6px}
+.agencias{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:14px}
+.agencias .caixa h3{display:flex;align-items:center;gap:8px}
+.agencias ul{margin:0;padding-left:18px;font-size:15px;color:var(--texto-2)}
+
+/* ---------- Atendimento: consentimento e número de pedido ---------- */
+.pedido-resultado{display:flex;flex-direction:column;gap:14px}
+.codigo-pedido{font-size:clamp(26px,5vw,34px);font-weight:800;letter-spacing:.08em;color:var(--azul-escuro);font-variant-numeric:tabular-nums}
+.consentimento{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--texto-2);cursor:pointer}
+.consentimento input{flex:none;width:22px;height:22px;margin:1px 0 0;accent-color:var(--azul-escuro)}
+.nota-privacidade{font-size:14px;color:var(--texto-3);text-align:justify;hyphens:auto}
+
+/* ---------- Organigrama: órgãos ---------- */
+.orgaos{display:flex;flex-direction:column;align-items:center}
+.orgao{background:#fff;border:1px solid var(--linha);border-radius:var(--r-card);padding:18px 20px;width:100%;max-width:360px;text-align:center}
+.orgao h3{font-size:18px;font-weight:700}
+.orgao p{margin-top:6px;font-size:15px;color:var(--texto-2);text-align:center}
+.orgao--tutela{background:var(--azul-escuro);border-color:var(--azul-escuro);color:#fff}
+.orgao--tutela p{color:#D7ECF5}
+.orgaos__linha{width:2px;height:28px;background:var(--linha-input)}
+.orgaos__ramos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px;width:100%;position:relative;padding-top:28px}
+.orgaos__ramos::before{content:"";position:absolute;top:0;left:16%;right:16%;height:2px;background:var(--linha-input)}
+.orgaos__ramos .orgao{max-width:none}
+.orgaos__ramos .orgao a{font-weight:700}
+@media (max-width:767px){.orgaos__ramos::before{display:none}.orgaos__ramos{padding-top:0}}
+
+/* ---------- Painel: listas ---------- */
+.lista-admin{display:flex;flex-direction:column}
+.lista-admin__item{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--linha)}
+.lista-admin__item:last-child{border-bottom:0}
+.lista-admin__item img{width:72px;height:48px;object-fit:cover;border-radius:8px;background:var(--placeholder);flex:none}
+.lista-admin__texto{flex:1;min-width:0}
+.lista-admin__texto strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lista-admin__texto span{font-size:14px;color:var(--texto-3)}
+.lista-admin__item .botoes .btn{min-height:40px;padding:0 14px;font-size:14px}
+@media (max-width:640px){.lista-admin__item{flex-wrap:wrap}.lista-admin__item .botoes{width:100%}}
+
 /* ---------- 10. Movimento reduzido ---------- */
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;scroll-behavior:auto!important;transition:none!important}
-  .torneira .gota,.tanque .gota{opacity:0} .torneira .jacto{stroke-dashoffset:0}
+  .torneira .gota,.tanque .gota,.percurso .gota{opacity:0} .torneira .jacto,.percurso .agua-tubo{stroke-dashoffset:0}
+  .agua__nivel{transform:translateY(0)}
 }

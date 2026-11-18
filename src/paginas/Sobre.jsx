@@ -43,7 +43,7 @@ export default function Sobre() {
           <div>
             <p className="eyebrow">Quem somos</p>
             <h2 className="h2" id="t-quem">Ao serviço das comunidades de Benguela</h2>
-            <p className="texto">A Empresa Provincial de Água e Saneamento de Benguela, EPASB-EP, tem como foco a prestação de serviços relacionados com o abastecimento de água e o saneamento na província de Benguela.</p>
+            <p className="texto">A Empresa Provincial de Águas e Saneamento de Benguela - EP, EPASB-EP, tem como foco a prestação de serviços relacionados com o abastecimento de água e o saneamento na província de Benguela.</p>
             <p className="texto">A sua actuação está ligada à gestão e operação da infra-estrutura necessária para garantir que a água seja captada, tratada, armazenada e distribuída de forma adequada às populações, bem como à gestão das actividades relacionadas com o saneamento.</p>
             <p className="texto">A EPASB-EP procura desenvolver uma actuação orientada para a eficiência operacional, a qualidade dos serviços, a sustentabilidade dos recursos hídricos e uma relação cada vez mais próxima com os cidadãos.</p>
           </div>

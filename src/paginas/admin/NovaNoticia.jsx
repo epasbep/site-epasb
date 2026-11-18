@@ -1,8 +1,8 @@
-// Painel administrativo: formulário "Publicar notícia".
+// Painel administrativo: publicar uma notícia nova ou editar uma existente (nova-noticia.html?id=…).
 import { useEffect, useRef, useState } from 'react';
 import { sb } from '../../supabase.js';
-import { publishNews } from '../../api.js';
-import { formatarData } from '../../util.js';
+import { guardarNoticia } from '../../api.js';
+import { formatarData, pub } from '../../util.js';
 import { useSessao, Topo } from '../../componentes/Admin.jsx';
 import { Tanque } from '../../componentes/Torneira.jsx';
 import { LIMITES, ytId, adicionarFotos, tornarCapa, validar, validarVideo, guardarRascunho, lerRascunho, apagarRascunho } from '../../publicar.js';
@@ -12,16 +12,32 @@ const MODOS = [['nenhum', 'Sem vídeo'], ['link', 'Link do YouTube'], ['ficheiro
 const TEXTOS = {
   enviar: ['A publicar…', (n) => `A carregar ${n === 1 ? '1 fotografia' : n + ' fotografias'}. Não feche esta página.`],
   sucesso: ['Notícia publicada', () => 'Já está visível na página de Notícias do site.'],
+  actualizada: ['Notícia actualizada', () => 'As alterações já estão visíveis no site.'],
   erro: ['Não foi possível publicar', () => 'A ligação falhou. O rascunho foi guardado — tente novamente.']
 };
 
-function Formulario({ sessao }) {
-  const rascunho = useRef(lerRascunho()).current;
-  const [campos, setCampos] = useState({ ...VAZIO, ...(rascunho && { titulo: rascunho.titulo || '', autor: rascunho.autor || '', breve: rascunho.breve || '', descricao: rascunho.descricao || '' }) });
-  const [fotos, setFotos] = useState([]); // { ficheiro, url }
-  const [videoModo, setVideoModo] = useState(rascunho?.videoModo === 'link' ? 'link' : 'nenhum');
-  const [videoLink, setVideoLink] = useState(rascunho?.videoLink || '');
+// Valores iniciais do formulário a partir de uma notícia existente.
+function apartirDe(n) {
+  const v = n.video;
+  return {
+    campos: { titulo: n.title || '', autor: n.author || '', breve: n.short || '', descricao: n.body || '' },
+    fotos: (n.photos || []).map((url) => ({ url, mostrar: pub(url) })),
+    videoModo: v?.type === 'youtube' ? 'link' : v?.type === 'file' ? 'ficheiro' : 'nenhum',
+    videoLink: v?.type === 'youtube' ? `https://youtu.be/${v.id}` : '',
+    videoExistente: v?.type === 'file' ? v : null
+  };
+}
+
+function Formulario({ sessao, original }) {
+  const editar = !!original;
+  const rascunho = useRef(editar ? null : lerRascunho()).current;
+  const inicio = useRef(editar ? apartirDe(original) : null).current;
+  const [campos, setCampos] = useState(inicio?.campos || { ...VAZIO, ...(rascunho && { titulo: rascunho.titulo || '', autor: rascunho.autor || '', breve: rascunho.breve || '', descricao: rascunho.descricao || '' }) });
+  const [fotos, setFotos] = useState(inicio?.fotos || []); // { url, mostrar? } já publicada | { ficheiro, url } nova
+  const [videoModo, setVideoModo] = useState(inicio?.videoModo || (rascunho?.videoModo === 'link' ? 'link' : 'nenhum'));
+  const [videoLink, setVideoLink] = useState(inicio?.videoLink ?? (rascunho?.videoLink || ''));
   const [videoFicheiro, setVideoFicheiro] = useState(null);
+  const [videoExistente, setVideoExistente] = useState(inicio?.videoExistente || null);
   const [erros, setErros] = useState({});
   const [aviso, setAviso] = useState('');
   const [aArrastar, setAArrastar] = useState(false);
@@ -31,7 +47,7 @@ function Formulario({ sessao }) {
 
   // Guarda o texto à medida que se escreve (as fotografias não cabem no armazenamento do browser).
   useEffect(() => {
-    guardarRascunho({ ...campos, videoModo: videoModo === 'link' ? 'link' : 'nenhum', videoLink });
+    if (!editar) guardarRascunho({ ...campos, videoModo: videoModo === 'link' ? 'link' : 'nenhum', videoLink });
   }, [campos, videoModo, videoLink]);
 
   // Avisar antes de sair a meio de um envio.
@@ -53,7 +69,7 @@ function Formulario({ sessao }) {
     setAArrastar(false);
   }
   function remover(i) {
-    URL.revokeObjectURL(fotos[i].url);
+    if (fotos[i].ficheiro) URL.revokeObjectURL(fotos[i].url);
     setFotos(fotos.filter((_, k) => k !== i));
     setAviso('');
   }
@@ -66,12 +82,12 @@ function Formulario({ sessao }) {
     if (!f) return;
     const problema = validarVideo(f);
     setErros((x) => ({ ...x, video: problema || undefined }));
-    if (!problema) setVideoFicheiro(f);
+    if (!problema) { setVideoFicheiro(f); setVideoExistente(null); }
   }
 
   // ---------- Limpar ----------
   function limpar(manterAutor) {
-    fotos.forEach((f) => URL.revokeObjectURL(f.url));
+    fotos.forEach((f) => f.ficheiro && URL.revokeObjectURL(f.url));
     setCampos({ ...VAZIO, autor: manterAutor ? campos.autor : '' });
     setFotos([]); setVideoModo('nenhum'); setVideoLink(''); setVideoFicheiro(null);
     setErros({}); setAviso('');
@@ -81,7 +97,7 @@ function Formulario({ sessao }) {
   // ---------- Publicar ----------
   async function publicar(ev) {
     ev?.preventDefault();
-    const novos = validar({ ...campos, fotos, videoModo, videoLink, videoFicheiro });
+    const novos = validar({ ...campos, fotos, videoModo, videoLink, videoFicheiro: videoFicheiro || videoExistente });
     setErros(novos);
     const primeiro = Object.keys(novos)[0];
     if (primeiro) {
@@ -99,13 +115,16 @@ function Formulario({ sessao }) {
       if (!data.session) throw new Error('A sessão expirou. Entre de novo no painel.');
       let video = null;
       if (videoModo === 'link') video = { type: 'youtube', id: ytId(videoLink) };
-      if (videoModo === 'ficheiro') video = { type: 'file', ficheiro: videoFicheiro };
-      const id = await publishNews({
+      if (videoModo === 'ficheiro') video = videoFicheiro ? { type: 'file', ficheiro: videoFicheiro } : videoExistente;
+      const { id, removidas } = await guardarNoticia({
+        id: original?.id,
         title: campos.titulo.trim(), author: campos.autor.trim(), short: campos.breve.trim(), body: campos.descricao.trim(),
-        fotos: fotos.map((f) => f.ficheiro), video
-      }, (p) => { progresso = p; setEnvio({ fase: 'enviar', progresso: p }); }, data.session.access_token);
-      apagarRascunho();
-      setEnvio({ fase: 'sucesso', progresso: 100, id });
+        fotos: fotos.map((f) => (f.ficheiro ? { ficheiro: f.ficheiro } : { url: f.url })), video
+      }, (p) => { progresso = p; setEnvio({ fase: 'enviar', progresso: p }); }, data.session.access_token, original);
+      // Ficheiros que deixaram de ser usados (fotografias removidas, vídeo substituído)
+      if (removidas.length) await sb.storage.from('noticias').remove(removidas).catch(() => {});
+      if (!editar) apagarRascunho();
+      setEnvio({ fase: editar ? 'actualizada' : 'sucesso', progresso: 100, id });
     } catch (e) {
       console.error('Publicar notícia:', e);
       setEnvio({ fase: 'erro', progresso, detalhe: `Detalhe técnico: ${e.message}` });
@@ -117,10 +136,10 @@ function Formulario({ sessao }) {
 
   return (
     <>
-      <Topo sessao={sessao} activa="nova-noticia.html" />
+      <Topo sessao={sessao} activa="noticias.html" />
       <main className="container admin">
-        <p className="admin__migalhas">Painel / Notícias / Nova notícia</p>
-        <h1 className="admin__titulo">Publicar notícia</h1>
+        <p className="admin__migalhas"><a href="noticias.html">Notícias</a> / {editar ? 'Editar notícia' : 'Nova notícia'}</p>
+        <h1 className="admin__titulo">{editar ? 'Editar notícia' : 'Publicar notícia'}</h1>
         {recuperado && <p className="mensagem mensagem--sucesso" style={{ marginBottom: 20 }}>Recuperámos o rascunho que estava a escrever. Escolha de novo as fotografias.</p>}
 
         <div className="admin__colunas">
@@ -157,7 +176,7 @@ function Formulario({ sessao }) {
                 onDrop={(e) => { e.preventDefault(); juntar(e.dataTransfer.files); }}>
                 {fotos.map((f, i) => (
                   <div className="foto" key={f.url}>
-                    <img src={f.url} alt={`Fotografia ${i + 1}`} />
+                    <img src={f.mostrar || f.url} alt={`Fotografia ${i + 1}`} />
                     {i === 0
                       ? <span className="foto__capa">Capa</span>
                       : <button className="foto__tornar" type="button" onClick={() => setFotos(tornarCapa(fotos, i))}>Tornar capa</button>}
@@ -195,10 +214,10 @@ function Formulario({ sessao }) {
               )}
               {videoModo === 'ficheiro' && (
                 <>
-                  {videoFicheiro && (
+                  {(videoFicheiro || videoExistente) && (
                     <div className="video-ok" style={{ color: 'var(--texto)' }}>
-                      <span>{videoFicheiro.name}</span>
-                      <button className="btn btn--secundario" type="button" style={{ minHeight: 40 }} onClick={() => setVideoFicheiro(null)}>Remover</button>
+                      <span>{videoFicheiro ? videoFicheiro.name : 'Vídeo já publicado'}</span>
+                      <button className="btn btn--secundario" type="button" style={{ minHeight: 40 }} onClick={() => { setVideoFicheiro(null); setVideoExistente(null); }}>Remover</button>
                     </div>
                   )}
                   <label className="ficheiro" style={{ marginTop: 10 }}>Escolher vídeo MP4 (máx. 50 MB)
@@ -210,17 +229,19 @@ function Formulario({ sessao }) {
             </div>
 
             <div className="form__accoes">
-              <button className="btn btn--primario" type="submit">Publicar notícia</button>
-              <button className="btn btn--secundario" type="button" onClick={() => { if (confirm('Limpar todo o formulário?')) limpar(false); }}>Limpar</button>
+              <button className="btn btn--primario" type="submit">{editar ? 'Guardar alterações' : 'Publicar notícia'}</button>
+              {editar
+                ? <a className="btn btn--secundario" href="noticias.html">Cancelar</a>
+                : <button className="btn btn--secundario" type="button" onClick={() => { if (confirm('Limpar todo o formulário?')) limpar(false); }}>Limpar</button>}
             </div>
           </form>
 
           <aside className="admin__previa" aria-label="Pré-visualização do cartão">
             <p>Pré-visualização do cartão</p>
             <article className="cartao">
-              <div className="cartao__media">{fotos[0] ? <img src={fotos[0].url} alt="" /> : 'Sem fotografia de capa'}</div>
+              <div className="cartao__media">{fotos[0] ? <img src={fotos[0].mostrar || fotos[0].url} alt="" /> : 'Sem fotografia de capa'}</div>
               <div className="cartao__corpo">
-                <p className="cartao__meta">{formatarData(hoje)} · {campos.autor.trim() || 'Autor'}</p>
+                <p className="cartao__meta">{formatarData(original?.date || hoje)} · {campos.autor.trim() || 'Autor'}</p>
                 <h2 className="cartao__titulo">{campos.titulo.trim() || 'Título da notícia'}</h2>
                 <p className="cartao__resumo">{campos.breve.trim() || 'A breve descrição aparece aqui.'}</p>
               </div>
@@ -243,6 +264,12 @@ function Formulario({ sessao }) {
                 <button className="btn btn--secundario" type="button" onClick={() => { setEnvio(null); limpar(true); }}>Publicar outra</button>
               </div>
             )}
+            {envio.fase === 'actualizada' && (
+              <div className="botoes">
+                <a className="btn btn--primario" href={`../noticia.html?id=${encodeURIComponent(envio.id)}`}>Ver notícia</a>
+                <a className="btn btn--secundario" href="noticias.html">Voltar às notícias</a>
+              </div>
+            )}
             {envio.fase === 'erro' && (
               <div className="botoes">
                 <button className="btn btn--primario" type="button" onClick={() => publicar()}>Tentar novamente</button>
@@ -258,6 +285,25 @@ function Formulario({ sessao }) {
 
 export default function NovaNoticia() {
   const sessao = useSessao();
+  const id = new URLSearchParams(location.search).get('id');
+  const [original, setOriginal] = useState(id ? undefined : null); // undefined = a carregar, false = não existe
+
   useEffect(() => { if (sessao === null) location.replace('index.html'); }, [sessao]);
-  return sessao ? <Formulario sessao={sessao} /> : null;
+  useEffect(() => {
+    if (!sessao || !id) return;
+    sb.from('noticias').select('*').eq('id', id).maybeSingle().then(({ data }) => setOriginal(data || false));
+  }, [sessao]);
+
+  if (!sessao || original === undefined) return null;
+  if (original === false) {
+    return (
+      <>
+        <Topo sessao={sessao} activa="noticias.html" />
+        <main className="container admin">
+          <p className="vazio">Esta notícia não existe ou já foi apagada. <a href="noticias.html">Voltar às notícias</a></p>
+        </main>
+      </>
+    );
+  }
+  return <Formulario sessao={sessao} original={original} />;
 }
