@@ -77,20 +77,29 @@ h1,h2,h3,p{margin:0}
 }
 
 /* ---------- 4. Faixa "Disque e Denúncia!" e rodapé ---------- */
-.faixa{background:var(--azul-escuro);color:#fff}
-.faixa__dentro{display:flex;flex-wrap:wrap;align-items:center;gap:20px;padding-block:32px}
+/* Faixa "Disque e Denúncia!": céu claro da página "Novo site em breve", logo acima das ondas do rodapé */
+.faixa{background:radial-gradient(120% 140% at 50% 0%,#F7FCFF 0%,#D9F0FF 100%);color:var(--texto)}
+.faixa__dentro{display:flex;flex-wrap:wrap;align-items:center;gap:20px;padding-block:40px 8px}
 .faixa__texto{flex:1 1 320px}
-.faixa h2{margin:0 0 6px;font-size:clamp(24px,3vw,30px);font-weight:800}
-.faixa p{font-size:17px;color:#D7ECF5}
-.rodape{background:var(--texto);color:#C4D3D6;font-size:15px}
-.rodape__dentro{display:flex;flex-wrap:wrap;gap:28px 48px;padding-block:36px}
+.faixa h2{margin:0 0 6px;font-size:clamp(24px,3vw,30px);font-weight:800;color:var(--azul-escuro)}
+.faixa p{font-size:17px;color:var(--texto-2)}
+
+/* Rodapé com as ondas da página "Novo site em breve" */
+.rodape{position:relative;color:#fff;font-size:15px;background:#D9F0FF}
+.rodape__ondas{position:relative;height:110px;overflow:hidden;pointer-events:none}
+.rodape__ondas svg{position:absolute;left:0;bottom:-1px;width:200%;height:100%;animation:epOndas 14s linear infinite}
+.rodape__ondas svg:nth-child(2){animation-duration:22s;animation-direction:reverse;opacity:.6;height:85%}
+.rodape__corpo{background:linear-gradient(180deg,#45B7F9 0,#1E8FD6 40px,#0A6EB4 90px,#075A93 100%)}
+.rodape__dentro{display:flex;flex-wrap:wrap;gap:28px 48px;padding-block:40px 36px}
 .rodape__col{flex:1 1 200px;display:flex;flex-direction:column;gap:8px}
 .rodape__col--marca{flex:1.4 1 260px;gap:12px}
 .rodape__col--marca img{width:280px;max-width:100%;height:auto}
+.rodape__col--marca p{color:#E6F4FD}
 .rodape strong{color:#fff;font-size:16px}
-.rodape a{color:#C4D3D6;text-decoration:none;padding-block:3px}
+.rodape a{color:#E6F4FD;text-decoration:none;padding-block:3px}
 .rodape a:hover{color:#fff;text-decoration:underline}
-.rodape__fim{border-top:1px solid rgba(255,255,255,.12);padding-block:16px;font-size:14px}
+.rodape span{color:#E6F4FD}
+.rodape__fim{border-top:1px solid rgba(255,255,255,.2);padding-block:16px;font-size:14px;text-align:center;color:#fff}
 
 /* ---------- 5. Componentes ---------- */
 .seccao{padding-block:clamp(32px,5vw,64px)}
@@ -457,4 +466,5 @@ h1,h2,h3,p{margin:0}
   *{animation:none!important;scroll-behavior:auto!important;transition:none!important}
   .torneira .gota,.tanque .gota,.percurso .gota{opacity:0} .torneira .jacto,.percurso .agua-tubo{stroke-dashoffset:0}
   .agua__nivel{transform:translateY(0)}
+  .rodape__ondas svg{animation:none}
 }

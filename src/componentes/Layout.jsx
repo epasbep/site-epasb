@@ -90,8 +90,8 @@ function Faixa() {
           <p>Fugas, ligações ilegais ou falta de água no seu bairro? Fale connosco.</p>
         </div>
         <div className="botoes">
-          <a className="btn btn--branco" href={`tel:${TELEFONE.ligar}`}>Ligar agora</a>
-          <a className="btn btn--contorno" href={WHATSAPP} {...FORA}>WhatsApp</a>
+          <a className="btn btn--primario" href={`tel:${TELEFONE.ligar}`}>Ligar agora</a>
+          <a className="btn btn--secundario" href={WHATSAPP} {...FORA}>WhatsApp</a>
         </div>
       </div>
     </section>
@@ -101,6 +101,12 @@ function Faixa() {
 function Rodape() {
   return (
     <footer className="rodape">
+      {/* As mesmas ondas do rodapé da página "Novo site em breve" */}
+      <div className="rodape__ondas" aria-hidden="true">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path fill="#7FD0FF" d="M0 60C120 20 240 20 360 60S600 100 720 60s240-40 360 0 240 40 360 0V120H0Z" /></svg>
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path fill="#1EA7F5" d="M0 70C120 40 240 40 360 70S600 100 720 70s240-30 360 0 240 30 360 0V120H0Z" /></svg>
+      </div>
+      <div className="rodape__corpo">
       <div className="container rodape__dentro">
         <div className="rodape__col rodape__col--marca">
           <img src={pub('assets/logo/logo-epasb-branco.webp')} width="280" height="51" alt="EPASB-EP" loading="lazy" />
@@ -129,7 +135,8 @@ function Rodape() {
           <a href={WHATSAPP} {...FORA}>WhatsApp</a>
         </div>
       </div>
-      <div className="container rodape__fim">© {new Date().getFullYear()} {NOME}</div>
+      <div className="container rodape__fim">© {new Date().getFullYear()} EPASB-EP · Benguela, Angola</div>
+      </div>
     </footer>
   );
 }
