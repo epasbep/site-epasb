@@ -1,4 +1,5 @@
 // Página inicial.
+import { ConsultaRapida } from '../componentes/ConsultarPedido.jsx';
 import { useEffect, useRef, useState } from 'react';
 import { GrelhaNoticias } from '../componentes/CartaoNoticia.jsx';
 import { Particulas } from '../componentes/Particulas.jsx';
@@ -154,9 +155,10 @@ export default function Inicio() {
             <h1 className="h1">Unidos pela água. Comprometidos com o futuro.</h1>
             <p className="lead">Garantimos abastecimento de água de qualidade, sustentabilidade e proximidade com os cidadãos de toda a província de Benguela.</p>
             <div className="botoes">
-              <a className="btn btn--primario" href="contacto.html">Atendimento ao cidadão</a>
-              <a className="btn btn--secundario" href="sobre.html">Conhecer a EPASB</a>
+              <a className="btn btn--primario" href="contacto">Atendimento ao cidadão</a>
+              <a className="btn btn--secundario" href="sobre">Conhecer a EPASB</a>
             </div>
+            <ConsultaRapida />
           </div>
           <div className="hero__arte">
             <img className="hero__foto" src={pub('assets/img/hero-water-800.webp')}
@@ -190,7 +192,7 @@ export default function Inicio() {
       <section className="container seccao" aria-labelledby="t-noticias">
         <div className="seccao__topo seccao__topo--linha">
           <div><p className="eyebrow">Notícias e comunicados</p><h2 className="h2" id="t-noticias">Últimas notícias</h2></div>
-          <a className="btn btn--secundario" href="noticias.html">Ver todas as notícias</a>
+          <a className="btn btn--secundario" href="noticias">Ver todas as notícias</a>
         </div>
         <GrelhaNoticias limite={3} />
       </section>

@@ -71,5 +71,5 @@ function Registo() {
 }
 
 export default function Auditoria() {
-  return <Painel papeis={['super_admin']} activa="auditoria.html">{() => <Registo />}</Painel>;
+  return <Painel papeis={['super_admin']} activa="auditoria">{() => <Registo />}</Painel>;
 }

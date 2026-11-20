@@ -31,8 +31,8 @@ export default function Sobre() {
             <h1 className="h1">Água e saneamento como serviço público essencial</h1>
             <p className="lead">Uma empresa pública orientada para o abastecimento de água e o saneamento, com foco na qualidade do serviço, sustentabilidade e proximidade com as comunidades da província de Benguela.</p>
             <div className="botoes">
-              <a className="btn btn--primario" href="organigrama.html">Ver organigrama</a>
-              <a className="btn btn--secundario" href="estatutos.html">Ler os estatutos</a>
+              <a className="btn btn--primario" href="organigrama">Ver organigrama</a>
+              <a className="btn btn--secundario" href="estatutos">Ler os estatutos</a>
             </div>
           </div>
         </div>

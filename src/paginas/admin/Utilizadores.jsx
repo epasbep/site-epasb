@@ -137,5 +137,5 @@ function Gestao() {
 }
 
 export default function Utilizadores() {
-  return <Painel papeis={['super_admin']} activa="utilizadores.html">{() => <Gestao />}</Painel>;
+  return <Painel papeis={['super_admin']} activa="utilizadores">{() => <Gestao />}</Painel>;
 }

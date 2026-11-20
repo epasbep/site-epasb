@@ -1,4 +1,4 @@
-// Painel administrativo: publicar uma notícia nova ou editar uma existente (nova-noticia.html?id=…).
+// Painel administrativo: publicar uma notícia nova ou editar uma existente (nova-noticia?id=…).
 import { useEffect, useRef, useState } from 'react';
 import { sb } from '../../supabase.js';
 import { guardarNoticia } from '../../api.js';
@@ -146,7 +146,7 @@ function Formulario({ perfil, original }) {
   return (
     <>
       <main className="container admin">
-        <p className="admin__migalhas"><a href="noticias.html">Notícias</a> / {editar ? 'Editar notícia' : 'Nova notícia'}</p>
+        <p className="admin__migalhas"><a href="noticias">Notícias</a> / {editar ? 'Editar notícia' : 'Nova notícia'}</p>
         <h1 className="admin__titulo">{editar ? 'Editar notícia' : aprova ? 'Publicar notícia' : 'Escrever notícia'}</h1>
         {original?.estado === 'devolvido' && original.nota_revisao && (
           <p className="mensagem mensagem--erro" style={{ marginBottom: 20 }}>Devolvida pelo Gestor: {original.nota_revisao}</p>
@@ -243,7 +243,7 @@ function Formulario({ perfil, original }) {
               <button className="btn btn--primario" type="submit">{aprova ? (publicada ? 'Guardar alterações' : 'Publicar notícia') : 'Enviar para revisão'}</button>
               {!publicada && <button className="btn btn--secundario" type="button" onClick={(e) => publicar(e, 'rascunho')}>Guardar rascunho</button>}
               {editar
-                ? <a className="btn btn--secundario" href="noticias.html">Cancelar</a>
+                ? <a className="btn btn--secundario" href="noticias">Cancelar</a>
                 : <button className="btn btn--secundario" type="button" onClick={() => { if (confirm('Limpar todo o formulário?')) limpar(false); }}>Limpar</button>}
             </div>
           </form>
@@ -272,19 +272,19 @@ function Formulario({ perfil, original }) {
             {envio.fase === 'enviar' && <div className="progresso"><div style={{ width: `${envio.progresso}%` }} /></div>}
             {envio.fase === 'sucesso' && (
               <div className="botoes">
-                <a className="btn btn--primario" href={`../noticia.html?id=${encodeURIComponent(envio.id)}`}>Ver notícia</a>
+                <a className="btn btn--primario" href={`../noticia?id=${encodeURIComponent(envio.id)}`}>Ver notícia</a>
                 <button className="btn btn--secundario" type="button" onClick={() => { setEnvio(null); limpar(true); }}>Publicar outra</button>
               </div>
             )}
             {(envio.fase === 'revisao' || envio.fase === 'rascunho') && (
               <div className="botoes">
-                <a className="btn btn--primario" href="noticias.html">Voltar às notícias</a>
+                <a className="btn btn--primario" href="noticias">Voltar às notícias</a>
               </div>
             )}
             {envio.fase === 'actualizada' && (
               <div className="botoes">
-                <a className="btn btn--primario" href={`../noticia.html?id=${encodeURIComponent(envio.id)}`}>Ver notícia</a>
-                <a className="btn btn--secundario" href="noticias.html">Voltar às notícias</a>
+                <a className="btn btn--primario" href={`../noticia?id=${encodeURIComponent(envio.id)}`}>Ver notícia</a>
+                <a className="btn btn--secundario" href="noticias">Voltar às notícias</a>
               </div>
             )}
             {envio.fase === 'erro' && (
@@ -310,7 +310,7 @@ function Carregar({ perfil }) {
   if (original === false) {
     return (
       <main className="container admin">
-        <p className="vazio">Esta notícia não existe, já foi apagada ou não tem permissão para a editar. <a href="noticias.html">Voltar às notícias</a></p>
+        <p className="vazio">Esta notícia não existe, já foi apagada ou não tem permissão para a editar. <a href="noticias">Voltar às notícias</a></p>
       </main>
     );
   }
@@ -319,7 +319,7 @@ function Carregar({ perfil }) {
 
 export default function NovaNoticia() {
   return (
-    <Painel papeis={['super_admin', 'gestor', 'editor']} activa="noticias.html">
+    <Painel papeis={['super_admin', 'gestor', 'editor']} activa="noticias">
       {({ perfil }) => <Carregar perfil={perfil} />}
     </Painel>
   );

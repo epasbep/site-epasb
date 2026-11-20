@@ -120,5 +120,5 @@ function Gestao() {
 }
 
 export default function Avisos() {
-  return <Painel papeis={['super_admin', 'gestor']} activa="avisos.html">{() => <Gestao />}</Painel>;
+  return <Painel papeis={['super_admin', 'gestor']} activa="avisos">{() => <Gestao />}</Painel>;
 }

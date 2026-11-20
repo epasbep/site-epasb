@@ -5,10 +5,11 @@ import { readFileSync, writeFileSync } from 'node:fs';
 
 // Cada página do site é uma entrada própria (os endereços ficam iguais: sobre.html, noticias.html…).
 const PAGINAS = [
-  'index', 'sobre', 'organigrama', 'estatutos', 'projectos', 'noticias', 'noticia', 'servicos', 'contacto', 'pedido',
+  'index', 'sobre', 'organigrama', 'estatutos', 'projectos', 'noticias', 'noticia', 'servicos', 'contacto', 'pedido', 'termos', 'privacidade',
   'admin/index', 'admin/noticias', 'admin/nova-noticia', 'admin/avisos', 'admin/utilizadores', 'admin/auditoria', 'admin/conta'
 ];
-const PUBLICAS = ['', 'sobre.html', 'organigrama.html', 'estatutos.html', 'projectos.html', 'noticias.html', 'servicos.html', 'contacto.html', 'pedido.html'];
+// Endereços sem .html: o GitHub Pages e o .htaccess do epasb.ao servem sobre.html quando se pede /sobre.
+const PUBLICAS = ['', 'sobre', 'organigrama', 'estatutos', 'projectos', 'noticias', 'servicos', 'contacto', 'termos', 'privacidade'];
 
 // Endereço onde esta compilação vai ficar (para as partilhas e o sitemap). Definido no workflow de publicação.
 const SITE = (process.env.SITE_URL || 'https://www.epasb.ao/').replace(/\/?$/, '/');
@@ -78,7 +79,7 @@ function paginasDeNoticias() {
       const base = readFileSync(resolve(saida, 'noticia.html'), 'utf8');
       const noticias = (await lerNoticias()).filter((n) => seguro(n.id));
       for (const n of noticias) {
-        const url = `${SITE}noticia-${n.id}.html`;
+        const url = `${SITE}noticia-${n.id}`;
         const titulo = `${n.title} | EPASB-EP`;
         // Facebook e WhatsApp lêem melhor JPEG: as fotografias do site têm uma cópia -800.jpg para isso.
         const imagem = n.photos?.[0] ? absoluto(String(n.photos[0]).replace(/-1600\.(webp|jpg)$/, '-800.jpg')) : `${SITE}assets/img/partilha.jpg`;
@@ -97,7 +98,7 @@ function paginasDeNoticias() {
       writeFileSync(resolve(saida, 'data/paginas-noticias.json'), JSON.stringify(noticias.map((n) => String(n.id))));
 
       // Partilha das páginas gerais com o endereço desta compilação
-      const urls = [...PUBLICAS.map((p) => SITE + p), ...noticias.map((n) => `${SITE}noticia-${n.id}.html`)];
+      const urls = [...PUBLICAS.map((p) => SITE + p), ...noticias.map((n) => `${SITE}noticia-${n.id}`)];
       writeFileSync(resolve(saida, 'sitemap.xml'),
         `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`);
       const robots = readFileSync(resolve(saida, 'robots.txt'), 'utf8').replace(/Sitemap: .*/, `Sitemap: ${SITE}sitemap.xml`);

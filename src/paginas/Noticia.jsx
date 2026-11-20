@@ -8,7 +8,7 @@ export default function Noticia() {
   const [n, setN] = useState(undefined); // undefined = a carregar, null = não existe
 
   useEffect(() => {
-    // O id vem do endereço (noticia.html?id=…) ou da página própria da notícia (noticia-<id>.html).
+    // O id vem do endereço (noticia?id=…) ou da página própria da notícia (noticia-<id>.html).
     const id = new URLSearchParams(location.search).get('id') || document.querySelector('meta[name="noticia-id"]')?.content;
     (id ? getNews(id) : Promise.resolve(null)).then((noticia) => {
       setN(noticia);
@@ -21,7 +21,7 @@ export default function Noticia() {
 
   return (
     <main id="conteudo" className="noticia" aria-live="polite">
-      <a className="noticia__voltar" href="noticias.html">← Todas as notícias</a>
+      <a className="noticia__voltar" href="noticias">← Todas as notícias</a>
       {n === undefined && <p className="vazio" style={{ marginTop: 16 }}>A carregar notícia…</p>}
       {n === null && <p className="vazio" style={{ marginTop: 16 }}>Não encontrámos esta notícia. Pode ter sido removida.</p>}
       {n && (

@@ -64,7 +64,7 @@ function Lista({ sessao, perfil }) {
       <p className="admin__migalhas">Painel / Notícias</p>
       <div className="seccao__topo seccao__topo--linha">
         <h1 className="admin__titulo" style={{ margin: 0 }}>Notícias</h1>
-        <a className="btn btn--primario" href="nova-noticia.html">{aprova ? 'Publicar notícia' : 'Escrever notícia'}</a>
+        <a className="btn btn--primario" href="nova-noticia">{aprova ? 'Publicar notícia' : 'Escrever notícia'}</a>
       </div>
       {!aprova && <p className="texto" style={{ marginBottom: 16 }}>As notícias que escrever ficam publicadas depois de um Gestor as aprovar.</p>}
       <div className="filtros" role="group" aria-label="Filtrar notícias">
@@ -89,8 +89,8 @@ function Lista({ sessao, perfil }) {
                     {n.estado === 'devolvido' && n.nota_revisao && <span style={{ display: 'block', color: 'var(--aviso)' }}>Nota do Gestor: {n.nota_revisao}</span>}
                   </div>
                   <div className="botoes">
-                    {n.estado === 'publicado' && <a className="btn btn--secundario" href={`../noticia.html?id=${encodeURIComponent(n.id)}`} target="_blank" rel="noopener">Ver</a>}
-                    {podeEditar(n) && <a className="btn btn--secundario" href={`nova-noticia.html?id=${encodeURIComponent(n.id)}`}>Editar</a>}
+                    {n.estado === 'publicado' && <a className="btn btn--secundario" href={`../noticia?id=${encodeURIComponent(n.id)}`} target="_blank" rel="noopener">Ver</a>}
+                    {podeEditar(n) && <a className="btn btn--secundario" href={`nova-noticia?id=${encodeURIComponent(n.id)}`}>Editar</a>}
                     {aprova && n.estado === 'revisao' && <button className="btn btn--primario" type="button" onClick={() => aprovar(n)}>Aprovar e publicar</button>}
                     {aprova && n.estado === 'revisao' && <button className="btn btn--secundario" type="button" onClick={() => devolver(n)}>Devolver</button>}
                     {aprova && n.estado === 'publicado' && <button className="btn btn--secundario" type="button" onClick={() => despublicar(n)}>Retirar do site</button>}
@@ -108,7 +108,7 @@ function Lista({ sessao, perfil }) {
 
 export default function Noticias() {
   return (
-    <Painel papeis={['super_admin', 'gestor', 'editor']} activa="noticias.html">
+    <Painel papeis={['super_admin', 'gestor', 'editor']} activa="noticias">
       {({ sessao, perfil }) => <Lista sessao={sessao} perfil={perfil} />}
     </Painel>
   );

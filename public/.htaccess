@@ -2,7 +2,22 @@
 # EPASB-EP — configuração do servidor (Apache)
 # =====================================================
 
-Options -Indexes
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+
+# Endereços sem .html: /sobre mostra sobre.html, e quem abrir /sobre.html é levado para /sobre.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # /pagina.html → /pagina (e /index.html → /)
+  RewriteCond %{THE_REQUEST} \s/+((?:[^?\s]*/)?)index\.html[?\s] [NC]
+  RewriteRule ^ /%1 [R=301,L,NE]
+  RewriteCond %{THE_REQUEST} \s/+([^?\s]+?)\.html[?\s] [NC]
+  RewriteRule ^ /%1 [R=301,L,NE]
+  # /pagina → pagina.html
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+?)/?$ $1.html [L]
+</IfModule>
 
 <IfModule mod_headers.c>
   Header always set X-Frame-Options "SAMEORIGIN"
@@ -13,9 +28,9 @@ Options -Indexes
   # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 
   # O painel administrativo nunca deve aparecer em motores de busca
-  <FilesMatch "^(admin-atendimentos\.html)$">
+  <If "%{REQUEST_URI} =~ m#^/admin(/|$)#">
     Header set X-Robots-Tag "noindex, nofollow"
-  </FilesMatch>
+  </If>
 </IfModule>
 
 # Ficheiros sensiveis

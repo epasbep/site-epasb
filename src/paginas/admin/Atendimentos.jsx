@@ -2,11 +2,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { sb } from '../../supabase.js';
 import { pub } from '../../util.js';
-import { useAcesso, Painel, pode, primeiraPagina } from '../../componentes/Admin.jsx';
+import { useAcesso, Painel, pode, primeiraPagina, marcarActividade } from '../../componentes/Admin.jsx';
 
 const ESTADOS = ['Novo', 'Em análise', 'Respondido', 'Encerrado'];
 const CLASSES = { 'Em análise': 'estado--analise', Respondido: 'estado--respondido', Encerrado: 'estado--encerrado' };
 const dataHora = (iso) => (iso ? new Date(iso).toLocaleString('pt-PT', { dateStyle: 'short', timeStyle: 'short' }) : '-');
+
+const SAIU = {
+  inactividade: 'A sessão terminou depois de 30 minutos sem actividade. Entre de novo.',
+  limite: 'A sessão terminou ao fim de 8 horas. Entre de novo.'
+};
+const motivoSaida = new URLSearchParams(location.search).get('saiu');
 
 function Entrada() {
   const [email, setEmail] = useState('');
@@ -18,6 +24,7 @@ function Entrada() {
     ev.preventDefault();
     setErro('');
     setAEntrar(true);
+    marcarActividade(); // a contagem da inactividade recomeça a cada entrada
     const { error } = await sb.auth.signInWithPassword({ email: email.trim(), password: senha });
     setAEntrar(false);
     if (error) setErro('Não foi possível iniciar sessão. Verifique o email e a palavra-passe.');
@@ -30,6 +37,7 @@ function Entrada() {
         <img className="login__logo" src={pub('assets/logo/logo-epasb-256.webp')} width="96" height="96" alt="EPASB-EP" />
         <h1>Área administrativa</h1>
         <p className="texto">Atendimento ao cidadão e notícias</p>
+        {SAIU[motivoSaida] && <p className="mensagem mensagem--info" role="status">{SAIU[motivoSaida]}</p>}
         <div className="campo">
           <label htmlFor="login-email">Email</label>
           <input className="input" id="login-email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -240,7 +248,7 @@ export default function Atendimentos() {
   if (sessao === undefined) return null;
   if (!sessao) return <Entrada />;
   return (
-    <Painel papeis={PAPEIS_PAGINA} activa="index.html">
+    <Painel papeis={PAPEIS_PAGINA} activa="./">
       {({ perfil: p }) => (p.papel === 'gestor' ? <Relatorio /> : <Lista perfil={p} />)}
     </Painel>
   );

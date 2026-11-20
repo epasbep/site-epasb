@@ -49,7 +49,7 @@ function MinhaConta({ sessao, perfil }) {
 
 export default function Conta() {
   return (
-    <Painel papeis={Object.keys(PAPEIS)} activa="conta.html">
+    <Painel papeis={Object.keys(PAPEIS)} activa="conta">
       {({ sessao, perfil }) => <MinhaConta sessao={sessao} perfil={perfil} />}
     </Painel>
   );

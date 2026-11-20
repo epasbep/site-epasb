@@ -9,13 +9,13 @@ export const NOME = 'Empresa Provincial de Águas e Saneamento de Benguela - EP'
 
 // O antigo item "Contacto" foi substituído pelo botão "Atendimento" (mesma página).
 const PAGINAS = [
-  ['inicio', 'Início', 'index.html'],
-  ['sobre', 'Sobre', 'sobre.html'],
-  ['organigrama', 'Organigrama', 'organigrama.html'],
-  ['estatutos', 'Estatutos', 'estatutos.html'],
-  ['projectos', 'Projectos', 'projectos.html'],
-  ['noticias', 'Notícias', 'noticias.html'],
-  ['servicos', 'Serviços', 'servicos.html']
+  ['inicio', 'Início', './'],
+  ['sobre', 'Sobre', 'sobre'],
+  ['organigrama', 'Organigrama', 'organigrama'],
+  ['estatutos', 'Estatutos', 'estatutos'],
+  ['projectos', 'Projectos', 'projectos'],
+  ['noticias', 'Notícias', 'noticias'],
+  ['servicos', 'Serviços', 'servicos']
 ];
 const FORA = { target: '_blank', rel: 'noopener noreferrer' };
 const WHATSAPP = `https://wa.me/${TELEFONE.whatsapp}`;
@@ -32,12 +32,12 @@ function Cabecalho({ pagina }) {
   return (
     <header className="cabecalho">
       <div className="container cabecalho__dentro">
-        <a className="marca" href="index.html">
+        <a className="marca" href="./">
           <img src={pub('assets/logo/logo-epasb-128.webp')} width="44" height="44" alt="" />
           <span className="marca__texto"><strong>EPASB-EP</strong><span>Águas e Saneamento de Benguela</span></span>
         </a>
         <nav className="nav" aria-label="Navegação principal"><Links pagina={pagina} /></nav>
-        <a className="btn btn--primario btn--atendimento" href="contacto.html" aria-current={atendimento}>Atendimento</a>
+        <a className="btn btn--primario btn--atendimento" href="contacto" aria-current={atendimento}>Atendimento</a>
         <button className="hamburguer" type="button" aria-label={aberto ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={aberto} aria-controls="nav-movel" onClick={() => setAberto(!aberto)}>
           <span /><span /><span />
@@ -45,7 +45,7 @@ function Cabecalho({ pagina }) {
       </div>
       <nav className={`nav-movel${aberto ? ' aberto' : ''}`} id="nav-movel" aria-label="Navegação principal (telemóvel)">
         <Links pagina={pagina} />
-        <a className="btn btn--primario" href="contacto.html" aria-current={atendimento}>Atendimento ao cidadão</a>
+        <a className="btn btn--primario" href="contacto" aria-current={atendimento}>Atendimento ao cidadão</a>
       </nav>
     </header>
   );
@@ -115,8 +115,8 @@ function Rodape() {
         <div className="rodape__col">
           <strong>Páginas</strong>
           {PAGINAS.map(([id, nome, url]) => <a key={id} href={url}>{nome}</a>)}
-          <a href="contacto.html">Atendimento</a>
-          <a href="pedido.html">Consultar pedido</a>
+          <a href="contacto">Atendimento</a>
+          <a href="contacto#consultar">Consultar pedido</a>
         </div>
         <div className="rodape__col">
           <strong>Institucional</strong>
@@ -137,6 +137,10 @@ function Rodape() {
       </div>
       <div className="container rodape__fim">
         <p>© {new Date().getFullYear()} EPASB-EP · Benguela, Angola · Todos os direitos reservados.</p>
+        <p className="rodape__legal">
+          <a href="termos">Termos de Utilização</a> · <a href="privacidade">Política de Privacidade</a> ·{' '}
+          <button type="button" className="rodape__botao" onClick={abrirPreferenciasCookies}>Preferências de cookies</button>
+        </p>
         <p className="rodape__creditos">Desenvolvimento e Consultoria: GGS · Consultor Tecnológico e Web Designer: Afonso Panzo</p>
       </div>
       </div>
@@ -144,23 +148,69 @@ function Rodape() {
   );
 }
 
-// Google Analytics (contagem de visitas) — só no site verdadeiro e depois de a página aparecer.
-function useAnalytics() {
+// Consentimento de cookies. O Google Analytics só é carregado depois de o visitante aceitar.
+// A escolha fica guardada no browser; o link "Preferências de cookies" no rodapé volta a perguntar.
+const CHAVE_COOKIES = 'epasb-cookies';
+const lerEscolha = () => { try { return localStorage.getItem(CHAVE_COOKIES); } catch { return null; } };
+const ABRIR_COOKIES = 'epasb-abrir-cookies';
+export const abrirPreferenciasCookies = () => window.dispatchEvent(new Event(ABRIR_COOKIES));
+
+function carregarAnalytics() {
+  if (!GOOGLE_ANALYTICS || !location.hostname.endsWith('epasb.ao') || window.gtag) return;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag('js', new Date());
+  window.gtag('config', GOOGLE_ANALYTICS, { anonymize_ip: true });
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS}`;
+  document.head.appendChild(s);
+}
+
+function apagarCookiesAnalytics() {
+  // Apaga os cookies _ga* do domínio actual e do domínio principal.
+  const dominio = location.hostname.replace(/^www\./, '');
+  document.cookie.split(';').map((c) => c.split('=')[0].trim()).filter((n) => n.startsWith('_ga')).forEach((n) => {
+    for (const d of ['', `; domain=.${dominio}`]) document.cookie = `${n}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${d}`;
+  });
+}
+
+function AvisoCookies() {
+  const [escolha, setEscolha] = useState(lerEscolha);
+  const [aberto, setAberto] = useState(!lerEscolha());
+  useEffect(() => { if (escolha === 'aceite') carregarAnalytics(); }, [escolha]);
   useEffect(() => {
-    if (!GOOGLE_ANALYTICS || !location.hostname.endsWith('epasb.ao') || window.gtag) return;
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { window.dataLayer.push(arguments); };
-    window.gtag('js', new Date());
-    window.gtag('config', GOOGLE_ANALYTICS);
-    const s = document.createElement('script');
-    s.async = true;
-    s.src = `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS}`;
-    document.head.appendChild(s);
+    const abrir = () => setAberto(true);
+    window.addEventListener(ABRIR_COOKIES, abrir);
+    return () => window.removeEventListener(ABRIR_COOKIES, abrir);
   }, []);
+  const decidir = (valor) => {
+    try { localStorage.setItem(CHAVE_COOKIES, valor); } catch {}
+    if (valor === 'recusado' && escolha === 'aceite') { apagarCookiesAnalytics(); location.reload(); return; }
+    setEscolha(valor);
+    setAberto(false);
+  };
+  if (!aberto) return null;
+  return (
+    <div className="cookies" role="dialog" aria-labelledby="cookies-titulo" aria-describedby="cookies-texto">
+      <div className="container cookies__dentro">
+        <div>
+          <strong id="cookies-titulo">Cookies e privacidade</strong>
+          <p id="cookies-texto">
+            Usamos cookies apenas para contar as visitas e melhorar o site (Google Analytics). Não usamos cookies de publicidade.
+            Pode aceitar ou recusar; o site funciona da mesma forma. Saiba mais na <a href="privacidade#cookies">Política de Privacidade</a>.
+          </p>
+        </div>
+        <div className="botoes">
+          <button className="btn btn--secundario" type="button" onClick={() => decidir('recusado')}>Recusar</button>
+          <button className="btn btn--primario" type="button" onClick={() => decidir('aceite')}>Aceitar</button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export function Layout({ pagina, children }) {
-  useAnalytics();
   return (
     <>
       <a className="saltar" href="#conteudo">Saltar para o conteúdo</a>
@@ -169,6 +219,7 @@ export function Layout({ pagina, children }) {
       {children}
       <Faixa />
       <Rodape />
+      <AvisoCookies />
     </>
   );
 }

@@ -46,7 +46,7 @@ export default function Organigrama() {
           </div>
         </div>
         <p className="texto" style={{ marginTop: 20, textAlign: 'center' }}>
-          Competências, composição e funcionamento de cada órgão: Capítulo II do <a href="estatutos.html">Estatuto Orgânico</a>.
+          Competências, composição e funcionamento de cada órgão: Capítulo II do <a href="estatutos">Estatuto Orgânico</a>.
         </p>
       </section>
 

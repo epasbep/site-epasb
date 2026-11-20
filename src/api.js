@@ -45,7 +45,7 @@ export async function getNews(id) {
 
 // Endereço de uma notícia: a página própria (boa para partilhar) ou a página genérica.
 export const enderecoNoticia = (n) =>
-  n.pagina ? pub(`noticia-${encodeURIComponent(n.id)}.html`) : pub(`noticia.html?id=${encodeURIComponent(n.id)}`);
+  n.pagina ? pub(`noticia-${encodeURIComponent(n.id)}`) : pub(`noticia?id=${encodeURIComponent(n.id)}`);
 
 // ---------- Avisos (faixa no topo) ----------
 export async function listAvisos() {

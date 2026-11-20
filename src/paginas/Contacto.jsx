@@ -1,5 +1,6 @@
 // Página "Contacto": formulário de atendimento ao cidadão.
 // Os pedidos são guardados na tabela "atendimentos" do Supabase (e o anexo no bucket "atendimentos").
+import { ConsultarPedido } from '../componentes/ConsultarPedido.jsx';
 import { useEffect, useRef, useState } from 'react';
 import { sb } from '../supabase.js';
 import { TELEFONE, EMAILS, MORADA } from '../config.js';
@@ -35,6 +36,7 @@ function Campo({ nome, rotulo, erro, children }) {
 }
 
 export default function Contacto() {
+  const [consulta, setConsulta] = useState(null);
   const [dados, setDados] = useState(VAZIO);
   const [doc, setDoc] = useState(null);
   const [erros, setErros] = useState({});
@@ -130,7 +132,7 @@ export default function Contacto() {
           <div className="hero__texto">
             <p className="eyebrow">Atendimento ao cidadão</p>
             <h1 className="h1">Fale connosco</h1>
-            <p className="lead" style={{ marginBottom: 0 }}>Para formalizar uma solicitação, um esclarecimento, uma denúncia ou uma sugestão, preencha o formulário. Se for urgente, ligue ou escreva pelo WhatsApp.</p>
+            <p className="lead" style={{ marginBottom: 0 }}>Para formalizar uma solicitação, um esclarecimento, uma denúncia ou uma sugestão, preencha o formulário. Se for urgente, ligue ou escreva pelo WhatsApp. Já enviou um pedido? Consulte o estado com o seu número.</p>
           </div>
         </div>
       </section>
@@ -175,11 +177,12 @@ export default function Contacto() {
                 Os dados deste formulário servem apenas para a EPASB-EP tratar e responder ao seu pedido. São guardados de forma
                 segura, só a equipa de atendimento lhes tem acesso e não são partilhados com terceiros, nos termos da
                 Lei n.º 22/11, de 17 de Junho (Lei da Protecção de Dados Pessoais). Pode pedir a consulta ou a eliminação
-                dos seus dados através de <a href="mailto:geral@epasb.ao">geral@epasb.ao</a>.
+                dos seus dados através de <a href="mailto:geral@epasb.ao">geral@epasb.ao</a>. Os pedidos são guardados durante 2 anos.
+                Saiba mais na <a href="privacidade">Política de Privacidade</a> e nos <a href="termos">Termos de Utilização</a>.
               </p>
               <label className="consentimento" style={{ marginTop: 12 }}>
                 <input type="checkbox" name="aceita" checked={aceita} onChange={(e) => { setAceita(e.target.checked); setErros((x) => ({ ...x, aceita: '' })); }} />
-                <span>Li e aceito que os meus dados sejam usados para tratar este pedido. *</span>
+                <span>Li e aceito a Política de Privacidade e que os meus dados sejam usados para tratar este pedido. *</span>
               </label>
               <p className="campo__erro">{erros.aceita}</p>
             </div>
@@ -189,7 +192,7 @@ export default function Contacto() {
                 <div className="pedido-resultado" style={{ marginTop: 12, fontWeight: 400, color: 'var(--texto)' }}>
                   <span>Número do seu pedido (guarde-o):</span>
                   <span className="codigo-pedido">{resultado.codigo}</span>
-                  <a href={`pedido.html?n=${encodeURIComponent(resultado.codigo)}`}>Consultar o estado do pedido →</a>
+                  <a href="#consultar" onClick={() => setConsulta({ codigo: resultado.codigo })}>Consultar o estado do pedido →</a>
                 </div>
               )}
             </div>
@@ -198,8 +201,9 @@ export default function Contacto() {
             </div>
           </form>
 
-          <aside className="admin__previa" aria-labelledby="t-cont">
-            <div className="caixa">
+          <aside className="admin__previa contacto__lado" aria-labelledby="t-cont">
+            <ConsultarPedido pedirConsulta={consulta} />
+            <div className="caixa contacto__outros">
               <h2 className="h3" id="t-cont">Outros contactos</h2>
               <dl className="contactos">
                 <dt>Telefone</dt><dd><a href={`tel:${TELEFONE.ligar}`}>{TELEFONE.visivel}</a></dd>
