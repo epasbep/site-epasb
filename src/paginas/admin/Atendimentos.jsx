@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { sb } from '../../supabase.js';
 import { pub } from '../../util.js';
-import { useSessao, Topo } from '../../componentes/Admin.jsx';
+import { useAcesso, Painel, pode, primeiraPagina } from '../../componentes/Admin.jsx';
 
 const ESTADOS = ['Novo', 'Em análise', 'Respondido', 'Encerrado'];
 const CLASSES = { 'Em análise': 'estado--analise', Respondido: 'estado--respondido', Encerrado: 'estado--encerrado' };
@@ -45,7 +45,7 @@ function Entrada() {
   );
 }
 
-function Detalhe({ atendimento: a, fechar, aoMudar }) {
+function Detalhe({ atendimento: a, fechar, aoMudar, podeApagar }) {
   const [estado, setEstado] = useState(a.status || 'Novo');
   const [resposta, setResposta] = useState(a.resposta || '');
   const [doc, setDoc] = useState(a.documento_url ? undefined : null); // undefined = a gerar link
@@ -118,14 +118,14 @@ function Detalhe({ atendimento: a, fechar, aoMudar }) {
         </div>
         <div className="botoes">
           <button className="btn btn--primario" type="button" disabled={ocupado} onClick={guardar}>Guardar alterações</button>
-          <button className="btn btn--perigo" type="button" disabled={ocupado} onClick={eliminar}>Eliminar atendimento</button>
+          {podeApagar && <button className="btn btn--perigo" type="button" disabled={ocupado} onClick={eliminar}>Eliminar atendimento</button>}
         </div>
       </div>
     </div>
   );
 }
 
-function Painel({ sessao }) {
+function Lista({ perfil }) {
   const [lista, setLista] = useState(null); // null = a carregar
   const [erro, setErro] = useState('');
   const [aberto, setAberto] = useState(null);
@@ -144,7 +144,6 @@ function Painel({ sessao }) {
 
   return (
     <>
-      <Topo sessao={sessao} activa="index.html" />
       <main className="container admin">
         <p className="admin__migalhas">Painel / Atendimentos</p>
         <h1 className="admin__titulo">Atendimento ao cidadão</h1>
@@ -177,13 +176,72 @@ function Painel({ sessao }) {
           )}
         </section>
       </main>
-      {aberto && <Detalhe key={aberto.id} atendimento={aberto} fechar={() => setAberto(null)} aoMudar={() => { setAberto(null); carregar(); }} />}
+      {aberto && <Detalhe key={aberto.id} atendimento={aberto} podeApagar={perfil.papel === 'super_admin'}
+        fechar={() => setAberto(null)} aoMudar={() => { setAberto(null); carregar(); }} />}
     </>
   );
 }
 
+// Relatório para o Gestor: só números, sem nomes, emails, telefones nem mensagens.
+function Relatorio() {
+  const [linhas, setLinhas] = useState(null);
+  const [erro, setErro] = useState('');
+  useEffect(() => {
+    sb.rpc('estatisticas_atendimento').then(({ data, error }) => {
+      if (error) setErro('Não foi possível carregar o relatório: ' + error.message);
+      setLinhas(data || []);
+    });
+  }, []);
+
+  const somar = (chave) => Object.entries((linhas || []).reduce((acc, l) => ({ ...acc, [l[chave]]: (acc[l[chave]] || 0) + Number(l.total) }), {}));
+  const total = (linhas || []).reduce((t, l) => t + Number(l.total), 0);
+  const meses = somar('mes').sort((a, b) => b[0].localeCompare(a[0])).slice(0, 12);
+  const nomeMes = (iso) => new Date(iso + 'T00:00:00').toLocaleDateString('pt-PT', { month: 'long', year: 'numeric' });
+
+  return (
+    <main className="container admin">
+      <p className="admin__migalhas">Painel / Atendimentos</p>
+      <h1 className="admin__titulo">Relatório de atendimento</h1>
+      <p className="texto" style={{ marginBottom: 20 }}>Números dos pedidos dos cidadãos. Os dados pessoais só são visíveis para a equipa de Atendimento.</p>
+      {linhas === null && <p className="vazio">A carregar…</p>}
+      {erro && <p className="vazio">{erro}</p>}
+      {linhas && !erro && (
+        <>
+          <section className="contadores" aria-label="Por estado">
+            <div className="contador"><span>Total</span><strong>{total}</strong></div>
+            {somar('status').map(([estado, n]) => <div className="contador" key={estado}><span>{estado}</span><strong>{n}</strong></div>)}
+          </section>
+          <div className="admin__colunas">
+            <section className="painel" style={{ flex: '1 1 320px' }}>
+              <div className="painel__topo"><h2>Por assunto</h2></div>
+              <table className="tabela"><tbody>
+                {somar('assunto').sort((a, b) => b[1] - a[1]).map(([assunto, n]) => <tr key={assunto}><td>{assunto}</td><td style={{ textAlign: 'right' }}><strong>{n}</strong></td></tr>)}
+              </tbody></table>
+            </section>
+            <section className="painel" style={{ flex: '1 1 320px' }}>
+              <div className="painel__topo"><h2>Por mês</h2></div>
+              <table className="tabela"><tbody>
+                {meses.map(([mes, n]) => <tr key={mes}><td>{nomeMes(mes)}</td><td style={{ textAlign: 'right' }}><strong>{n}</strong></td></tr>)}
+              </tbody></table>
+            </section>
+          </div>
+        </>
+      )}
+    </main>
+  );
+}
+
+const PAPEIS_PAGINA = ['super_admin', 'atendimento', 'gestor'];
+
 export default function Atendimentos() {
-  const sessao = useSessao();
+  const { sessao, perfil } = useAcesso();
+  // Quem não trabalha com atendimentos (ex.: Editor) vai para a sua primeira página do painel.
+  useEffect(() => { if (perfil && !pode(perfil, PAPEIS_PAGINA)) location.replace(primeiraPagina(perfil)); }, [perfil]);
   if (sessao === undefined) return null;
-  return sessao ? <Painel sessao={sessao} /> : <Entrada />;
+  if (!sessao) return <Entrada />;
+  return (
+    <Painel papeis={PAPEIS_PAGINA} activa="index.html">
+      {({ perfil: p }) => (p.papel === 'gestor' ? <Relatorio /> : <Lista perfil={p} />)}
+    </Painel>
+  );
 }

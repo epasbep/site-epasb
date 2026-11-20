@@ -1,0 +1,71 @@
+# Cópia de segurança diária da base de dados do Supabase (enquanto o plano gratuito não tem cópias automáticas).
+#
+# - Corre todos os dias às 02:30 (hora de Angola) e também à mão (Actions → Cópia de segurança → Run workflow).
+# - A cópia é ENCRIPTADA antes de sair do servidor do GitHub: este repositório é público e,
+#   sem encriptação, qualquer pessoa poderia descarregar os dados dos cidadãos.
+# - Fica guardada 30 dias em Actions → (execução) → Artifacts.
+# - Inclui notícias, avisos, atendimentos, contas e papéis. NÃO inclui os ficheiros (fotografias e
+#   documentos anexados), que ficam no Storage do Supabase.
+# - Também mantém o projecto activo (os projectos gratuitos são suspensos quando ficam parados).
+#
+# Segredos necessários (Settings → Secrets and variables → Actions) — ver supabase/LEIA-ME.md:
+#   SUPABASE_DB_URL          ligação "Session pooler" da base de dados (Supabase → Connect)
+#   COPIA_PALAVRA_PASSE      palavra-passe longa para encriptar as cópias (guarde-a fora do GitHub!)
+name: Cópia de segurança
+
+on:
+  schedule:
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  copia:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+      COPIA_PALAVRA_PASSE: ${{ secrets.COPIA_PALAVRA_PASSE }}
+    steps:
+      - name: Verificar configuração
+        id: cfg
+        run: |
+          if [ -z "$SUPABASE_DB_URL" ] || [ -z "$COPIA_PALAVRA_PASSE" ]; then
+            echo "Segredos da cópia de segurança ainda não configurados: nada a fazer."
+            echo "pronto=nao" >> "$GITHUB_OUTPUT"
+          else
+            echo "pronto=sim" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Instalar pg_dump 17
+        if: steps.cfg.outputs.pronto == 'sim'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-common
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt-get install -y -qq postgresql-client-17
+
+      - name: Copiar e encriptar
+        if: steps.cfg.outputs.pronto == 'sim'
+        run: |
+          set -euo pipefail
+          nome="epasb-$(date -u +%Y-%m-%d)"
+          /usr/lib/postgresql/17/bin/pg_dump "$SUPABASE_DB_URL" \
+            --format=custom --no-owner --no-privileges \
+            --schema=public --schema=auth --schema=storage \
+            --file="$nome.dump"
+          gpg --batch --yes --pinentry-mode loopback --passphrase "$COPIA_PALAVRA_PASSE" \
+            --symmetric --cipher-algo AES256 --output "$nome.dump.gpg" "$nome.dump"
+          shred -u "$nome.dump"
+          ls -lh "$nome.dump.gpg"
+          echo "NOME=$nome" >> "$GITHUB_ENV"
+
+      - name: Guardar a cópia encriptada (30 dias)
+        if: steps.cfg.outputs.pronto == 'sim'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.NOME }}
+          path: ${{ env.NOME }}.dump.gpg
+          retention-days: 30
+          if-no-files-found: error

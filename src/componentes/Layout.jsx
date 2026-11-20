@@ -135,7 +135,10 @@ function Rodape() {
           <a href={WHATSAPP} {...FORA}>WhatsApp</a>
         </div>
       </div>
-      <div className="container rodape__fim">© {new Date().getFullYear()} EPASB-EP · Benguela, Angola</div>
+      <div className="container rodape__fim">
+        <p>© {new Date().getFullYear()} EPASB-EP · Benguela, Angola · Todos os direitos reservados.</p>
+        <p className="rodape__creditos">Desenvolvimento e Consultoria: GGS · Consultor Tecnológico e Web Designer: Afonso Panzo</p>
+      </div>
       </div>
     </footer>
   );

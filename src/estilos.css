@@ -99,7 +99,11 @@ h1,h2,h3,p{margin:0}
 .rodape a{color:#E6F4FD;text-decoration:none;padding-block:3px}
 .rodape a:hover{color:#fff;text-decoration:underline}
 .rodape span{color:#E6F4FD}
-.rodape__fim{border-top:1px solid rgba(255,255,255,.2);padding-block:16px;font-size:14px;text-align:center;color:#fff}
+.rodape__fim{border-top:1px solid rgba(255,255,255,.2);padding-block:16px;font-size:14px;text-align:center;color:#fff;display:flex;flex-direction:column;gap:4px}
+.rodape__creditos{font-size:13px;color:#D7ECF5}
+.creditos{padding-block:20px 28px;font-size:13px;color:var(--texto-3);text-align:center}
+.admin-topo__quem{display:flex;flex-direction:column;font-size:14px;color:#fff;line-height:1.2}
+.admin-topo__quem small{font-size:12px;color:#D7ECF5}
 
 /* ---------- 5. Componentes ---------- */
 .seccao{padding-block:clamp(32px,5vw,64px)}

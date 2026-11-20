@@ -1,6 +1,6 @@
 // Página "Contacto": formulário de atendimento ao cidadão.
 // Os pedidos são guardados na tabela "atendimentos" do Supabase (e o anexo no bucket "atendimentos").
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { sb } from '../supabase.js';
 import { TELEFONE, EMAILS, MORADA } from '../config.js';
 
@@ -41,6 +41,10 @@ export default function Contacto() {
   const [aEnviar, setAEnviar] = useState(false);
   const [resultado, setResultado] = useState(null); // { tipo: 'sucesso' | 'erro', texto, codigo? }
   const [aceita, setAceita] = useState(false);
+  // Protecção contra robôs: um campo escondido que só um programa preenche e um tempo mínimo de preenchimento.
+  const armadilha = useRef(null);
+  const abertoEm = useRef(0);
+  useEffect(() => { abertoEm.current = Date.now(); }, []);
   const form = useRef(null);
   const ficheiro = useRef(null);
 
@@ -71,6 +75,12 @@ export default function Contacto() {
     setErros(novos);
     const primeiro = Object.keys(novos).find((k) => novos[k]);
     if (primeiro) { form.current.elements[primeiro]?.focus(); return; }
+
+    // Robô detectado: finge que correu bem e não envia nada.
+    if (armadilha.current?.value || Date.now() - abertoEm.current < 4000) {
+      setResultado({ tipo: 'sucesso', texto: 'Atendimento enviado com sucesso. A EPASB-EP recebeu a sua solicitação.' });
+      return;
+    }
 
     setAEnviar(true);
     let caminho = null;
@@ -106,7 +116,8 @@ export default function Contacto() {
       setResultado({ tipo: 'sucesso', texto: 'Atendimento enviado com sucesso. A EPASB-EP recebeu a sua solicitação.', codigo });
     } catch (e) {
       console.error('Atendimento:', e);
-      setResultado({ tipo: 'erro', texto: 'Não foi possível enviar. Verifique a sua ligação e tente novamente, ou contacte-nos por telefone ou WhatsApp.' });
+      const limite = /Demasiados|demasiado longa|demasiados pedidos/i.test(e?.message || '');
+      setResultado({ tipo: 'erro', texto: limite ? e.message : 'Não foi possível enviar. Verifique a sua ligação e tente novamente, ou contacte-nos por telefone ou WhatsApp.' });
     } finally {
       setAEnviar(false);
     }
@@ -127,6 +138,10 @@ export default function Contacto() {
       <section className="container seccao">
         <div className="admin__colunas">
           <form className="form" ref={form} onSubmit={enviar} noValidate>
+            <div className="sr" aria-hidden="true">
+              <label htmlFor="website">Não preencha este campo</label>
+              <input id="website" name="website" ref={armadilha} tabIndex={-1} autoComplete="off" />
+            </div>
             <Campo nome="nome" rotulo="Nome *" erro={erros.nome}>
               <input className="input" id="nome" name="nome" autoComplete="name" value={dados.nome} onChange={mudar} />
             </Campo>

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { sb } from '../../supabase.js';
 import { guardarNoticia } from '../../api.js';
 import { formatarData, pub } from '../../util.js';
-import { useSessao, Topo } from '../../componentes/Admin.jsx';
+import { Painel, pode } from '../../componentes/Admin.jsx';
 import { Tanque } from '../../componentes/Torneira.jsx';
 import { LIMITES, ytId, adicionarFotos, tornarCapa, validar, validarVideo, guardarRascunho, lerRascunho, apagarRascunho } from '../../publicar.js';
 
@@ -13,6 +13,8 @@ const TEXTOS = {
   enviar: ['A publicar…', (n) => `A carregar ${n === 1 ? '1 fotografia' : n + ' fotografias'}. Não feche esta página.`],
   sucesso: ['Notícia publicada', () => 'Já está visível na página de Notícias do site.'],
   actualizada: ['Notícia actualizada', () => 'As alterações já estão visíveis no site.'],
+  revisao: ['Enviada para revisão', () => 'Um Gestor vai rever a notícia. Fica no site depois de aprovada.'],
+  rascunho: ['Rascunho guardado', () => 'A notícia ainda não está no site. Pode continuar a editá-la mais tarde.'],
   erro: ['Não foi possível publicar', () => 'A ligação falhou. O rascunho foi guardado — tente novamente.']
 };
 
@@ -28,8 +30,10 @@ function apartirDe(n) {
   };
 }
 
-function Formulario({ sessao, original }) {
+function Formulario({ perfil, original }) {
   const editar = !!original;
+  const aprova = pode(perfil, ['super_admin', 'gestor']);
+  const publicada = original?.estado === 'publicado';
   const rascunho = useRef(editar ? null : lerRascunho()).current;
   const inicio = useRef(editar ? apartirDe(original) : null).current;
   const [campos, setCampos] = useState(inicio?.campos || { ...VAZIO, ...(rascunho && { titulo: rascunho.titulo || '', autor: rascunho.autor || '', breve: rascunho.breve || '', descricao: rascunho.descricao || '' }) });
@@ -95,9 +99,14 @@ function Formulario({ sessao, original }) {
   }
 
   // ---------- Publicar ----------
-  async function publicar(ev) {
+  // destino: 'publicado' (Gestor/Super Administrador), 'revisao' ou 'rascunho'
+  const principal = aprova ? 'publicado' : 'revisao';
+  const [ultimoDestino, setUltimoDestino] = useState(principal);
+  async function publicar(ev, destino = principal) {
     ev?.preventDefault();
+    setUltimoDestino(destino);
     const novos = validar({ ...campos, fotos, videoModo, videoLink, videoFicheiro: videoFicheiro || videoExistente });
+    if (destino === 'rascunho') delete novos.fotos; // um rascunho pode ainda não ter fotografias
     setErros(novos);
     const primeiro = Object.keys(novos)[0];
     if (primeiro) {
@@ -117,14 +126,14 @@ function Formulario({ sessao, original }) {
       if (videoModo === 'link') video = { type: 'youtube', id: ytId(videoLink) };
       if (videoModo === 'ficheiro') video = videoFicheiro ? { type: 'file', ficheiro: videoFicheiro } : videoExistente;
       const { id, removidas } = await guardarNoticia({
-        id: original?.id,
+        id: original?.id, estado: destino,
         title: campos.titulo.trim(), author: campos.autor.trim(), short: campos.breve.trim(), body: campos.descricao.trim(),
         fotos: fotos.map((f) => (f.ficheiro ? { ficheiro: f.ficheiro } : { url: f.url })), video
       }, (p) => { progresso = p; setEnvio({ fase: 'enviar', progresso: p }); }, data.session.access_token, original);
       // Ficheiros que deixaram de ser usados (fotografias removidas, vídeo substituído)
       if (removidas.length) await sb.storage.from('noticias').remove(removidas).catch(() => {});
       if (!editar) apagarRascunho();
-      setEnvio({ fase: editar ? 'actualizada' : 'sucesso', progresso: 100, id });
+      setEnvio({ fase: destino !== 'publicado' ? destino : editar && publicada ? 'actualizada' : 'sucesso', progresso: 100, id });
     } catch (e) {
       console.error('Publicar notícia:', e);
       setEnvio({ fase: 'erro', progresso, detalhe: `Detalhe técnico: ${e.message}` });
@@ -136,10 +145,12 @@ function Formulario({ sessao, original }) {
 
   return (
     <>
-      <Topo sessao={sessao} activa="noticias.html" />
       <main className="container admin">
         <p className="admin__migalhas"><a href="noticias.html">Notícias</a> / {editar ? 'Editar notícia' : 'Nova notícia'}</p>
-        <h1 className="admin__titulo">{editar ? 'Editar notícia' : 'Publicar notícia'}</h1>
+        <h1 className="admin__titulo">{editar ? 'Editar notícia' : aprova ? 'Publicar notícia' : 'Escrever notícia'}</h1>
+        {original?.estado === 'devolvido' && original.nota_revisao && (
+          <p className="mensagem mensagem--erro" style={{ marginBottom: 20 }}>Devolvida pelo Gestor: {original.nota_revisao}</p>
+        )}
         {recuperado && <p className="mensagem mensagem--sucesso" style={{ marginBottom: 20 }}>Recuperámos o rascunho que estava a escrever. Escolha de novo as fotografias.</p>}
 
         <div className="admin__colunas">
@@ -229,7 +240,8 @@ function Formulario({ sessao, original }) {
             </div>
 
             <div className="form__accoes">
-              <button className="btn btn--primario" type="submit">{editar ? 'Guardar alterações' : 'Publicar notícia'}</button>
+              <button className="btn btn--primario" type="submit">{aprova ? (publicada ? 'Guardar alterações' : 'Publicar notícia') : 'Enviar para revisão'}</button>
+              {!publicada && <button className="btn btn--secundario" type="button" onClick={(e) => publicar(e, 'rascunho')}>Guardar rascunho</button>}
               {editar
                 ? <a className="btn btn--secundario" href="noticias.html">Cancelar</a>
                 : <button className="btn btn--secundario" type="button" onClick={() => { if (confirm('Limpar todo o formulário?')) limpar(false); }}>Limpar</button>}
@@ -264,6 +276,11 @@ function Formulario({ sessao, original }) {
                 <button className="btn btn--secundario" type="button" onClick={() => { setEnvio(null); limpar(true); }}>Publicar outra</button>
               </div>
             )}
+            {(envio.fase === 'revisao' || envio.fase === 'rascunho') && (
+              <div className="botoes">
+                <a className="btn btn--primario" href="noticias.html">Voltar às notícias</a>
+              </div>
+            )}
             {envio.fase === 'actualizada' && (
               <div className="botoes">
                 <a className="btn btn--primario" href={`../noticia.html?id=${encodeURIComponent(envio.id)}`}>Ver notícia</a>
@@ -272,7 +289,7 @@ function Formulario({ sessao, original }) {
             )}
             {envio.fase === 'erro' && (
               <div className="botoes">
-                <button className="btn btn--primario" type="button" onClick={() => publicar()}>Tentar novamente</button>
+                <button className="btn btn--primario" type="button" onClick={() => publicar(null, ultimoDestino)}>Tentar novamente</button>
                 <button className="btn btn--secundario" type="button" onClick={() => setEnvio(null)}>Voltar ao formulário</button>
               </div>
             )}
@@ -283,27 +300,27 @@ function Formulario({ sessao, original }) {
   );
 }
 
-export default function NovaNoticia() {
-  const sessao = useSessao();
+function Carregar({ perfil }) {
   const id = new URLSearchParams(location.search).get('id');
   const [original, setOriginal] = useState(id ? undefined : null); // undefined = a carregar, false = não existe
-
-  useEffect(() => { if (sessao === null) location.replace('index.html'); }, [sessao]);
   useEffect(() => {
-    if (!sessao || !id) return;
-    sb.from('noticias').select('*').eq('id', id).maybeSingle().then(({ data }) => setOriginal(data || false));
-  }, [sessao]);
-
-  if (!sessao || original === undefined) return null;
+    if (id) sb.from('noticias').select('*').eq('id', id).maybeSingle().then(({ data }) => setOriginal(data || false));
+  }, []);
+  if (original === undefined) return null;
   if (original === false) {
     return (
-      <>
-        <Topo sessao={sessao} activa="noticias.html" />
-        <main className="container admin">
-          <p className="vazio">Esta notícia não existe ou já foi apagada. <a href="noticias.html">Voltar às notícias</a></p>
-        </main>
-      </>
+      <main className="container admin">
+        <p className="vazio">Esta notícia não existe, já foi apagada ou não tem permissão para a editar. <a href="noticias.html">Voltar às notícias</a></p>
+      </main>
     );
   }
-  return <Formulario sessao={sessao} original={original} />;
+  return <Formulario perfil={perfil} original={original} />;
+}
+
+export default function NovaNoticia() {
+  return (
+    <Painel papeis={['super_admin', 'gestor', 'editor']} activa="noticias.html">
+      {({ perfil }) => <Carregar perfil={perfil} />}
+    </Painel>
+  );
 }

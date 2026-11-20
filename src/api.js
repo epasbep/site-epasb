@@ -111,7 +111,7 @@ export function ficheirosNoStorage(urls) {
 const aleatorio = () => Math.random().toString(36).slice(2, 8);
 
 // Cria (sem id) ou actualiza (com id) uma notícia.
-// dados: { id?, title, author, short, body,
+// dados: { id?, estado? ('publicado' | 'revisao' | 'rascunho'), title, author, short, body,
 //          fotos: [{ url } (já publicada) | { ficheiro: File } (nova)],
 //          video: null | {type:'youtube', id} | {type:'file', ficheiro: File} | {type:'file', src, poster} (já publicado) }
 // Devolve { id, removidas } — removidas = ficheiros antigos que deixaram de ser usados (o painel apaga-os).
@@ -146,7 +146,7 @@ export async function guardarNoticia(dados, onProgress, token, anterior = null) 
   }
 
   // 3. Criar ou actualizar o registo.
-  const registo = { title: dados.title, author: dados.author, short: dados.short, body: dados.body, photos, video };
+  const registo = { title: dados.title, author: dados.author, short: dados.short, body: dados.body, photos, video, ...(dados.estado && { estado: dados.estado }) };
   const url = dados.id ? `${SUPABASE_URL}/rest/v1/noticias?id=eq.${encodeURIComponent(id)}` : `${SUPABASE_URL}/rest/v1/noticias`;
   const r = await fetch(url, {
     method: dados.id ? 'PATCH' : 'POST',

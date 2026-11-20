@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 // Cada página do site é uma entrada própria (os endereços ficam iguais: sobre.html, noticias.html…).
 const PAGINAS = [
   'index', 'sobre', 'organigrama', 'estatutos', 'projectos', 'noticias', 'noticia', 'servicos', 'contacto', 'pedido',
-  'admin/index', 'admin/noticias', 'admin/nova-noticia', 'admin/avisos'
+  'admin/index', 'admin/noticias', 'admin/nova-noticia', 'admin/avisos', 'admin/utilizadores', 'admin/auditoria', 'admin/conta'
 ];
 const PUBLICAS = ['', 'sobre.html', 'organigrama.html', 'estatutos.html', 'projectos.html', 'noticias.html', 'servicos.html', 'contacto.html', 'pedido.html'];
 

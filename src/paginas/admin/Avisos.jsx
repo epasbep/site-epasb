@@ -1,7 +1,7 @@
 // Painel administrativo: avisos da faixa no topo do site (interrupções, avisos urgentes).
 import { useEffect, useState } from 'react';
 import { sb } from '../../supabase.js';
-import { useSessao, Topo } from '../../componentes/Admin.jsx';
+import { Painel } from '../../componentes/Admin.jsx';
 
 const VAZIO = { texto: '', tipo: 'informacao', link: '', fim: '' };
 const quando = (iso) => (iso ? new Date(iso).toLocaleString('pt-PT', { dateStyle: 'short', timeStyle: 'short' }) : '');
@@ -12,7 +12,7 @@ function estadoDe(a) {
   return ['No site', 'estado--respondido'];
 }
 
-function Gestao({ sessao }) {
+function Gestao() {
   const [lista, setLista] = useState(null);
   const [novo, setNovo] = useState(VAZIO);
   const [erro, setErro] = useState('');
@@ -58,7 +58,6 @@ function Gestao({ sessao }) {
 
   return (
     <>
-      <Topo sessao={sessao} activa="avisos.html" />
       <main className="container admin">
         <p className="admin__migalhas">Painel / Avisos</p>
         <h1 className="admin__titulo">Avisos no topo do site</h1>
@@ -121,7 +120,5 @@ function Gestao({ sessao }) {
 }
 
 export default function Avisos() {
-  const sessao = useSessao();
-  useEffect(() => { if (sessao === null) location.replace('index.html'); }, [sessao]);
-  return sessao ? <Gestao sessao={sessao} /> : null;
+  return <Painel papeis={['super_admin', 'gestor']} activa="avisos.html">{() => <Gestao />}</Painel>;
 }
