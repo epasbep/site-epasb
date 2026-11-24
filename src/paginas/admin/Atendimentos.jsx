@@ -13,6 +13,51 @@ const ABERTOS = ['Recebida', 'Em análise', 'Em tratamento'];
 const dataHora = (iso) => (iso ? new Date(iso).toLocaleString('pt-PT', { dateStyle: 'short', timeStyle: 'short' }) : '-');
 const nomeDe = (m) => (m ? m.nome || m.email : '');
 
+const SAIU = {
+  inactividade: 'A sessão terminou depois de 30 minutos sem actividade. Entre de novo.',
+  limite: 'A sessão terminou ao fim de 8 horas. Entre de novo.'
+};
+const motivoSaida = new URLSearchParams(location.search).get('saiu');
+
+function Entrada() {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [erro, setErro] = useState('');
+  const [aEntrar, setAEntrar] = useState(false);
+
+  async function entrar(ev) {
+    ev.preventDefault();
+    setErro('');
+    setAEntrar(true);
+    marcarActividade(); // a contagem da inactividade recomeça a cada entrada
+    const { error } = await sb.auth.signInWithPassword({ email: email.trim(), password: senha });
+    setAEntrar(false);
+    if (error) setErro('Não foi possível iniciar sessão. Verifique o email e a palavra-passe.');
+    // Em caso de sucesso, useSessao() recebe a sessão e o painel aparece.
+  }
+
+  return (
+    <section className="login">
+      <form className="form" onSubmit={entrar}>
+        <img className="login__logo" src={pub('assets/logo/logo-epasb-256.webp')} width="96" height="96" alt="EPASB-EP" />
+        <h1>Área administrativa</h1>
+        <p className="texto">Atendimento ao cidadão e notícias</p>
+        {SAIU[motivoSaida] && <p className="mensagem mensagem--info" role="status">{SAIU[motivoSaida]}</p>}
+        <div className="campo">
+          <label htmlFor="login-email">Email</label>
+          <input className="input" id="login-email" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+        </div>
+        <div className="campo">
+          <label htmlFor="login-senha">Palavra-passe</label>
+          <input className="input" id="login-senha" type="password" autoComplete="current-password" required value={senha} onChange={(e) => setSenha(e.target.value)} />
+          <p className="campo__erro" role="alert">{erro}</p>
+        </div>
+        <button className="btn btn--primario" type="submit" disabled={aEntrar}>{aEntrar ? 'A entrar…' : 'Entrar'}</button>
+      </form>
+    </section>
+  );
+}
+
 function Historico({ id, recarregar }) {
   const [linhas, setLinhas] = useState(null);
   useEffect(() => {
