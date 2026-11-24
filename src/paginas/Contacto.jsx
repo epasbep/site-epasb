@@ -95,7 +95,8 @@ export default function Contacto() {
       }
       const registo = {
         nome: d.nome, email: d.email, telefone: d.telefone || null, assunto: d.assunto,
-        mensagem: d.mensagem, status: 'Novo', resposta: null, documento_url: caminho
+        mensagem: d.mensagem, resposta: null, // o estado inicial é posto pela base de dados
+        documento_url: caminho
       };
       let codigo = novoCodigo();
       let { error } = await sb.from('atendimentos').insert({ ...registo, codigo });
@@ -132,7 +133,7 @@ export default function Contacto() {
           <div className="hero__texto">
             <p className="eyebrow">Atendimento ao cidadão</p>
             <h1 className="h1">Fale connosco</h1>
-            <p className="lead" style={{ marginBottom: 0 }}>Para formalizar uma solicitação, um esclarecimento, uma denúncia ou uma sugestão, preencha o formulário. Se for urgente, ligue ou escreva pelo WhatsApp. Já enviou um pedido? Consulte o estado com o seu número.</p>
+            <p className="lead" style={{ marginBottom: 0 }}>Para fazer uma reclamação, uma solicitação, uma denúncia ou uma sugestão, preencha o formulário. Se for urgente, ligue ou escreva pelo WhatsApp. Já enviou um pedido? Consulte o estado com o seu número.</p>
           </div>
         </div>
       </section>
@@ -156,7 +157,7 @@ export default function Contacto() {
             <Campo nome="assunto" rotulo="Assunto *" erro={erros.assunto}>
               <select className="select" id="assunto" name="assunto" value={dados.assunto} onChange={mudar}>
                 <option value="">Seleccione um assunto</option>
-                <option>Elogio</option><option>Solicitação</option><option>Denúncia</option><option>Sugestão</option>
+                <option>Reclamação</option><option>Solicitação</option><option>Denúncia</option><option>Sugestão</option><option>Elogio</option>
               </select>
             </Campo>
             <Campo nome="mensagem" rotulo="Mensagem *" erro={erros.mensagem}>

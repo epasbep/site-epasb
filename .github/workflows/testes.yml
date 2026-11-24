@@ -1,0 +1,34 @@
+# Testes automáticos: segurança da base de dados e site publicado.
+# Correm depois de cada publicação, todas as segundas-feiras e à mão (Actions → Testes → Run workflow).
+# Se algum falhar, o GitHub envia um email ao dono do repositório.
+name: Testes
+
+on:
+  workflow_run:
+    workflows: ['Publicar site']
+    types: [completed]
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    # Depois de publicar, só quando a publicação veio de um push (a publicação de hora a hora não repete os testes).
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Segurança da base de dados
+        run: node testes/seguranca.mjs
+      - name: Site publicado (GitHub Pages)
+        if: always()
+        run: node testes/site.mjs https://epasbep.github.io/site-epasb/

@@ -161,3 +161,11 @@ export async function guardarNoticia(dados, onProgress, token, anterior = null) 
   const actuais = new Set([...photos, video?.src]);
   return { id, removidas: ficheirosNoStorage(antigos.filter((u) => u && !actuais.has(u))) };
 }
+
+// Histórico público de um pedido (mudanças de estado e respostas; nunca notas internas nem nomes da equipa).
+export async function consultarHistorico(codigo) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/consultar_pedido_historico`, {
+    method: 'POST', headers: { ...cabecalhos(), 'Content-Type': 'application/json' }, body: JSON.stringify({ p_codigo: codigo })
+  });
+  return r.ok ? r.json() : [];
+}

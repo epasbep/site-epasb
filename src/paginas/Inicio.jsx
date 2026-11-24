@@ -63,23 +63,13 @@ function Agua() {
   );
 }
 
-// ---------- Números ----------
-const milhares = (n) => String(n).replace(/\B(?=(\d{3})+$)/g, ' ');
-
-function Numero({ valor, legenda }) {
-  const [mostrado, setMostrado] = useState(valor);
-  const ref = useQuandoVisivel(() => {
-    if (movimentoReduzido()) return;
-    const inicio = performance.now();
-    const passo = (agora) => {
-      const p = Math.min((agora - inicio) / 1200, 1);
-      setMostrado(Math.round(valor * (1 - Math.pow(1 - p, 3))));
-      if (p < 1) requestAnimationFrame(passo);
-    };
-    requestAnimationFrame(passo);
-  });
-  return <div className="numero" ref={ref}><strong>{milhares(mostrado)}</strong><span>{legenda}</span></div>;
-}
+// ---------- Acesso rápido: o que o cidadão mais procura ----------
+const ATALHOS = [
+  ['Fuga, avaria ou falta de água', 'Comunique já: ligue, escreva pelo WhatsApp ou faça uma denúncia.', 'contacto', 'Fazer denúncia'],
+  ['Pedido de ligação', 'Peça uma ligação nova de água à rede pública.', 'contacto', 'Fazer pedido'],
+  ['Consultar o meu pedido', 'Veja o estado e a resposta com o número que recebeu.', 'contacto#consultar', 'Consultar'],
+  ['Onde nos encontrar', 'Agências e pontos de atendimento na província.', '#t-mapa', 'Ver no mapa']
+];
 
 // ---------- Mapa das agências (zonas em src/dados/agencias.js) ----------
 
@@ -176,15 +166,20 @@ export default function Inicio() {
         <Servicos />
       </section>
 
-      <section className="seccao seccao--branca" aria-labelledby="t-numeros">
+      <section className="seccao seccao--branca" aria-labelledby="t-atalhos">
         <div className="container">
           <div className="seccao__topo">
-            <p className="eyebrow">EPASB em números</p>
-            <h2 className="h2" id="t-numeros">Cobertura e impacto</h2>
+            <p className="eyebrow">Atendimento ao cidadão</p>
+            <h2 className="h2" id="t-atalhos">Como podemos ajudar?</h2>
           </div>
-          <div className="numeros">
-            <Numero valor={11} legenda="Municípios atendidos" />
-            <Numero valor={238400} legenda="Cidadãos beneficiados" />
+          <div className="atalhos">
+            {ATALHOS.map(([titulo, texto, href, accao]) => (
+              <a className="atalho" key={titulo} href={href}>
+                <strong>{titulo}</strong>
+                <span>{texto}</span>
+                <em>{accao} →</em>
+              </a>
+            ))}
           </div>
         </div>
       </section>

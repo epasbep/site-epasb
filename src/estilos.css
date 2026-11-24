@@ -522,3 +522,39 @@ h1,h2,h3,p{margin:0}
 .consulta-rapida{margin-top:22px;max-width:440px}
 .consulta-rapida label{display:block;font-size:15px;font-weight:600;color:var(--texto-2);margin-bottom:2px}
 .consulta-rapida .input{background:#fff}
+
+/* ---------- Fase 2: atendimentos ---------- */
+.estado--tratamento{background:#E8E6FB;color:#4B3FB5}
+.prioridade{display:inline-block;padding:3px 9px;border-radius:var(--r-pill);font-size:13px;font-weight:700;background:var(--linha-suave);color:var(--texto-2)}
+.prioridade--baixa{background:transparent;color:var(--texto-3)}
+.prioridade--alta{background:#FCEFD6;color:var(--aviso)}
+.prioridade--urgente{background:#FBE9E7;color:var(--erro)}
+.grelha-campos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:12px}
+.painel__topo--filtros{flex-wrap:wrap;justify-content:flex-start}
+.painel__topo--filtros .input{flex:1 1 280px;min-width:0}
+.painel__topo--filtros .select{flex:0 1 220px}
+.detalhe__historico{border-top:1px solid var(--linha);padding-top:16px}
+.historico{list-style:none;margin:12px 0 0;padding:0 0 0 18px;border-left:2px solid var(--linha);display:grid;gap:12px}
+.historico__item{position:relative}
+.historico__item::before{content:"";position:absolute;left:-25px;top:6px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--azul-escuro)}
+.historico__item--resposta::before{background:var(--sucesso);border-color:var(--sucesso)}
+.historico__item--nota::before{background:var(--aviso);border-color:var(--aviso)}
+.historico__topo{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;font-size:15px}
+.historico__topo small{color:var(--texto-3);font-size:13px}
+.historico__item p{margin:6px 0 0;padding:10px 12px;background:#F8FAFA;border-radius:8px;font-size:15px;white-space:pre-wrap}
+.historico__item--nota p{background:#FFF8EA}
+.consulta__historico{margin-top:6px;font-size:14px}
+.consulta__historico summary{cursor:pointer;font-weight:600;color:var(--azul-escuro)}
+.consulta__historico ol{list-style:none;margin:10px 0 0;padding:0 0 0 14px;border-left:2px solid var(--linha);display:grid;gap:8px}
+.consulta__historico li{display:grid;gap:2px}
+.consulta__historico small{color:var(--texto-3)}
+.consulta__historico p{margin:2px 0 0;white-space:pre-wrap;color:var(--texto)}
+
+/* Página inicial: acesso rápido (substitui "EPASB em números") */
+.atalhos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:20px}
+.atalho{background:var(--azul-escuro);color:#fff;border-radius:var(--r-card);padding:24px 22px;display:flex;flex-direction:column;gap:8px;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.atalho:hover,.atalho:focus-visible{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,75,112,.28)}
+.atalho strong{font-size:20px;line-height:1.25}
+.atalho span{font-size:16px;color:#D7ECF5;flex:1}
+.atalho em{font-style:normal;font-weight:700;color:#7FD0FF;margin-top:6px}
+@media (prefers-reduced-motion:reduce){.atalho{transition:none}.atalho:hover{transform:none}}

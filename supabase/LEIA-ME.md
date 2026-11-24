@@ -9,8 +9,11 @@ No Supabase (https://supabase.com/dashboard), **SQL Editor → New query**, e co
 1. `supabase/instalar.sql` — notícias, avisos e número de pedido nos atendimentos.
 2. `supabase/fase1-papeis.sql` — papéis de acesso, aprovação de notícias, auditoria e protecção contra envios em massa.
    **Antes de correr**, escreva o seu email na linha marcada com `<<<`: essa conta passa a ser **Super Administrador**.
+3. `supabase/fase2-atendimento.sql` — estados novos dos pedidos (Recebida, Em análise, Em tratamento, Resolvida,
+   Encerrada), prioridade, categoria, responsável, histórico e notas internas.
+   **Correr antes de publicar a versão do site que o usa** (funciona também com a versão anterior).
 
-Os dois podem ser corridos mais do que uma vez sem estragar nada.
+Todos podem ser corridos mais do que uma vez sem estragar nada.
 
 > Depois do passo 2, as outras contas que já existiam ficam **sem acesso** ao painel até o
 > Super Administrador lhes dar um papel em **Painel → Utilizadores** (precisa do passo 3).

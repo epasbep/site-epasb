@@ -10,7 +10,7 @@ export default function Noticias() {
           <div className="hero__texto">
             <p className="eyebrow">Notícias e comunicados</p>
             <h1 className="h1">Da torneira à rede: o que se passa na EPASB</h1>
-            <p className="lead" style={{ marginBottom: 0 }}>Cortes programados, obras, campanhas e avisos sobre o abastecimento de água e o saneamento nos 11 municípios da província.</p>
+            <p className="lead" style={{ marginBottom: 0 }}>Cortes programados, obras, campanhas e avisos sobre o abastecimento de água e o saneamento em toda a província de Benguela.</p>
           </div>
           <div className="hero__arte"><Torneira /></div>
         </div>

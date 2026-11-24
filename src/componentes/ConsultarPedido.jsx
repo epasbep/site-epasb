@@ -1,24 +1,29 @@
 // Caixa "Consultar pedido" na página de Atendimento: o cidadão vê o estado e a resposta com o número que recebeu.
 // A consulta só devolve estado, assunto e resposta — nunca dados pessoais (ver supabase/instalar.sql).
 import { useEffect, useState } from 'react';
-import { consultarPedido } from '../api.js';
+import { consultarPedido, consultarHistorico } from '../api.js';
 
 const quando = (iso) => (iso ? new Date(iso).toLocaleString('pt-PT', { dateStyle: 'medium', timeStyle: 'short' }) : '');
-const CLASSES = { 'Em análise': 'estado--analise', Respondido: 'estado--respondido', Encerrado: 'estado--encerrado' };
+const CLASSES = { 'Em análise': 'estado--analise', 'Em tratamento': 'estado--tratamento', Resolvida: 'estado--respondido', Encerrada: 'estado--encerrado' };
+// Nomes antigos (antes da Fase 2) mostrados com os nomes novos
+const NOME_ESTADO = { Novo: 'Recebida', Respondido: 'Resolvida', Encerrado: 'Encerrada' };
+const estadoDe = (s) => NOME_ESTADO[s] || s || 'Recebida';
 
 // pedirConsulta: número enviado de fora (ex.: logo depois de enviar o formulário), com um contador para repetir.
 export function ConsultarPedido({ pedirConsulta }) {
   const [codigo, setCodigo] = useState(() => new URLSearchParams(location.search).get('n') || '');
   const [estado, setEstado] = useState('inicio'); // inicio | a-procurar | encontrado | nao-existe | erro
   const [pedido, setPedido] = useState(null);
+  const [historico, setHistorico] = useState([]);
 
   async function procurar(valor) {
     const limpo = String(valor).trim().toUpperCase();
     if (limpo.length < 6) { setEstado('nao-existe'); return; }
     setEstado('a-procurar');
     try {
-      const p = await consultarPedido(limpo);
+      const [p, h] = await Promise.all([consultarPedido(limpo), consultarHistorico(limpo).catch(() => [])]);
       setPedido(p);
+      setHistorico(Array.isArray(h) ? h : []);
       setEstado(p ? 'encontrado' : 'nao-existe');
     } catch (e) {
       console.error('Consulta:', e);
@@ -51,11 +56,25 @@ export function ConsultarPedido({ pedirConsulta }) {
           <div className="consulta__resultado">
             <div className="consulta__topo">
               <strong>{pedido.codigo}</strong>
-              <span className={`estado ${CLASSES[pedido.status] || ''}`}>{pedido.status || 'Novo'}</span>
+              <span className={`estado ${CLASSES[estadoDe(pedido.status)] || ''}`}>{estadoDe(pedido.status)}</span>
             </div>
             <p className="consulta__meta">{pedido.assunto} · enviado a {quando(pedido.criado)}</p>
             <p className="consulta__resposta">{pedido.resposta || 'Ainda não há resposta. Volte a consultar mais tarde.'}</p>
             {pedido.atualizado && <p className="consulta__meta">Actualizado a {quando(pedido.atualizado)}</p>}
+            {historico.length > 1 && (
+              <details className="consulta__historico">
+                <summary>Ver o percurso do pedido</summary>
+                <ol>
+                  {historico.map((h, i) => (
+                    <li key={i}>
+                      <small>{quando(h.quando)}</small>
+                      <span>{h.tipo === 'criado' ? 'Pedido recebido' : h.tipo === 'resposta' ? 'Resposta da EPASB-EP' : `Estado: ${estadoDe(h.para)}`}</span>
+                      {h.tipo === 'resposta' && h.texto && <p>{h.texto}</p>}
+                    </li>
+                  ))}
+                </ol>
+              </details>
+            )}
           </div>
         )}
       </div>
